@@ -56,7 +56,8 @@ class BrainContext(
     val memory: List<String>,
     val month: Int,
     val location: BrainLocation? = null,
-    val advisories: List<BrainAdvisory> = emptyList()
+    val advisories: List<BrainAdvisory> = emptyList(),
+    val transport: TransportData? = null
 )
 
 data class BrainReply(val reply: String, val state: BrainState, val plan: BrainPlan?, val actions: List<BrainAction>, val understood: Boolean = true)
@@ -367,6 +368,20 @@ class Brain(private val lex: Lexicon) {
             val other = if (winner === ra) rb else ra
             fun line(r: RankedDestination) = "${r.destination.name}: ${bdt(r.score.estimatedCost)}, ${if (query.month in r.destination.monthSet()) "in season" else "off-season"} in ${monthsLong[query.month - 1]}, ${r.destination.tagSet().joinToString("/")}"
             return out("${winner.destination.name} fits better for ${query.days} days, ${query.travellers} travellers, ${tierLabel(query.tier)} tour.\n${line(winner)}\n${line(other)}\nCosts are estimates.", state.copy(lastQuery = query, lastPlaceId = winner.destination.id))
+        }
+
+        // transport names and dated fare evidence; never imply cached fares are live
+        val asksTransport = Regex("\\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\\b").containsMatchIn(norm)
+        if (asksTransport && (dests.isNotEmpty() || state.lastPlaceId != null)) {
+            val match = dests.firstOrNull() ?: ctx.destinations.firstOrNull { it.id == state.lastPlaceId }?.let { Match(it, "", 0, false) }
+            val target = match?.let { if (it.byDistrict) pickFor(it, resolveQuery(ent, ctx, state, prefs).first) else it.dest }
+            if (target != null && ctx.transport != null) {
+                val info = ctx.transport.describe(target)
+                val checked = ctx.transport.checkedOn
+                return out("Getting to ${target.name} from Dhaka:\\n" + info.lines.joinToString("\\n") +
+                    "\\nFare data checked: $checked. This is dated reference data, not a live operator quote. Fares, availability and schedules can change; confirm with the railway or operator before paying. I cannot confirm real-time seat availability from this dataset.",
+                    state = state.copy(lastPlaceId = target.id))
+            }
         }
 
         // when to go
