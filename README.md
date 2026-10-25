@@ -1,62 +1,150 @@
-# ORBIT - Intelligent Travel Planning
+<!--
+ORBIT Travel Companion
+Research-oriented project documentation. Replace illustrative assets with verified data sources.
+-->
+<div align="center">
 
-Team: The Crown Council | Course: Mobile Application and Development (0613-109), DIU CSE, Batch D-86
+# ORBIT Travel Companion
 
-| Folder | What it is | Stack |
-|---|---|---|
-| `android/` | Android app (primary) | Kotlin, Jetpack Compose, Material 3, Room, Google Maps, MVVM |
-| `ios/` | iOS app (same features) | Swift, SwiftUI, SwiftData, MapKit, Core Image (iOS 17+) |
-| `backend/` | API server and the tested reference for the guide | Node.js, no dependencies, 79 automated tests |
+### An offline-first, research-informed travel companion for Bangladesh
 
-## Features
-- **Plan and explore:** 113 spots across all 64 districts, ranked by a weighted model with a "why this score" breakdown. Three tour styles: **Budget** (lowest sensible cost), **Value** (affordable but good quality), **Fancy** (comfort first).
-- **ORBIT Brain, the app's own guide:** a native agent that runs on the phone with no outside AI service, no account and no network. It understands budget, days, travellers, month, interests and tour style from plain sentences (for example "affordable but good quality trip for 4 in December"), picks Budget / Value / Fancy itself, plans, builds itineraries, compares places, estimates costs, gives best months, measures distance from your live location, tracks progress, handles follow-ups ("what about fancy", "another one", "make it 5 days"), and remembers preferences you tell it. It never asks questions; it states what it assumed. Memory notes live only on the device and can be deleted in Account.
-- **Optional on-device language model (Bangla and looser wording):** off by default. Android optional LiteRT-LM model translation is temporarily disabled in the build-safe profile because the floating dependency caused a Kotlin/KSP metadata conflict; iOS uses Apple's built-in Foundation Models on iOS 26 and Apple Intelligence devices, with nothing to download. The model only *translates* a message ORBIT Brain did not understand into one short English request, using the last trip request/destination to interpret short follow-ups when available. ORBIT Brain then answers from the app's own data, and the model's own words are never shown, so it cannot invent prices or places.
-- **My Bangladesh map:** visited districts pinned in gold, unvisited ones left as faint dots. Tap a district to mark or unmark spots, rate them and add a memory note.
-- **Live map:** Google Maps (Android) / MapKit (iOS), your trail, distance to the destination district, "mark visited" prompt, and a button to ask the guide. Tracking runs only while the screen is open.
-- **Photo editor:** brightness, contrast, colour, warmth, filters, rotate, square crop, save to gallery. Fully on-device.
-- **Rankings:** leaderboard of travellers by distinct spots visited (opt-in).
-- **Community spots:** users suggest new places; they appear after review.
-- **Accounts:** email or mobile signup with a verification code, login, required Terms and Privacy agreement, optional AI / location / leaderboard agreements, data export, account deletion.
-- **Privacy and Terms pages:** served by the backend at `/privacy` and `/terms`.
-- **Itinerary, rain re-planning, budget tracking** from the first version.
-- **Responsive UI:** text uses sp units and follows the phone's font size, side navigation rail on tablets, light and dark themes, edge-to-edge layout.
+**Explore responsibly · Plan locally · Understand the evidence**
 
-## Honest limits
-- **Nothing here has been compiled or run on a device.** The backend's 79 tests pass (including cross-platform data-parity checks); the Kotlin and Swift code, including their ports of the Brain, was written without Android Studio or Xcode available, so expect a few small compile fixes on first build. The Android project includes `BrainTest.kt`, which mirrors the JavaScript tests so you can check the port.
-- **ORBIT Brain is rule-based, not a trained language model.** It handles the request types it was built for and replies with examples when it does not understand. It cannot hold open-ended conversation. Training a real language model needs GPUs, data and weeks, and could not be done here.
-- Spot coordinates are district-level approximations, so live-map distance and "you are in this district" are rough. Replace with exact coordinates before promising precision.
-- The country outline is a stylised drawing, not a survey-grade border.
-- Costs, best months and distances are estimates. Community ratings only influence the backend planner and the guide; the on-device ranking uses a neutral quality.
-- The iOS app has no in-app camera (it picks from the photo library). Android can also take a photo with the system camera.
-- **The language model layer has never been run.** No model, device or network was available here, so the LiteRT-LM and Foundation Models code follows their official documentation but is untested. Bangla quality depends on the model you choose and on Apple's supported languages, so test it with real Bangla messages before relying on it.
-- **Android model file:** you must get a `.litertlm` model yourself from its official page and accept its license. The app never downloads or bundles one. Models are large (hundreds of MB to several GB) and need a recent phone with enough memory. Do not restore a floating `latest.release` dependency. Re-enable only after pinning a specific LiteRT-LM release verified against the Kotlin/KSP toolchain.
-- An optional cloud guide (hosted model) exists on the backend but is off by default, and the apps never need it.
-- Verification codes are only printed or returned in development mode until you connect an email or SMS provider.
+[![Android CI](https://github.com/masudurrahman-ds/orbit-travel-companion/actions/workflows/android-apk.yml/badge.svg)](https://github.com/masudurrahman-ds/orbit-travel-companion/actions/workflows/android-apk.yml)
+[![Backend Tests](https://github.com/masudurrahman-ds/orbit-travel-companion/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/masudurrahman-ds/orbit-travel-companion/actions)
+[![Kotlin](https://img.shields.io/badge/Android-Kotlin-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+[![Backend](https://img.shields.io/badge/Backend-Node.js-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Status](https://img.shields.io/badge/Project-active%20development-orange)](#-project-status)
 
-## Run order
-1. **Backend:** see `backend/README.md`. Start it on your computer.
-2. **Android:** open the `android` folder in Android Studio (Ladybug or newer, JDK 17), let Gradle sync.
-   - Add your Google Maps key to `~/.gradle/gradle.properties`: `MAPS_API_KEY=...` (enable "Maps SDK for Android" in Google Cloud). Never commit it.
-   - Emulator reaches your computer at `http://10.0.2.2:8080` (default). For a real phone set `ORBIT_API_URL=http://<your-computer-ip>:8080` in the same file.
-   - Run the app. Create an account; the dev server shows your verification code on screen.
-   - Unit tests: right-click `app/src/test` > Run Tests (scoring, tiers and the Brain).
-3. **iOS** (Mac with Xcode 15+): create a new SwiftUI App named `ORBIT` (minimum iOS 17, Storage None), delete the generated `ORBITApp.swift` and `ContentView.swift`, drag in every file from `ios/ORBIT/`, make sure `brain-data.json` is ticked under Build Phases > Copy Bundle Resources, and add the keys listed in `ios/ORBIT/Info-plist-keys.txt`.
+*A student-led software engineering project exploring offline-first travel planning, destination discovery, and evidence-aware AI assistance.*
 
-## Keeping the apps in sync
-Scoring, tiers, itinerary generation, seed data and the Brain exist in Kotlin, Swift and JavaScript with identical logic. When you change the Brain, change `backend/src/brain.js` first, run its tests, then port.
-`gen_seed.py` (kept outside the zip) generated the seed files from one table.
+</div>
 
+---
 
-## Release and repository handoff
+## Abstract
 
-Before publishing or handing this repository to another developer:
+ORBIT Travel Companion is a mobile application project designed to support travel discovery and trip planning in Bangladesh. Its engineering direction emphasizes an offline-first experience, a clear distinction between locally available functionality and network-dependent services, and transparent communication about data provenance and system limitations.
 
-1. Run `cd backend && npm test` (Node.js 18+; no third-party npm packages are required).
-2. Confirm the Android app syncs and builds in Android Studio with JDK 17 and SDK 35. This workspace does not include a Gradle wrapper, and this environment did not have Gradle/Android SDK installed, so a successful Android build has **not** been claimed.
-3. Set a stable random `ORBIT_SECRET`, configure an actual email/SMS OTP delivery provider, and put the backend behind HTTPS before accepting real users. Development OTP output is for local testing only.
-4. Use a persistent database (for example PostgreSQL) for a public deployment. The current JSON-file store is suitable for a course prototype, not concurrent production traffic or multi-instance hosting.
-5. Add a real Maps key through local Gradle properties; never commit keys, tokens, database files or `.env` files.
-6. Review current travel restrictions and re-check fares before release. Research values are dated snapshots, not live quotes. In particular, confirm the 2026–27 Saint Martin rules and verify the flagged Dhaka–Rajshahi distance.
+This repository contains the Android application, backend services, automated workflows, and project documentation. ORBIT is an evolving prototype: capabilities described as planned or externally configured should not be interpreted as validated production services.
 
-The source tree is prepared for a Git repository. After you create the repository and provide its URL plus the preferred branch, the changes can be committed and pushed there.
+## Research overview
+
+| Field | Description |
+|---|---|
+| Domain | Mobile computing, travel information systems, human–AI interaction |
+| Geographic scope | Bangladesh |
+| Primary platform | Android |
+| Architectural focus | Offline-capable client with optional network services |
+| AI approach | Local deterministic assistance plus separately configured server-side capabilities |
+| Evaluation focus | Reliability, usability, offline resilience, transparency and data quality |
+| Current maturity | Prototype / active development |
+
+## Research questions
+
+1. Which travel-planning tasks can be completed reliably without a network connection?
+2. How should an app distinguish verified destination information from inferred or user-provided content?
+3. How can AI-assisted recommendations communicate uncertainty and avoid presenting synthetic outputs as factual evidence?
+4. Which failure states most affect trust in account verification, voice input, maps and media generation?
+5. What minimum evaluation protocol is appropriate before describing the app as reliable for real-world travel?
+
+These questions guide development; they are not claims that a formal user study has already been conducted.
+
+## System overview
+
+```text
+┌──────────────────────────────────────────────┐
+│                 ORBIT Android                │
+│  Discovery · Trip planning · Map · Assistant │
+└───────────────────────┬──────────────────────┘
+                        │ HTTPS (when configured)
+           ┌────────────┴─────────────┐
+           │                          │
+┌──────────▼───────────┐   ┌──────────▼───────────┐
+│ Local capabilities   │   │ Optional backend     │
+│ Offline brain/rules  │   │ Auth · Data · AI API │
+│ Cached/local content │   │ Provider integrations│
+└──────────────────────┘   └──────────────────────┘
+```
+
+The diagram is conceptual. The exact availability of each feature depends on the current source implementation, permissions, device services, deployment configuration and external provider credentials.
+
+## Core principles
+
+- **Offline-first:** retain useful local behavior when network services are unavailable.
+- **Evidence-aware:** record source, date, licensing and verification status for factual travel data.
+- **Honest AI disclosure:** label generated, inferred, cached and user-submitted content appropriately.
+- **Privacy by design:** keep secrets server-side; request permissions only when needed.
+- **Accessible interaction:** readable contrast, understandable errors, predictable navigation and responsive layouts.
+- **Reproducible engineering:** use automated tests, documented configuration and explicit release checks.
+
+## Repository structure
+
+| Path | Purpose |
+|---|---|
+| `android/` | Android application source and build configuration |
+| `backend/` | API service and automated backend tests |
+| `.github/workflows/` | CI and APK build workflows |
+| `render.yaml` | Backend deployment blueprint (requires provider configuration) |
+| `DEPLOYMENT_AND_RELEASE_CHECKLIST.md` | Deployment and release validation steps |
+| `docs/` | Research plan, data governance and evaluation protocol |
+
+## Getting started
+
+### Backend
+
+Requirements: Node.js 20 or compatible supported runtime.
+
+```bash
+cd backend
+npm install
+npm test
+npm start
+```
+
+Check the health endpoint locally at `http://localhost:8080/health` if the configured server port is 8080.
+
+### Android
+
+Open the `android/` directory in Android Studio, allow Gradle sync to finish, and build the debug variant. For a phone to use a remote API, configure the build with the deployed HTTPS API base URL as described in [the release checklist](DEPLOYMENT_AND_RELEASE_CHECKLIST.md).
+
+### Automated APK
+
+Use the GitHub Actions workflow to inspect the latest build and download its artifact only after the workflow completes successfully. A successful CI build does not replace testing on a physical device.
+
+## Scientific integrity and limitations
+
+- A repository README, badge or architecture diagram is not evidence of validated effectiveness.
+- The local assistant is not equivalent to a general-purpose on-device large language model.
+- Media generation depends on backend availability and valid server-side provider credentials.
+- Video generation must not be advertised as operational unless a working pipeline is implemented and tested.
+- A stylized map is not an authoritative administrative boundary dataset.
+- Destination facts, travel advice, opening hours, prices, safety notices and routes require trustworthy, current sources.
+- Do not add fabricated citations, synthetic survey results or invented performance metrics.
+
+## Documentation
+
+- [Research plan and hypotheses](docs/RESEARCH_PLAN.md)
+- [Data provenance and governance](docs/DATA_GOVERNANCE.md)
+- [Evaluation and reproducibility protocol](docs/EVALUATION_PROTOCOL.md)
+- [Deployment and release checklist](DEPLOYMENT_AND_RELEASE_CHECKLIST.md)
+
+## Contributing
+
+Please include the motivation, implementation details, test evidence, known limitations and any relevant data provenance in pull requests. Avoid committing API keys, OTPs, private user data, unlicensed map data or credentials.
+
+## Citation
+
+No peer-reviewed publication is associated with this repository unless one is explicitly added and linked by the maintainers. For now, cite it as software:
+
+> ORBIT Travel Companion. (2026). *ORBIT Travel Companion: an offline-first travel companion prototype for Bangladesh* [Computer software]. GitHub repository: https://github.com/masudurrahman-ds/orbit-travel-companion
+
+Update this citation if the project obtains a versioned release, DOI or formal publication.
+
+---
+
+<div align="center">
+
+**ORBIT · Research-informed engineering, with limitations made explicit**
+
+</div>
