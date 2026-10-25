@@ -438,7 +438,17 @@ function createApp(opts = {}) {
       if (!upstream.ok) return send(res, upstream.status === 429 ? 429 : 502, { error: 'image_provider_error', message: upstream.status === 429 ? 'Image generation is busy. Please wait a moment and try again.' : 'The image provider could not complete this request. Check server configuration and try again.' });
       const image = payload.data?.[0];
       if (!image?.url && !image?.b64_json) return send(res, 502, { error: 'empty_image_result' });
-      send(res, 200, { url: image.url || null, b64: image.b64_json || null, revisedPrompt: image.revised_prompt || prompt });
+      // The Android renderer consumes base64. Some image providers return a temporary URL
+      // instead, so fetch it server-side before replying rather than showing a false UI failure.
+      let imageB64 = image.b64_json || null;
+      if (!imageB64 && image.url) {
+        const imageResponse = await fetchImpl(image.url, { signal: AbortSignal.timeout(20000) });
+        if (!imageResponse.ok) return send(res, 502, { error: 'image_download_failed', message: 'The generated image could not be downloaded. Please try again.' });
+        const bytes = Buffer.from(await imageResponse.arrayBuffer());
+        if (bytes.length > 12 * 1024 * 1024) return send(res, 502, { error: 'image_too_large', message: 'The generated image was too large to display. Please try again.' });
+        imageB64 = bytes.toString('base64');
+      }
+      send(res, 200, { url: null, b64: imageB64, revisedPrompt: image.revised_prompt || prompt });
     } catch (_) { send(res, 502, { error: 'image_provider_unavailable' }); }
   });
 
