@@ -61,7 +61,7 @@ class LiteRtTranslator(private val context: Context, private val store: ModelSto
         val prompt = "You are ORBIT, a private on-device travel assistant. Interpret the request using this context: " +
             (context ?: "No saved trip context.") + "\nUser request: " + text +
             "\nIf this is a Bangladesh trip-planning command, return one short normalized English command for ORBIT's verified planner. " +
-            "Otherwise answer directly in under 120 words. Do not invent travel facts or prices."
+            "If travel planning, prefix with PLAN_INTENT: and then one short normalized command. Otherwise prefix with DIRECT_ANSWER: and answer in under 120 words. Do not invent travel facts or prices."
         conversation?.sendMessage(prompt)?.toString()?.trim()?.takeIf { it.isNotBlank() }
     }
 
