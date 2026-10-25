@@ -56,6 +56,7 @@ private fun friendly(r: ApiResult): String = r.message ?: when {
     r.error == "account_exists" -> "An account with this email or number already exists. Try signing in."
     r.error == "invalid_code" -> "That code is wrong or expired."
     r.error == "too_many_requests" -> "Too many attempts. Wait a few minutes and try again."
+    r.error == "otp_delivery_not_configured" -> r.message ?: "Account verification is not configured on this server yet."
     else -> "Something went wrong. Please try again."
 }
 
