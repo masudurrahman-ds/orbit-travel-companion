@@ -108,3 +108,19 @@ interface MemoryDao {
     @Query("DELETE FROM memory_note")
     suspend fun clear()
 }
+
+
+@Dao
+interface ChatTurnDao {
+    @Query("SELECT * FROM chat_turn ORDER BY id DESC LIMIT 100")
+    fun recent(): Flow<List<ChatTurn>>
+
+    @Insert
+    suspend fun insert(turn: ChatTurn)
+
+    @Query("DELETE FROM chat_turn WHERE id NOT IN (SELECT id FROM chat_turn ORDER BY id DESC LIMIT 100)")
+    suspend fun trimToRecent100()
+
+    @Query("DELETE FROM chat_turn")
+    suspend fun clear()
+}
