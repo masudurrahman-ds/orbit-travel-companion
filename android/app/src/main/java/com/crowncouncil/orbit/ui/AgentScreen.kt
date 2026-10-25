@@ -32,6 +32,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -61,6 +62,7 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
     val list = rememberLazyListState()
     var input by remember { mutableStateOf("") }
     var imagePrompt by remember { mutableStateOf("") }
+    var showImageTools by remember { mutableStateOf(false) }
     var speechMode by remember { mutableStateOf("english") }
     var listening by remember { mutableStateOf(false) }
     var speechError by remember { mutableStateOf<String?>(null) }
@@ -92,15 +94,22 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
             if (busy) item { Text("Thinking...", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp) }
         }
         Column(Modifier.fillMaxWidth().padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("Create a travel photo", style = MaterialTheme.typography.titleSmall)
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(imagePrompt, { imagePrompt = it.take(1200) }, modifier = Modifier.weight(1f), placeholder = { Text("e.g. cinematic sunrise at Sajek Valley") }, maxLines = 2)
-                Button(onClick = { vm.generateTravelImage(imagePrompt) }, enabled = imagePrompt.isNotBlank() && !imageBusy) { Text(if (imageBusy) "Creating…" else "Generate") }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("Travel inspiration", style = MaterialTheme.typography.titleSmall)
+                TextButton(onClick = { showImageTools = !showImageTools }) {
+                    Text(if (showImageTools) "Hide image tools" else "Create image")
+                }
             }
-            imageError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
-            generatedImage?.let { encoded ->
-                val bitmap = remember(encoded) { runCatching { BitmapFactory.decodeByteArray(Base64.decode(encoded, Base64.DEFAULT), 0, Base64.decode(encoded, Base64.DEFAULT).size)?.asImageBitmap() }.getOrNull() }
-                bitmap?.let { Image(bitmap = it, contentDescription = "AI-generated travel image", modifier = Modifier.fillMaxWidth().heightIn(max = 320.dp), contentScale = ContentScale.Fit) }
+            if (showImageTools) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(imagePrompt, { imagePrompt = it.take(1200) }, modifier = Modifier.weight(1f), placeholder = { Text("Describe a travel image") }, maxLines = 2)
+                    Button(onClick = { vm.generateTravelImage(imagePrompt) }, enabled = imagePrompt.isNotBlank() && !imageBusy) { Text(if (imageBusy) "Creating…" else "Create") }
+                }
+                imageError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
+                generatedImage?.let { encoded ->
+                    val bitmap = remember(encoded) { runCatching { val bytes = Base64.decode(encoded, Base64.DEFAULT); BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.asImageBitmap() }.getOrNull() }
+                    bitmap?.let { Image(bitmap = it, contentDescription = "AI-generated travel image", modifier = Modifier.fillMaxWidth().heightIn(max = 240.dp), contentScale = ContentScale.Fit) }
+                }
             }
         }
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -110,11 +119,17 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
         }
         if (speechMode == "banglish") Text("*Banglish uses the device's English speech model; results depend on your speech provider.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         speechError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
-        Row(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            AssistChip(onClick = { vm.ask("Plan a budget-friendly trip within BDT ${q.budget}.") }, label = { Text(tr("Budget trip")) })
-            AssistChip(onClick = { vm.ask("Plan an affordable but high-quality trip within BDT ${q.budget}.") }, label = { Text(tr("Affordable, quality")) })
-            AssistChip(onClick = { vm.ask("Plan a fancy, comfort-first trip.") }, label = { Text(tr("Fancy trip")) })
-            AssistChip(onClick = { vm.ask("Suggest the best place I have not visited yet.") }, label = { Text(tr("Next new place")) })
+        Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            AssistChip(
+                onClick = { vm.ask("Plan a budget-friendly trip within BDT ${q.budget}.") },
+                label = { Text(tr("Budget trip")) },
+                modifier = Modifier.weight(1f)
+            )
+            AssistChip(
+                onClick = { vm.ask("Suggest the best place I have not visited yet.") },
+                label = { Text(tr("New destination")) },
+                modifier = Modifier.weight(1f)
+            )
         }
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(input, { input = it.take(1000) }, modifier = Modifier.weight(1f), placeholder = { Text(tr("Ask your guide")) }, maxLines = 3)

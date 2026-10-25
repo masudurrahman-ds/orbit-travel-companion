@@ -1,5 +1,6 @@
 package com.crowncouncil.orbit.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -68,6 +69,11 @@ fun OrbitApp(vm: OrbitViewModel = viewModel()) {
     val entry by nav.currentBackStackEntryAsState()
     val current = entry?.destination?.route
     val barItems = Screen.entries.filter { it.inBar }
+
+    // Back should return through the app's navigation stack; it should not abruptly exit a nested screen.
+    BackHandler(enabled = current != Screen.Home.route) {
+        if (!nav.popBackStack()) nav.navigate(Screen.Home.route) { launchSingleTop = true }
+    }
 
     fun go(screen: Screen) = nav.navigate(screen.route) {
         if (screen.inBar) {
