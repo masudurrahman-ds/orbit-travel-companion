@@ -242,6 +242,22 @@ function respond(utterance, ctx, state = {}) {
   if (shortText && hasAny(norm, t.greeting) && !anyEntity) return out('Hello. Tell me what kind of trip you want, or say "something I have not visited". I will fill in the details.');
   if (hasAny(norm, t.help) && !hasAny(norm, t.plan)) return out('I can plan trips by budget, days, interests and season, pick Budget, Value or Fancy tours, build itineraries, estimate costs, compare places, suggest places you have not visited, and remember your preferences. ' + SUGGESTIONS);
 
+  // Explain a recommendation with evidence from the destination dataset and current assumptions.
+  if (hasAny(norm, t.why)) {
+    const match = dests[0] || (state.lastPlace && ctx.destinations.find((d) => d.id === state.lastPlace));
+    if (!match) return out('I can explain the trade-offs, but I need a destination to evaluate first. Ask me to recommend a trip, then ask "why this place?".');
+    const { query, assumed } = resolveQuery(ent, ctx, state, prefs);
+    const d = dests.length ? pickFor(dests[0], query, ctx) : match;
+    const estimate = planner.estimateTrip(d, query);
+    const cost = estimate.totalBdt;
+    const season = d.bestMonths.includes(query.month) ? 'your selected month is in its listed best season' : 'your selected month is outside its listed best season';
+    const tags = Array.isArray(d.tags) ? d.tags : String(d.tags || '').split(',');
+    const matched = tags.filter((tag) => query.interests.includes(tag));
+    const fit = matched.length ? 'It matches your interests in ' + matched.join(', ') + '.' : 'Its recorded travel themes are ' + tags.join(', ') + '.';
+    const budgetFit = cost <= query.budget ? 'The estimated total, ' + bdt(cost) + ', is within your ' + bdt(query.budget) + ' budget.' : 'The estimated total, ' + bdt(cost) + ', is above your ' + bdt(query.budget) + ' budget, so switch to Budget style or shorten the trip.';
+    return out('Why ' + d.name + ': ' + fit + ' The season check says ' + season + '. ' + budgetFit + ' These are planning estimates, not live quotes.' + (assumed.length ? ' Assumptions: ' + assumed.join(', ') + '.' : ''), { state: { lastQuery: query, lastPlace: d.id } });
+  }
+
   // --- progress
   if (hasAny(norm, t.progress)) {
     const districts = new Set(ctx.destinations.filter((d) => visitedIds.has(d.id)).map((d) => d.district));
