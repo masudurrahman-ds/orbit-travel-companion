@@ -45,19 +45,19 @@ fun tierBlurb(t: com.crowncouncil.orbit.domain.Tier) = when (t) {
 }
 
 @Composable
-fun SectionLabel(text: String) = Text(tr(text), fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurfaceVariant)
+fun SectionLabel(text: String) = Text(tr(text).uppercase(), fontSize = 10.sp, letterSpacing = 1.5.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.secondary)
 
 @Composable
 fun InfoCard(title: String, body: String, container: Color = MaterialTheme.colorScheme.surface, content: Color = MaterialTheme.colorScheme.onSurface) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(22.dp),
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = container, contentColor = content),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.72f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.24f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column(Modifier.padding(horizontal = 18.dp, vertical = 16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(title, fontWeight = FontWeight.Bold, fontSize = 16.sp, lineHeight = 22.sp)
+            Text(title, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontWeight = FontWeight.Medium, fontSize = 18.sp, lineHeight = 23.sp)
             Text(body, fontSize = 14.sp, lineHeight = 20.sp)
         }
     }
