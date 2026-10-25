@@ -77,14 +77,22 @@ fun HomeScreen(vm: OrbitViewModel) {
                 Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(24.dp))
                     .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(Navy, Teal))).padding(22.dp)
             ) {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(if (name != null) "Welcome, $name" else "ORBIT", style = MaterialTheme.typography.headlineMedium, color = Color.White)
-                    Text("Plan smarter. Travel better.", color = Amber, fontWeight = FontWeight.SemiBold)
-                    Text("$districtsDone of $districtsTotal districts visited", color = Color.White.copy(alpha = 0.9f))
-                    LinearProgressIndicator(
-                        progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal },
-                        modifier = Modifier.fillMaxWidth(), color = Amber, trackColor = Color.White.copy(alpha = 0.25f)
-                    )
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("YOUR NEXT ADVENTURE", fontSize = 11.sp, letterSpacing = 2.sp, color = Amber, fontWeight = FontWeight.Bold)
+                    Text(if (name != null) "Welcome, $name" else "Find your\nnext escape.", style = MaterialTheme.typography.headlineMedium, color = Color.White)
+                    Text("Thoughtful plans. Local discoveries. More meaningful journeys.", color = Color.White.copy(alpha = 0.88f), fontSize = 14.sp, lineHeight = 20.sp)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(44.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
+                            Text("$districtsDone", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                        }
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text("of $districtsTotal districts explored", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+                            LinearProgressIndicator(
+                                progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal },
+                                modifier = Modifier.fillMaxWidth(), color = Amber, trackColor = Color.White.copy(alpha = 0.25f)
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -101,7 +109,13 @@ fun HomeScreen(vm: OrbitViewModel) {
             }
         }
         if (trip == null) {
-            item { InfoCard("No trip yet", "Open the Plan tab, set your budget, days and interests, then pick a ranked destination.") }
+            item {
+                InfoCard(
+                    "Your journey starts here",
+                    "Set your budget, choose your travel style, and discover destinations ranked for you.",
+                    container = MaterialTheme.colorScheme.surfaceVariant
+                )
+            }
         } else {
             val dest = dests.firstOrNull { it.id == trip.destinationId }
             val spent = expenses.sumOf { it.amount }
