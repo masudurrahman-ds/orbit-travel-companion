@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.crowncouncil.orbit.BuildConfig
 import com.crowncouncil.orbit.data.ActivityOption
+import com.crowncouncil.orbit.data.ChatTurn
 import com.crowncouncil.orbit.data.Destination
 import com.crowncouncil.orbit.data.Expense
 import com.crowncouncil.orbit.data.ItineraryItem
@@ -129,6 +130,14 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
     private var lastRefresh = 0L
 
     init {
+        viewModelScope.launch {
+            repo.chatTurns.collect { stored ->
+                if (chat.value.size <= 1 && stored.isNotEmpty()) {
+                    chat.value = listOf(ChatMessage(false, "I am your ORBIT guide. I use your saved on-device conversation and preferences to keep plans consistent.")) +
+                        stored.asReversed().map { ChatMessage(it.fromUser, it.text) }
+                }
+            }
+        }
         viewModelScope.launch { repo.seedIfEmpty() }
         if (signedIn) viewModelScope.launch { syncVisits() }
         refreshExtras()
@@ -397,12 +406,15 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
 
     fun ask(text: String, location: Pair<Double, Double>? = null, targetId: Long? = null) {
         if (text.isBlank() || chatBusy.value) return
-        chat.update { it + ChatMessage(true, text.trim()) }
+        val userText = text.trim()
+        chat.update { it + ChatMessage(true, userText) }
         chatBusy.value = true
         viewModelScope.launch {
             val cloudOk = BuildConfig.USE_CLOUD_AI && signedIn && user.value?.consent?.ai == true
-            val reply = if (cloudOk) cloudReply(text.trim(), location, targetId) ?: nativeReply(text.trim(), location, targetId) else nativeReply(text.trim(), location, targetId)
+            repo.addChatTurn(ChatTurn(fromUser = true, text = userText))
+            val reply = if (cloudOk) cloudReply(userText, location, targetId) ?: nativeReply(userText, location, targetId) else nativeReply(userText, location, targetId)
             chat.update { it + reply }
+            repo.addChatTurn(ChatTurn(fromUser = false, text = reply.text))
             chatBusy.value = false
         }
     }
@@ -468,4 +480,11 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
 
     fun deleteNote(id: Long) { viewModelScope.launch { repo.deleteNote(id) } }
     fun forgetAllNotes() { viewModelScope.launch { repo.clearNotes() } }
+    fun clearConversationMemory() {
+        viewModelScope.launch {
+            repo.clearChat()
+            chat.value = listOf(ChatMessage(false, "Conversation memory cleared. I will start fresh from here."))
+            brainState = BrainState()
+        }
+    }
 }
