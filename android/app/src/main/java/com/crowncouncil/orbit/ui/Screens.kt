@@ -67,77 +67,93 @@ fun HomeScreen(vm: OrbitViewModel) {
     val rows by vm.rows.collectAsState()
     val expenses by vm.expenses.collectAsState()
     val dests by vm.destinations.collectAsState()
+    val visited by vm.visitedIds.collectAsState()
+    val advisories by vm.advisories.collectAsState()
+    val name = vm.user.collectAsState().value?.displayName?.substringBefore(" ") ?: "Traveller"
+    val districtsTotal = dests.map { it.district }.distinct().size
+    val districtsDone = dests.filter { it.id in visited }.map { it.district }.distinct().size
 
-    LazyColumn(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(Modifier.fillMaxSize().padding(horizontal = 18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         item {
-            val visited by vm.visitedIds.collectAsState()
-            val districtsTotal = dests.map { it.district }.distinct().size
-            val districtsDone = dests.filter { it.id in visited }.map { it.district }.distinct().size
-            val name = vm.user.collectAsState().value?.displayName
-            Box(
-                Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(24.dp))
-                    .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(Navy, Teal))).padding(22.dp)
-            ) {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("YOUR NEXT ADVENTURE", fontSize = 11.sp, letterSpacing = 2.sp, color = Amber, fontWeight = FontWeight.Bold)
-                    Text(if (name != null) "Welcome, $name" else "Find your\nnext escape.", style = MaterialTheme.typography.headlineMedium, color = Color.White)
-                    Text("Thoughtful plans. Local discoveries. More meaningful journeys.", color = Color.White.copy(alpha = 0.88f), fontSize = 14.sp, lineHeight = 20.sp)
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(44.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
-                            Text("$districtsDone", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Row(Modifier.fillMaxWidth().padding(top = 18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("O R B I T", color = MaterialTheme.colorScheme.onBackground, fontSize = 19.sp, letterSpacing = 4.sp, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif)
+                    Text("THE ART OF GETTING AWAY", color = Gold, fontSize = 9.sp, letterSpacing = 2.sp, fontWeight = FontWeight.Medium)
+                }
+                Box(Modifier.size(42.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
+                    Text("✳", color = Gold, fontSize = 23.sp)
+                }
+            }
+        }
+        item {
+            Box(Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp))
+                .background(Brush.linearGradient(listOf(Color(0xFF28291F), Color(0xFF101310), Color(0xFF20251E))))
+                .padding(horizontal = 22.dp, vertical = 24.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(13.dp)) {
+                    Text("A WORLD,\nWELL DISCOVERED.", color = Color(0xFFF1EBDD), fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 30.sp, lineHeight = 35.sp)
+                    Box(Modifier.width(42.dp).size(height = 1.dp, width = 42.dp).background(Gold))
+                    Text("Thoughtful journeys through Bangladesh and beyond.", color = Color(0xFFD0CABB), fontSize = 13.sp, lineHeight = 20.sp)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text("✦", color = Gold, fontSize = 15.sp)
+                        Text("$"+"districtsDone OF $"+"districtsTotal DISTRICTS EXPLORED", color = Color(0xFFD8C08A), fontSize = 10.sp, letterSpacing = 1.2.sp)
+                    }
+                    LinearProgressIndicator(progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal }, modifier = Modifier.fillMaxWidth(), color = Gold, trackColor = Color.White.copy(alpha = 0.12f))
+                }
+            }
+        }
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text("GOOD TO SEE YOU, $"+"name", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, letterSpacing = 1.6.sp)
+                Text("Where to next?", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium)
+                Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                    listOf("Plan a journey", "Explore places", "Ask ORBIT").forEach { label ->
+                        Box(Modifier.weight(1f).clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp)).background(MaterialTheme.colorScheme.surfaceVariant).padding(vertical = 13.dp, horizontal = 8.dp), contentAlignment = Alignment.Center) {
+                            Text(label, color = MaterialTheme.colorScheme.onSurface, fontSize = 11.sp, fontWeight = FontWeight.Medium)
                         }
-                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text("of $districtsTotal districts explored", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-                            LinearProgressIndicator(
-                                progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal },
-                                modifier = Modifier.fillMaxWidth(), color = Amber, trackColor = Color.White.copy(alpha = 0.25f)
-                            )
+                    }
+                }
+                Text("Use the navigation below to begin.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp)
+            }
+        }
+        if (trip != null) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    SectionLabel("YOUR CURRENT JOURNEY")
+                    InfoCard(title = trip.title, body = "$"+"{trip.days} days  ·  $"+"{trip.travellers} traveller(s)  ·  $"+"{monthName(trip.startMonth)}\nBudget $"+"{bdt(trip.budget)}  ·  Spent $"+"{bdt(expenses.sumOf { it.amount })}", container = MaterialTheme.colorScheme.surfaceVariant)
+                    rows.take(2).forEach { row -> InfoCard(row.name, "DAY $"+"{row.dayNo}  ·  %02d:00  ·  $"+"{row.category.cap()}".format(row.startHour)) }
+                }
+            }
+        }
+        val featured = dests.take(4)
+        if (featured.isNotEmpty()) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    SectionLabel("PLACES WORTH THE JOURNEY")
+                    Text("A few considered suggestions.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp)
+                    featured.forEachIndexed { index, destination ->
+                        Row(Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp)).background(MaterialTheme.colorScheme.surface).padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                            Text("%02d".format(index + 1), color = Gold, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 22.sp)
+                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                Text(destination.name, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
+                                Text("$"+"{destination.district}  ·  $"+"{destination.division}", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+                            }
+                            Text("↗", color = Gold, fontSize = 19.sp)
                         }
                     }
                 }
             }
         }
-        item {
-            val adv by vm.advisories.collectAsState()
-            val tripDest = trip?.let { t0 -> dests.firstOrNull { it.id == t0.destinationId } }
-            val relevant = adv.filter { it.scope == "national" || (tripDest != null && ((it.scope == "division" && it.target == tripDest.division) || (it.scope == "district" && it.target == tripDest.district))) }
-                .sortedByDescending { severityRank(it.severity) }.take(4)
-            if (relevant.isNotEmpty()) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SectionLabel("ADVISORIES")
-                    relevant.forEach { a -> InfoCard(a.title, a.text, container = severityColor(a.severity).copy(alpha = 0.16f)) }
+        val relevant = advisories.sortedByDescending { severityRank(it.severity) }.take(2)
+        if (relevant.isNotEmpty()) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                    SectionLabel("TRAVEL NOTES")
+                    relevant.forEach { advisory -> InfoCard(advisory.title, advisory.text, container = MaterialTheme.colorScheme.surfaceVariant) }
                 }
             }
         }
-        if (trip == null) {
-            item {
-                InfoCard(
-                    "Your journey starts here",
-                    "Set your budget, choose your travel style, and discover destinations ranked for you.",
-                    container = MaterialTheme.colorScheme.surfaceVariant
-                )
-            }
-        } else {
-            val dest = dests.firstOrNull { it.id == trip.destinationId }
-            val spent = expenses.sumOf { it.amount }
-            item {
-                InfoCard(
-                    title = trip.title,
-                    body = "${trip.days} days | ${trip.travellers} traveller(s) | ${monthName(trip.startMonth)} | budget ${bdt(trip.budget)}",
-                    container = Teal, content = Color.White
-                )
-            }
-            item {
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Box(Modifier.weight(1f)) { InfoCard("Weather", weatherLabel(dest, trip.startMonth)) }
-                    Box(Modifier.weight(1f)) { InfoCard("Spent", bdt(spent)) }
-                }
-            }
-            if (dest != null) item { TransportCard(vm.transport.describe(dest)) }
-            item { SectionLabel("NEXT UP") }
-            items(rows.take(3), key = { it.id }) { r ->
-                InfoCard(r.name, "Day ${r.dayNo}, %02d:00 | ${r.category.cap()}".format(r.startHour))
-            }
+        item {
+            Text("ORBIT  ·  PRIVATE BY DESIGN  ·  MADE FOR THE CURIOUS", Modifier.fillMaxWidth().padding(vertical = 14.dp), color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 9.sp, letterSpacing = 1.1.sp)
         }
     }
 }
