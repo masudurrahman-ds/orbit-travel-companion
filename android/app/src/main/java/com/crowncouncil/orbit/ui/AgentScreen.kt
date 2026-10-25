@@ -11,6 +11,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -43,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -75,17 +79,43 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
     LaunchedEffect(messages.size, busy) { list.animateScrollToItem(messages.size) }
 
     Column(Modifier.fillMaxSize().imePadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
-        Title("Guide")
-        LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Title("Your travel guide")
+                Text("Ask, plan and explore in one place.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Text("ORBIT AI", color = Teal, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+        }
+        LazyColumn(Modifier.weight(1f).fillMaxWidth().padding(top = 8.dp), state = list, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (messages.isEmpty()) {
+                item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                        shape = RoundedCornerShape(22.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f))
+                    ) {
+                        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("Where would you like to go?", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                            Text("Ask for an itinerary, compare destinations or get help planning within your budget.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp, lineHeight = 20.sp)
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                AssistChip(onClick = { vm.ask("Plan a 2-day trip from Dhaka within BDT ${q.budget}.") }, label = { Text("Weekend trip") })
+                                AssistChip(onClick = { vm.ask("Suggest a calm nature destination in Bangladesh.") }, label = { Text("Nature escape") })
+                            }
+                        }
+                    }
+                }
+            }
             items(messages.size) { i ->
                 val m = messages[i]
                 Box(Modifier.fillMaxWidth(), contentAlignment = if (m.fromUser) Alignment.CenterEnd else Alignment.CenterStart) {
                     Column(
-                        Modifier.widthIn(max = 520.dp).clip(RoundedCornerShape(18.dp))
-                            .background(if (m.fromUser) Navy else MaterialTheme.colorScheme.surface).padding(14.dp),
+                        Modifier.widthIn(max = 520.dp).clip(RoundedCornerShape(20.dp))
+                            .background(if (m.fromUser) Navy else MaterialTheme.colorScheme.surface)
+                            .padding(horizontal = 16.dp, vertical = 13.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(m.text, color = if (m.fromUser) Color.White else MaterialTheme.colorScheme.onSurface, fontSize = 15.sp)
+                        Text(m.text, color = if (m.fromUser) Color.White else MaterialTheme.colorScheme.onSurface, fontSize = 15.sp, lineHeight = 22.sp)
                         m.plan?.let { plan -> Button(onClick = { vm.savePlan(plan, onPlanSaved) }) { Text(tr("Save this plan as my trip")) } }
                         m.brainPlan?.let { plan -> Button(onClick = { vm.saveBrainPlan(plan, null, onPlanSaved) }) { Text(tr("Save this plan as my trip")) } }
                     }
