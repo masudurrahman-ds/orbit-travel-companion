@@ -76,8 +76,23 @@ fun AuthGate(vm: OrbitViewModel) {
             Modifier.widthIn(max = 480.dp).fillMaxWidth().verticalScroll(rememberScrollState()).imePadding().padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("ORBIT", style = MaterialTheme.typography.headlineMedium.copy(fontSize = 44.sp), color = Gold)
-            Text("Plan smarter. Travel better.", color = Color.White.copy(alpha = 0.85f))
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(28.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.08f)),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.14f))
+            ) {
+                Column(
+                    Modifier.fillMaxWidth().padding(horizontal = 22.dp, vertical = 24.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("ORBIT", style = MaterialTheme.typography.headlineMedium.copy(fontSize = 42.sp, letterSpacing = 5.sp), color = Gold, fontWeight = FontWeight.Black)
+                    Text("TRAVEL, WITH INTENTION", color = Color.White.copy(alpha = 0.72f), fontSize = 10.sp, letterSpacing = 2.sp, fontWeight = FontWeight.Bold)
+                    Text("Plan smarter. Travel deeper.", color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text("Your personal companion for discovering Bangladesh.", color = Color.White.copy(alpha = 0.78f), fontSize = 13.sp)
+                }
+            }
             val ctx = LocalContext.current
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(selected = I18n.lang == "en", onClick = { I18n.set(ctx, "en") }, label = { Text("English") })
