@@ -425,7 +425,8 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
             visits = visits.value.reversed().map { BrainVisit(it.destinationId) },   // oldest first
             memory = notes.value.map { it.text }, month = java.time.LocalDate.now().monthValue,
             location = location?.let { BrainLocation(it.first, it.second, targetId) },
-            advisories = advisories.value
+            advisories = advisories.value,
+            transport = transport
         )
         // Rebuild the native Brain's short-term planning state from local chat history after app restarts.
         // Replay only prior user turns; actions are intentionally ignored so old "remember" commands are not repeated.
