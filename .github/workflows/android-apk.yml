@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [main, "fix/orbit-ui-and-deployment"]
+    branches: [main, "fix/orbit-ui-and-deployment", "ui/polished-travel-experience"]
     paths:
       - "android/**"
       - ".github/workflows/android-apk.yml"
