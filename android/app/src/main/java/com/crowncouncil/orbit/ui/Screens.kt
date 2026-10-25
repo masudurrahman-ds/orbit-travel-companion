@@ -119,7 +119,7 @@ fun HomeScreen(vm: OrbitViewModel) {
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     SectionLabel("YOUR CURRENT JOURNEY")
-                    InfoCard(title = trip.title, body = "$"+"{trip.days} days  ·  $"+"{trip.travellers} traveller(s)  ·  $"+"{monthName(trip.startMonth)}\nBudget $"+"{bdt(trip.budget)}  ·  Spent $"+"{bdt(expenses.sumOf { it.amount })}", container = MaterialTheme.colorScheme.surfaceVariant)
+                    InfoCard(title = trip.title, body = "${trip.days} days  ·  ${trip.travellers} traveller(s)  ·  ${monthName(trip.startMonth)}\nBudget ${bdt(trip.budget)}  ·  Spent ${bdt(expenses.sumOf { it.amount })}", container = MaterialTheme.colorScheme.surfaceVariant)
                     rows.take(2).forEach { row -> InfoCard(row.name, "DAY ${row.dayNo}  ·  %02d:00  ·  ${row.category.cap()}".format(row.startHour)) }
                 }
             }
