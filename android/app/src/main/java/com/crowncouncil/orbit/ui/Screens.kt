@@ -49,6 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -281,8 +282,8 @@ private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Bo
     Card(Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(46.dp).clip(CircleShape).background(Navy), contentAlignment = Alignment.Center) {
-                    Text("${r.score.percent}", color = Color.White, fontWeight = FontWeight.Bold)
+                Box(Modifier.size(48.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Navy, Teal))), contentAlignment = Alignment.Center) {
+                    Text("${r.score.percent}", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
@@ -293,11 +294,25 @@ private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Bo
                     Icon(if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder, "Favorite", tint = Rose)
                 }
             }
-            Text(d.blurb, fontSize = 14.sp)
-            Text(
-                "Estimated ${bdt(r.score.estimatedCost)} | ${if (r.score.affordable) "within budget" else "over budget"}" + if (visited) " | Visited" else "",
-                fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (r.score.affordable) Green else Rose
-            )
+            Text(d.blurb, fontSize = 14.sp, lineHeight = 20.sp)
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(14.dp))
+                    .background(if (r.score.affordable) Green.copy(alpha = 0.09f) else Rose.copy(alpha = 0.09f))
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text("ESTIMATED COST", fontSize = 10.sp, letterSpacing = 1.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
+                    Text(bdt(r.score.estimatedCost), fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                }
+                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(if (r.score.affordable) "BUDGET FIT" else "OVER BUDGET", fontSize = 10.sp, letterSpacing = 0.5.sp, fontWeight = FontWeight.Bold,
+                        color = if (r.score.affordable) Green else Rose)
+                    if (visited) Text("Visited", fontSize = 12.sp, color = Teal, fontWeight = FontWeight.SemiBold)
+                }
+            }
             SectionLabel("WHY THIS SCORE")
             FactorBar("Budget fit", r.score.budget, Orange)
             FactorBar("Interest match", r.score.interest, Purple)
