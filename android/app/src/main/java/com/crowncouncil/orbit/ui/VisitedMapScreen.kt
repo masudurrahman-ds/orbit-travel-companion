@@ -2,6 +2,7 @@
 
 package com.crowncouncil.orbit.ui
 
+import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
@@ -103,6 +105,27 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                     drawCircle(faint.copy(alpha = 0.55f), radius = 3.dp.toPx(), center = c, style = Stroke(width = 1.dp.toPx()))
                 }
                 if (district == selected) drawCircle(Teal, radius = 13.dp.toPx(), center = c, style = Stroke(width = 2.dp.toPx()))
+            }
+
+            // Keep labels sparse enough to remain readable on phones; tapping any marker still
+            // opens the complete district and spot list below the map.
+            val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = android.graphics.Color.rgb(23, 42, 53)
+                textSize = 10.dp.toPx()
+                textAlign = Paint.Align.CENTER
+                isFakeBoldText = true
+                setShadowLayer(2.dp.toPx(), 0f, 1.dp.toPx(), android.graphics.Color.WHITE)
+            }
+            val priorityLabels = listOf("Dhaka", "Chattogram", "Sylhet", "Cox's Bazar", "Rajshahi", "Khulna", "Rangamati", "Barishal")
+            priorityLabels.forEach { label ->
+                val entry = centres.entries.firstOrNull { it.key.equals(label, ignoreCase = true) } ?: return@forEach
+                val p = entry.value
+                drawContext.canvas.nativeCanvas.drawText(
+                    entry.key,
+                    p.first * size.width,
+                    p.second * size.height - 10.dp.toPx(),
+                    labelPaint
+                )
             }
         }
         Text("Outline is stylised. Tap a marker to see that district's spots.", fontSize = 12.sp, color = faint)

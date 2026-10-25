@@ -12,22 +12,22 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-val Navy = Color(0xFF12355B)
-val Teal = Color(0xFF0E8A9B)
-val Orange = Color(0xFFF28C28)
-val Purple = Color(0xFF6C4DC4)
-val Green = Color(0xFF2E9E5B)
-val Rose = Color(0xFFD9455F)
-val Cyan = Color(0xFF1FB5D1)
-val Amber = Color(0xFFF5B335)
-val Gold = Color(0xFFC8962E)
-val Ivory = Color(0xFFFAF7F0)
-val Ink = Color(0xFF22303F)
+val Navy = Color(0xFF123B35)
+val Teal = Color(0xFF087F8C)
+val Orange = Color(0xFFFF8A3D)
+val Purple = Color(0xFF7954D8)
+val Green = Color(0xFF168A58)
+val Rose = Color(0xFFE6536F)
+val Cyan = Color(0xFF17AFC1)
+val Amber = Color(0xFFFFBD4A)
+val Gold = Color(0xFFE3A72F)
+val Ivory = Color(0xFFFFF8ED)
+val Ink = Color(0xFF172A35)
 
 private val LightScheme = lightColorScheme(
     primary = Navy, onPrimary = Color.White, secondary = Teal, tertiary = Gold,
     background = Ivory, onBackground = Ink, surface = Color.White, onSurface = Ink,
-    surfaceVariant = Color(0xFFE8EEF4), onSurfaceVariant = Color(0xFF5B6B7C)
+    surfaceVariant = Color(0xFFFFE8D5), onSurfaceVariant = Color(0xFF5B6B7C)
 )
 private val DarkScheme = darkColorScheme(
     primary = Color(0xFF8FC1F0), onPrimary = Color(0xFF0B1F3A), secondary = Color(0xFF4FC3D1), tertiary = Color(0xFFE0B04A),
