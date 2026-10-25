@@ -270,12 +270,13 @@ test('expanded destination aliases and follow-up language stay grounded in known
 
 
 test('recommendation explanation uses destination, season, interests and budget evidence', () => {
+  const target = D[0];
   const reply = brain.respond('why this place?', ctx(), {
     lastQuery: { budget: 20000, days: 2, travellers: 2, month: 12, interests: ['beach'], tier: 'value' },
-    lastPlace: byName('Cox\'s Bazar').id,
+    lastPlace: target.id,
     offset: 0,
   });
-  assert.match(reply.reply, /Why Cox/i);
+  assert.ok(reply.reply.includes('Why ' + target.name));
   assert.match(reply.reply, /estimated total/i);
   assert.match(reply.reply, /season/i);
   assert.equal(reply.understood, true);
