@@ -420,6 +420,47 @@ function createApp(opts = {}) {
   }, false);
 
   // Optional photo generation. Uses a server-side key only; never ship provider secrets in the app.
+  // Public reference imagery from Wikimedia Commons, with attribution/licensing metadata.
+  // This is photo retrieval, not generated imagery; callers must display the returned credit.
+  route('GET', '/api/places/photos', async (req, res, ctx) => {
+    const q = clean(ctx.url.searchParams.get('q'), 100);
+    if (q.length < 2) return send(res, 400, { error: 'query_required', message: 'Provide a destination or subject.' });
+    try {
+      const apiUrl = new URL('https://commons.wikimedia.org/w/api.php');
+      apiUrl.search = new URLSearchParams({
+        action: 'query', format: 'json', generator: 'search', gsrsearch: 'filetype:bitmap ' + q,
+        gsrnamespace: '6', gsrlimit: '8', prop: 'imageinfo', iiprop: 'url|extmetadata',
+        iiurlwidth: '1200', origin: '*'
+      }).toString();
+      const upstream = await fetchImpl(apiUrl, {
+        headers: { 'Accept': 'application/json', 'User-Agent': 'ORBITTravelCompanion/1.0 (public image search)' },
+        signal: AbortSignal.timeout(12000)
+      });
+      if (!upstream.ok) return send(res, 502, { error: 'image_search_unavailable', message: 'Public image search is temporarily unavailable.' });
+      const payload = await upstream.json();
+      const pages = Object.values(payload.query?.pages || {});
+      const photos = pages.map((page) => {
+        const image = page.imageinfo?.[0];
+        if (!image) return null;
+        const meta = image.extmetadata || {};
+        const plain = (key) => String(meta[key]?.value || '').replace(/<[^>]*>/g, '').trim().slice(0, 500);
+        return {
+          title: page.title?.replace(/^File:/, '') || 'Untitled image',
+          thumbnailUrl: image.thumburl || image.url,
+          originalUrl: image.url,
+          description: plain('ImageDescription'),
+          artist: plain('Artist'),
+          license: plain('LicenseShortName') || 'See source page for license',
+          licenseUrl: plain('LicenseUrl'),
+          sourcePage: image.descriptionurl
+        };
+      }).filter(Boolean);
+      send(res, 200, { query: q, provider: 'Wikimedia Commons', checkedAt: new Date().toISOString(), photos });
+    } catch (_) {
+      send(res, 502, { error: 'image_search_unavailable', message: 'Public image search is temporarily unavailable.' });
+    }
+  }, false);
+
   route('POST', '/api/agent/image', async (req, res, ctx) => {
     const u = ctx.user;
     if (!u.consent.ai) return send(res, 403, { error: 'ai_consent_required', message: 'Enable AI guide consent in Account settings to generate images.' });
