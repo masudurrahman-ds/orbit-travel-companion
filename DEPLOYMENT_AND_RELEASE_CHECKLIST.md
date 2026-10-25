@@ -1,32 +1,36 @@
 # ORBIT deployment and release checklist
 
-## Deploy a reachable backend
+## 1. Deploy the backend
 
-1. Push this repository to GitHub and create a Render Blueprint from it.
-2. Review the service settings and set `OPENAI_API_KEY` only in the server environment if image generation is needed. Never put the provider key in Android code or the APK.
-3. Confirm `https://YOUR-SERVICE.onrender.com/health` returns a healthy response.
-4. Verify the backend's current storage and OTP implementation before production. A reachable API alone does not mean real email/SMS verification is configured.
-5. Configure a real OTP delivery provider before enabling production account verification. Do not expose development OTPs to real users.
+1. Create a Render Blueprint from this repository and review the proposed service.
+2. The blueprint mounts a persistent disk at `/var/data`; keep `ORBIT_DATA=/var/data/db.json` so user accounts and app data survive service restarts.
+3. Set `RESEND_API_KEY` and `ORBIT_EMAIL_FROM` in Render to enable email verification. The sender must be verified with Resend. The backend returns a clear 503 if OTP delivery is not configured instead of falsely claiming the code was sent.
+4. Phone signup is not production-ready until an SMS provider is integrated; use email verification for now. `ORBIT_DEV_OTP=1` is only for local development and must never be enabled for real users.
+5. Set `OPENAI_API_KEY` in Render only if AI image generation is required. Never put provider secrets in Android code or the APK.
+6. Confirm `https://YOUR-SERVICE.onrender.com/health` returns `{"ok":true}`.
 
-## Point Android at the backend
+## 2. Build an APK that can reach the backend
 
-The development default `http://10.0.2.2:8080` only works for an Android emulator connecting to a server on the development computer. A physical phone needs a LAN address during local testing or a public HTTPS backend URL. Configure the Android build's API URL accordingly, then sync and rebuild.
+1. In GitHub repository Settings → Secrets and variables → Actions → Variables, add repository variable `ORBIT_API_URL` with the deployed HTTPS API base URL (for example, `https://your-service.onrender.com`, without a trailing slash).
+2. The Android APK workflow runs on `main` and `fix/orbit-ui-and-deployment`; it reads that variable when building. If the variable is missing, the build warns and falls back to `http://10.0.2.2:8080`, which only works from an emulator connected to a development computer.
+3. Open Actions → Build Android APK → latest successful run → Artifacts → `ORBIT-debug-apk` to download the APK.
 
-## Feature truth table
+## Feature status and honest limitations
 
-- Offline trip recommendations: local deterministic Brain; no server required for its supported intents.
-- Signup/sign-in: backend required; real OTP delivery requires a configured email/SMS provider.
-- Image generation: reachable backend + server-side provider key + network + user consent.
-- Video generation: not implemented as a working generation pipeline; do not present it as available.
-- Voice: Android speech service and installed language support required. Offline recognition is not guaranteed.
-- Bangladesh map: the current shape is a stylised illustration, not authoritative administrative boundary geometry. Replace it with vetted district-boundary GeoJSON before claiming exact district outlines.
+- Offline trip recommendations: local deterministic Brain for supported intents; it is not a general-purpose LLM.
+- Signup/sign-in: backend required. Email OTP requires Resend configuration; SMS OTP is not yet integrated.
+- Image generation: requires network access, AI consent, a reachable backend and server-side provider key.
+- Video generation: no working video-generation pipeline is implemented yet; don't present it as available.
+- Voice: uses Android's installed speech service. Bengali/English recognition and offline availability depend on device language packs and the speech provider.
+- Bangladesh map: the in-app progress-map outline is stylised and not an authoritative administrative map. Do not claim survey-grade district boundaries; use vetted boundary GeoJSON for a geographically accurate district map.
+- Live map tiles require a valid Google Maps API key at build time.
 
 ## Release validation
 
 - Run `cd backend && npm test`.
 - Confirm `/health` from the target phone's network.
-- Test signup, OTP delivery, verification, logout, and login using a fresh account.
-- Test offline planning with airplane mode enabled.
-- Test microphone permission, no-match, timeout, Bengali locale, and speech-service unavailable states.
-- Test image generation with valid server credentials and with credentials removed; ensure the UI gives an accurate diagnosis.
-- Build the Android app in Android Studio and test on a real device before release.
+- Test signup, delivery, OTP verification, logout and login with a fresh account.
+- Test offline planning in airplane mode.
+- Test microphone permission, no-match, timeout, Bengali locale and speech-service-unavailable states.
+- Test image generation with valid server credentials and with credentials removed.
+- Build the Android app and test navigation, signup, map, image generation and voice on a real phone before release.
