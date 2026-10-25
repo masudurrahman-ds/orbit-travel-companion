@@ -427,6 +427,15 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
             location = location?.let { BrainLocation(it.first, it.second, targetId) },
             advisories = advisories.value
         )
+        // Rebuild the native Brain's short-term planning state from local chat history after app restarts.
+        // Replay only prior user turns; actions are intentionally ignored so old "remember" commands are not repeated.
+        if (brainState.lastQuery == null && brainState.lastPlaceId == null && chat.value.size > 2) {
+            val priorTurns = chat.value.drop(1).dropLast(1).filter { it.fromUser }.takeLast(20)
+            for (turn in priorTurns) {
+                val prior = withContext(Dispatchers.Default) { brain.respond(turn.text, ctx, brainState) }
+                brainState = prior.state
+            }
+        }
         var r = withContext(Dispatchers.Default) { brain.respond(text, ctx, brainState) }
         // Optional language layer: only when ORBIT Brain did not understand, and only if the traveller imported a model and turned it on.
         if (!r.understood && llmEnabled.value && modelStore.exists()) {
