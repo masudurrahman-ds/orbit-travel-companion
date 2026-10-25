@@ -64,9 +64,9 @@ dependencies {
     implementation("com.google.maps.android:maps-compose:6.1.2")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation("androidx.exifinterface:exifinterface:1.3.7")
-    // LiteRT-LM intentionally excluded from this build profile. The floating latest.release dependency
-    // pulled Kotlin metadata newer than this project's Kotlin/KSP toolchain and broke Room KSP.
-    // Re-enable only after pinning a verified, compatible LiteRT-LM version and updating its adapter.
+    // Pinned LiteRT-LM runtime for optional on-device generative inference. Keep the version pinned
+    // rather than using latest.release so Kotlin/KSP compatibility can be verified in CI.
+    implementation("com.google.ai.edge.litertlm:litertlm-android:0.16.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
