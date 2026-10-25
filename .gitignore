@@ -1,0 +1,33 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+xcuserdata/
+DerivedData/
+
+# Runtime data and secrets
+.env
+.env.*
+!.env.example
+backend/data/db.json
+backend/data/db.json.tmp
+*.keystore
+*.jks
+secrets.properties
+
+# Node.js runtime/build output
+node_modules/
+coverage/
+*.log
+npm-debug.log*
+
+# IDE/editor and OS files
+.vscode/
+Thumbs.db
+
+# Local model files can be very large and may have separate licenses
+*.litertlm
+*.task
+*.tflite
