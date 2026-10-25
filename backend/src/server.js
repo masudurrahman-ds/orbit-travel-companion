@@ -28,7 +28,32 @@ function createApp(opts = {}) {
     console.warn('[warn] ORBIT_SECRET is not set; logins will not survive a restart.');
   }
   const fetchImpl = opts.fetchImpl || fetch;
-  const deliverOtp = opts.sendOtp || ((identifier, code) => { if (env.ORBIT_DEV_OTP === '1') console.log(`[dev otp] ${identifier}: ${code}`); });
+  const deliverOtp = opts.sendOtp || (async (identifier, code) => {
+    if (env.ORBIT_DEV_OTP === '1') {
+      console.log(`[dev otp] ${identifier}: ${code}`);
+      return true;
+    }
+    // Production email verification uses Resend. Never claim a code was sent when no delivery
+    // provider is configured. Phone verification needs an SMS provider and is intentionally
+    // rejected until one is configured rather than silently losing the code.
+    if (!identifier.includes('@') || !env.RESEND_API_KEY || !env.ORBIT_EMAIL_FROM) return false;
+    try {
+      const response = await fetchImpl('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: env.ORBIT_EMAIL_FROM,
+          to: [identifier],
+          subject: 'Your ORBIT verification code',
+          text: `Your ORBIT verification code is ${code}. It expires in 10 minutes. If you did not request this, ignore this email.`
+        }),
+        signal: AbortSignal.timeout(15000)
+      });
+      return response.ok;
+    } catch (_) {
+      return false;
+    }
+  });
   const loginLimiter = new auth.RateLimiter(10, 15 * 60 * 1000);
   // Verification codes are short-lived and individually attempt-limited; also throttle
   // across re-issued codes so repeated signup attempts cannot bypass the per-code cap.
@@ -99,7 +124,15 @@ function createApp(opts = {}) {
     const otp = auth.newOtp();
     db().otps[user.id] = otp;
     store.save();
-    deliverOtp(id.value, otp.code);
+    const delivered = await deliverOtp(id.value, otp.code);
+    if (delivered === false) {
+      return send(res, 503, {
+        error: 'otp_delivery_not_configured',
+        message: id.type === 'phone'
+          ? 'SMS verification is not configured on this server yet. Use an email address or contact the app administrator.'
+          : 'Email verification is not configured or the email provider rejected the message. Please try again later.'
+      });
+    }
     send(res, 201, { status: 'verification_required', ...(env.ORBIT_DEV_OTP === '1' ? { devCode: otp.code } : {}) });
   }, false);
 
