@@ -267,3 +267,16 @@ test('expanded destination aliases and follow-up language stay grounded in known
   assert.ok(next.plan);
   assert.notEqual(next.plan.destination.id, first.plan.destination.id);
 });
+
+
+test('recommendation explanation uses destination, season, interests and budget evidence', () => {
+  const reply = brain.respond('why this place?', ctx(), {
+    lastQuery: { budget: 20000, days: 2, travellers: 2, month: 12, interests: ['beach'], tier: 'value' },
+    lastPlace: byName('Cox\'s Bazar').id,
+    offset: 0,
+  });
+  assert.match(reply.reply, /Why Cox/i);
+  assert.match(reply.reply, /estimated total/i);
+  assert.match(reply.reply, /season/i);
+  assert.equal(reply.understood, true);
+});
