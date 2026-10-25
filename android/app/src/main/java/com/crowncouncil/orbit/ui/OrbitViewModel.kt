@@ -447,10 +447,19 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
                     ?: brainState.lastPlan?.destinationName
                 if (!lastDestination.isNullOrBlank()) append("Last destination: $lastDestination. ")
             }
-            val command = Translation.sanitize(runCatching { translator.translate(text, priorContext) }.getOrNull())
+            val generated = runCatching { translator.translate(text, priorContext) }.getOrNull()?.trim()
+            if (generated != null && generated.startsWith("DIRECT_ANSWER:", ignoreCase = true)) {
+                val answer = generated.substringAfter(":").trim().take(1200)
+                if (answer.isNotBlank()) return ChatMessage(false, answer + "\n\nGenerated on your device; travel facts are not independently verified.")
+            }
+            val commandText = generated
+                ?.removePrefix("PLAN_INTENT:")
+                ?.removePrefix("plan_intent:")
+                ?.trim()
+            val command = Translation.sanitize(commandText)
             if (command != null) {
                 val second = withContext(Dispatchers.Default) { brain.respond(command, ctx, brainState) }
-                if (second.understood) r = second.copy(reply = Translation.NOTICE + "\n" + second.reply)   // the model's own words are never shown
+                if (second.understood) r = second.copy(reply = Translation.NOTICE + "\n" + second.reply)
             }
         }
         brainState = r.state
