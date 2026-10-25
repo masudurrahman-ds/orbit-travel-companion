@@ -59,6 +59,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 data class PriceStat(val median: Int, val count: Int)
+data class OrbitPhoto(val title: String, val thumbnailUrl: String, val artist: String, val license: String, val licenseUrl: String, val sourcePage: String)
 
 data class ChatMessage(val fromUser: Boolean, val text: String, val plan: JSONObject? = null, val brainPlan: BrainPlan? = null)
 
@@ -111,6 +112,9 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
     val generatedImageB64 = MutableStateFlow<String?>(null)
     val imageBusy = MutableStateFlow(false)
     val imageError = MutableStateFlow<String?>(null)
+    val photos = MutableStateFlow<List<OrbitPhoto>>(emptyList())
+    val photosBusy = MutableStateFlow(false)
+    val photosError = MutableStateFlow<String?>(null)
     private var brainState = BrainState()
     private val brain = Brain(Lexicon(app.assets.open("brain-data.json").bufferedReader().use { it.readText() }))
     private val modelStore = ModelStore(app)
