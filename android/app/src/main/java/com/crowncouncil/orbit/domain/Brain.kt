@@ -317,6 +317,21 @@ class Brain(private val lex: Lexicon) {
         if (shortText && hasAny(norm, trig("greeting")) && !anyEntity) return out("Hello. Tell me what kind of trip you want, or say \"something I have not visited\". I will fill in the details.")
         if (hasAny(norm, trig("help")) && !hasAny(norm, trig("plan"))) return out("I can plan trips by budget, days, interests and season, pick Budget, Value or Fancy tours, build itineraries, estimate costs, compare places, suggest places you have not visited, and remember your preferences. $suggestions")
 
+        // Explain a recommendation using the actual destination data and current planning assumptions.
+        if (hasAny(norm, trig("why"))) {
+            val target = dests.firstOrNull()?.dest
+                ?: state.lastPlaceId?.let { id -> ctx.destinations.firstOrNull { it.id == id } }
+            if (target == null) return out("I can explain the trade-offs, but I need a destination to evaluate first. Ask me to recommend a trip, then ask \"why this place?\".")
+            val (query, assumed) = resolveQuery(ent, ctx, state.lastQuery, prefs)
+            val cost = estimate(target, query)
+            val season = if (query.month in target.monthSet()) "your selected month is in its listed best season" else "your selected month is outside its listed best season"
+            val matched = target.tagSet().filter { tag -> query.interests.any { it.equals(tag, ignoreCase = true) } }
+            val fit = if (matched.isNotEmpty()) "It matches your interests in ${matched.joinToString(", ")}." else "Its recorded travel themes are ${target.tagSet().joinToString(", ")}."
+            val budgetFit = if (cost <= query.budget) "The estimated total, ${bdt(cost)}, is within your ${bdt(query.budget)} budget." else "The estimated total, ${bdt(cost)}, is above your ${bdt(query.budget)} budget, so I would switch to Budget style or shorten the trip."
+            val assumptions = if (assumed.isNotEmpty()) " Assumptions: ${assumed.joinToString(", ")}." else ""
+            return out("Why ${target.name}: $fit The season check says $season. $budgetFit These are planning estimates, not live quotes.$assumptions", state.copy(lastQuery = query, lastPlaceId = target.id))
+        }
+
         // progress
         if (hasAny(norm, trig("progress"))) {
             val districts = ctx.destinations.filter { it.id in visitedIds }.map { it.district }.toSet()
