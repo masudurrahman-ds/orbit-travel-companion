@@ -296,7 +296,7 @@ function respond(utterance, ctx, state = {}) {
   }
 
   // --- transport names and dated fare evidence (never present a cached fare as live)
-  const asksTransport = /\\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\\b/.test(norm);
+  const asksTransport = /\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\b/.test(norm);
   if (asksTransport && (dests.length || state.lastPlace)) {
     const match = dests[0] || { dest: ctx.destinations.find((x) => x.id === state.lastPlace), byDistrict: false };
     const d = match.dest ? pickFor(match, resolveQuery(ent, ctx, state, prefs).query, ctx) : null;
