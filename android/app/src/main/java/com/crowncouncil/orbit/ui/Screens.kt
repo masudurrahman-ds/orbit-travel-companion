@@ -149,8 +149,13 @@ fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        Title("Plan your trip")
-        SectionLabel("TOUR STYLE")
+        Title("Design your escape")
+        InfoCard(
+            "A trip that fits you",
+            "Choose your pace, budget and interests. ORBIT ranks destinations against your preferences before you commit.",
+            container = MaterialTheme.colorScheme.surfaceVariant
+        )
+        SectionLabel("01  ·  TOUR STYLE")
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Tier.entries.forEach { t ->
                 FilterChip(selected = q.tier == t, onClick = { vm.update { it.copy(tier = t) } }, label = { Text(t.label) })
@@ -160,21 +165,21 @@ fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
         Stepper("Days", q.days, 1..7) { v -> vm.update { it.copy(days = v) } }
         Stepper("Travellers", q.travellers, 1..10) { v -> vm.update { it.copy(travellers = v) } }
 
-        SectionLabel("BUDGET: ${bdt(q.budget)}")
+        SectionLabel("02  ·  YOUR BUDGET: ${bdt(q.budget)}")
         Slider(
             value = q.budget.toFloat(),
             onValueChange = { v -> vm.update { p -> p.copy(budget = (v / 500f).roundToInt() * 500) } },
             valueRange = 5_000f..100_000f
         )
 
-        SectionLabel("TRAVEL MONTH")
+        SectionLabel("03  ·  WHEN ARE YOU GOING?")
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             (1..12).forEach { m ->
                 FilterChip(selected = q.month == m, onClick = { vm.update { it.copy(month = m) } }, label = { Text(monthName(m)) })
             }
         }
 
-        SectionLabel("INTERESTS")
+        SectionLabel("04  ·  WHAT DO YOU LOVE?")
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             INTERESTS.forEach { tag ->
                 FilterChip(
@@ -184,7 +189,11 @@ fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
                 )
             }
         }
-        Button(onClick = onFind, modifier = Modifier.fillMaxWidth()) { Text(tr("Find destinations")) }
+        Button(onClick = onFind, modifier = Modifier.fillMaxWidth()) { Text("Discover my destinations  →") }
+        Text(
+            "Recommendations are estimates based on the local destination dataset, your preferences and the current scoring rules.",
+            fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 17.sp
+        )
     }
 }
 
@@ -211,8 +220,10 @@ fun ExploreScreen(vm: OrbitViewModel, onPlanned: () -> Unit) {
 
     LazyColumn(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
-            Title("Explore")
-            Text("${q.tier.label} tour | ${q.days} days, ${bdt(q.budget)}, ${monthName(q.month)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Title("Find your place")
+            Text("Ranked for your travel style", fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
+            Text("${q.tier.label} tour  ·  ${q.days} days  ·  ${bdt(q.budget)}  ·  ${monthName(q.month)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.size(2.dp))
             Spacer(Modifier.size(8.dp))
             OutlinedTextField(
                 value = search, onValueChange = { search = it },
