@@ -95,7 +95,7 @@ fun HomeScreen(vm: OrbitViewModel) {
                     Text("Thoughtful journeys through Bangladesh and beyond.", color = Color(0xFFD0CABB), fontSize = 13.sp, lineHeight = 20.sp)
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text("✦", color = Gold, fontSize = 15.sp)
-                        Text("$"+"districtsDone OF $"+"districtsTotal DISTRICTS EXPLORED", color = Color(0xFFD8C08A), fontSize = 10.sp, letterSpacing = 1.2.sp)
+                        Text("${districtsDone} OF ${districtsTotal} DISTRICTS EXPLORED", color = Color(0xFFD8C08A), fontSize = 10.sp, letterSpacing = 1.2.sp)
                     }
                     LinearProgressIndicator(progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal }, modifier = Modifier.fillMaxWidth(), color = Gold, trackColor = Color.White.copy(alpha = 0.12f))
                 }
@@ -103,7 +103,7 @@ fun HomeScreen(vm: OrbitViewModel) {
         }
         item {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("GOOD TO SEE YOU, $"+"name", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, letterSpacing = 1.6.sp)
+                Text("GOOD TO SEE YOU, $name", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, letterSpacing = 1.6.sp)
                 Text("Where to next?", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium)
                 Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                     listOf("Plan a journey", "Explore places", "Ask ORBIT").forEach { label ->
@@ -120,7 +120,7 @@ fun HomeScreen(vm: OrbitViewModel) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     SectionLabel("YOUR CURRENT JOURNEY")
                     InfoCard(title = trip.title, body = "$"+"{trip.days} days  ·  $"+"{trip.travellers} traveller(s)  ·  $"+"{monthName(trip.startMonth)}\nBudget $"+"{bdt(trip.budget)}  ·  Spent $"+"{bdt(expenses.sumOf { it.amount })}", container = MaterialTheme.colorScheme.surfaceVariant)
-                    rows.take(2).forEach { row -> InfoCard(row.name, "DAY $"+"{row.dayNo}  ·  %02d:00  ·  $"+"{row.category.cap()}".format(row.startHour)) }
+                    rows.take(2).forEach { row -> InfoCard(row.name, "DAY ${row.dayNo}  ·  %02d:00  ·  ${row.category.cap()}".format(row.startHour)) }
                 }
             }
         }
@@ -135,7 +135,7 @@ fun HomeScreen(vm: OrbitViewModel) {
                             Text("%02d".format(index + 1), color = Gold, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 22.sp)
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                                 Text(destination.name, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
-                                Text("$"+"{destination.district}  ·  $"+"{destination.division}", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+                                Text("${destination.district}  ·  ${destination.division}", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
                             }
                             Text("↗", color = Gold, fontSize = 19.sp)
                         }
