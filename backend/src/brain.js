@@ -6,6 +6,7 @@
  */
 const planner = require('./planner');
 const LEX = require('../data/brain-data.json');
+const transport = require('./transport');
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const TIER_LABEL = { budget: 'Budget', value: 'Value', fancy: 'Fancy' };
@@ -292,6 +293,26 @@ function respond(utterance, ctx, state = {}) {
     const winner = ra.score.total >= rb.score.total ? ra : rb, other = winner === ra ? rb : ra;
     const line = (r) => `${r.destination.name}: ${bdt(r.score.estimatedCostBdt)}, ${r.destination.bestMonths.includes(query.month) ? 'in season' : 'off-season'} in ${MONTHS[query.month - 1]}, ${r.destination.tags.join('/')}`;
     return out(`${winner.destination.name} fits better for ${query.days} days, ${query.travellers} travellers, ${TIER_LABEL[query.tier]} tour.\n${line(winner)}\n${line(other)}\nCosts are estimates.`, { state: { lastQuery: query, lastPlace: winner.destination.id } });
+  }
+
+  // --- transport names and dated fare evidence (never present a cached fare as live)
+  const asksTransport = /\\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\\b/.test(norm);
+  if (asksTransport && (dests.length || state.lastPlace)) {
+    const match = dests[0] || { dest: ctx.destinations.find((x) => x.id === state.lastPlace), byDistrict: false };
+    const d = match.dest ? pickFor(match, resolveQuery(ent, ctx, state, prefs).query, ctx) : null;
+    if (d) {
+      const info = transport.estimateTransport(d);
+      const route = transport.COSTS.entries.find((e) => e.category === 'transport' && e.district === d.district && e.id.startsWith('route_'));
+      const v = route?.value || {};
+      const parts = [];
+      if (v.bus_nonac_tk) parts.push('Non-AC bus: ' + bdt(v.bus_nonac_tk.seats51) + ' (51-seat chart) or ' + bdt(v.bus_nonac_tk.seats40) + ' (40-seat chart), one way from Dhaka.');
+      else if (d.distanceKm > 10) parts.push('Non-AC bus estimate: ' + bdt(Math.round(d.distanceKm * transport.PER_KM.low / 10) * 10) + '–' + bdt(Math.round(d.distanceKm * transport.PER_KM.high / 10) * 10) + ' one way, based on a per-km rate and approximate road distance.');
+      if (v.train_tk) parts.push('Train classes/fare entries: ' + Object.entries(v.train_tk).map(([k, n]) => k.replaceAll('_', ' ') + ' ' + bdt(n)).join('; ') + '.');
+      if (v.air_oneway_from_tk) parts.push('Flight listing from ' + bdt(v.air_oneway_from_tk) + ' one way; dynamic fare, not a quote.');
+      if (!parts.length) parts.push('I do not have a verified route-specific fare for this destination in the local dataset yet.');
+      const checked = route?.asOf || transport.COSTS.entries.find((e) => e.id === 'bus_nonac_perkm_hike')?.asOf || transport.COSTS.meta.compiledOn;
+      return out('Getting to ' + d.name + ' from Dhaka:\\n' + parts.join('\\n') + '\\nFare data checked: ' + checked + '. This is dated reference data, not a live operator quote. Fares, availability and schedules can change; confirm with the railway/operator before paying. I cannot confirm real-time seat availability from this dataset.', { state: { lastPlace: d.id } });
+    }
   }
 
   // --- when to go
