@@ -1,0 +1,11 @@
+Also: ORBIT guide data file `brain-data.json` must be in the target's Copy Bundle Resources (drag it in with the Swift files and tick the target).
+
+Add these keys to the target's Info tab (Xcode > target > Info) so the app can use the features below.
+
+NSLocationWhenInUseUsageDescription   "ORBIT shows your position on the live map while the screen is open."
+NSPhotoLibraryAddUsageDescription     "ORBIT saves your edited travel photos to your library."
+ORBIT_API_URL (String)                 Your backend address, for example https://api.example.com
+
+Local development only (Simulator talking to a backend on your Mac over http://localhost:8080):
+App Transport Security Settings > Allow Local Networking = YES
+Do not ship a build with http:// addresses.

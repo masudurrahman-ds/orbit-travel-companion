@@ -1,0 +1,6746 @@
+{
+ "destinations": [
+  {
+   "id": 1,
+   "name": "Lalbagh Fort",
+   "district": "Dhaka",
+   "division": "Dhaka",
+   "latitude": 23.81,
+   "longitude": 90.41,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 5,
+   "costPerDayBdt": 1500,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Unfinished Mughal-era fort complex in Old Dhaka."
+  },
+  {
+   "id": 2,
+   "name": "Ahsan Manzil",
+   "district": "Dhaka",
+   "division": "Dhaka",
+   "latitude": 23.81,
+   "longitude": 90.41,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 5,
+   "costPerDayBdt": 1500,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Pink palace museum on the Buriganga riverbank."
+  },
+  {
+   "id": 3,
+   "name": "Jatiya Sangsad Bhaban",
+   "district": "Dhaka",
+   "division": "Dhaka",
+   "latitude": 23.81,
+   "longitude": 90.41,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 5,
+   "costPerDayBdt": 1600,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "National Parliament House designed by Louis Kahn."
+  },
+  {
+   "id": 4,
+   "name": "Mathurapur Deul",
+   "district": "Faridpur",
+   "division": "Dhaka",
+   "latitude": 23.6,
+   "longitude": 89.84,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 120,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Brick temple tower of the Mathurapur area."
+  },
+  {
+   "id": 5,
+   "name": "Bhawal National Park",
+   "district": "Gazipur",
+   "division": "Dhaka",
+   "latitude": 24.0,
+   "longitude": 90.42,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 40,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Sal forest reserve north of Dhaka."
+  },
+  {
+   "id": 6,
+   "name": "Bangabandhu Safari Park",
+   "district": "Gazipur",
+   "division": "Dhaka",
+   "latitude": 24.0,
+   "longitude": 90.42,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 40,
+   "costPerDayBdt": 2400,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Drive-through safari park near Gazipur."
+  },
+  {
+   "id": 7,
+   "name": "Nuhash Polli",
+   "district": "Gazipur",
+   "division": "Dhaka",
+   "latitude": 24.0,
+   "longitude": 90.42,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 40,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Countryside resort with gardens and lakes."
+  },
+  {
+   "id": 8,
+   "name": "Bangabandhu Mausoleum, Tungipara",
+   "district": "Gopalganj",
+   "division": "Dhaka",
+   "latitude": 23.01,
+   "longitude": 89.83,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 160,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Memorial complex at Tungipara."
+  },
+  {
+   "id": 9,
+   "name": "Nikli Haor",
+   "district": "Kishoreganj",
+   "division": "Dhaka",
+   "latitude": 24.43,
+   "longitude": 90.78,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 120,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 2,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "blurb": "Wetland landscape explored by boat."
+  },
+  {
+   "id": 10,
+   "name": "Egarasindur Fort",
+   "district": "Kishoreganj",
+   "division": "Dhaka",
+   "latitude": 24.43,
+   "longitude": 90.78,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 120,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Historic fort site on the Brahmaputra bank."
+  },
+  {
+   "id": 11,
+   "name": "Shakuni Lake",
+   "district": "Madaripur",
+   "division": "Dhaka",
+   "latitude": 23.17,
+   "longitude": 90.2,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 100,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Large lake with an island park."
+  },
+  {
+   "id": 12,
+   "name": "Baliati Zamindar Palace",
+   "district": "Manikganj",
+   "division": "Dhaka",
+   "latitude": 23.86,
+   "longitude": 90.0,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 60,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Old zamindar palace in Saturia."
+  },
+  {
+   "id": 13,
+   "name": "Teota Zamindar Palace",
+   "district": "Manikganj",
+   "division": "Dhaka",
+   "latitude": 23.86,
+   "longitude": 90.0,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 60,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Zamindar palace complex at Teota."
+  },
+  {
+   "id": 14,
+   "name": "Idrakpur Fort",
+   "district": "Munshiganj",
+   "division": "Dhaka",
+   "latitude": 23.55,
+   "longitude": 90.53,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 30,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Mughal river fort on the Ichamati."
+  },
+  {
+   "id": 15,
+   "name": "Atish Dipankar's Birthplace",
+   "district": "Munshiganj",
+   "division": "Dhaka",
+   "latitude": 23.55,
+   "longitude": 90.53,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 30,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Archaeological site of Bikrampur."
+  },
+  {
+   "id": 16,
+   "name": "Panam Nagar, Sonargaon",
+   "district": "Narayanganj",
+   "division": "Dhaka",
+   "latitude": 23.62,
+   "longitude": 90.5,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 25,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Row of old merchant houses in Sonargaon."
+  },
+  {
+   "id": 17,
+   "name": "Goaldi Mosque, Sonargaon",
+   "district": "Narayanganj",
+   "division": "Dhaka",
+   "latitude": 23.62,
+   "longitude": 90.5,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 25,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Sultanate-era mosque near Sonargaon."
+  },
+  {
+   "id": 18,
+   "name": "Wari-Bateshwar Ruins",
+   "district": "Narsingdi",
+   "division": "Dhaka",
+   "latitude": 23.92,
+   "longitude": 90.72,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 55,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Ancient fortified settlement ruins."
+  },
+  {
+   "id": 19,
+   "name": "Goalanda Ghat",
+   "district": "Rajbari",
+   "division": "Dhaka",
+   "latitude": 23.76,
+   "longitude": 89.64,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 130,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "River ghat at the Padma-Jamuna meeting area."
+  },
+  {
+   "id": 20,
+   "name": "Padma Riverfront, Shariatpur",
+   "district": "Shariatpur",
+   "division": "Dhaka",
+   "latitude": 23.24,
+   "longitude": 90.43,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 100,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Boat trips along the Padma river."
+  },
+  {
+   "id": 21,
+   "name": "Atia Mosque",
+   "district": "Tangail",
+   "division": "Dhaka",
+   "latitude": 24.25,
+   "longitude": 89.92,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 100,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Mughal-era mosque with terracotta work."
+  },
+  {
+   "id": 22,
+   "name": "Madhupur National Park",
+   "district": "Tangail",
+   "division": "Dhaka",
+   "latitude": 24.25,
+   "longitude": 89.92,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 100,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Sal forest park with wildlife trails."
+  },
+  {
+   "id": 23,
+   "name": "Nilgiri Hills",
+   "district": "Bandarban",
+   "division": "Chattogram",
+   "latitude": 22.19,
+   "longitude": 92.22,
+   "tags": [
+    "hills",
+    "nature"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 3200,
+   "recommendedDays": 3,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Hilltop viewpoint above the clouds."
+  },
+  {
+   "id": 24,
+   "name": "Boga Lake",
+   "district": "Bandarban",
+   "division": "Chattogram",
+   "latitude": 22.19,
+   "longitude": 92.22,
+   "tags": [
+    "hills",
+    "adventure"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 3500,
+   "recommendedDays": 3,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Remote crater lake reached by trek."
+  },
+  {
+   "id": 25,
+   "name": "Nafakhum Waterfall",
+   "district": "Bandarban",
+   "division": "Chattogram",
+   "latitude": 22.19,
+   "longitude": 92.22,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 3500,
+   "recommendedDays": 3,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "blurb": "Big waterfall on the Sangu river."
+  },
+  {
+   "id": 26,
+   "name": "Golden Temple (Buddha Dhatu Jadi)",
+   "district": "Bandarban",
+   "division": "Chattogram",
+   "latitude": 22.19,
+   "longitude": 92.22,
+   "tags": [
+    "culture",
+    "hills"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Large Buddhist temple near Bandarban town."
+  },
+  {
+   "id": 27,
+   "name": "Titas River, Brahmanbaria",
+   "district": "Brahmanbaria",
+   "division": "Chattogram",
+   "latitude": 23.96,
+   "longitude": 91.11,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 110,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Riverside walks and boat rides."
+  },
+  {
+   "id": 28,
+   "name": "Meghna River Cruise, Chandpur",
+   "district": "Chandpur",
+   "division": "Chattogram",
+   "latitude": 23.23,
+   "longitude": 90.67,
+   "tags": [
+    "nature",
+    "food"
+   ],
+   "distanceKm": 130,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "River cruise and hilsa-based local food."
+  },
+  {
+   "id": 29,
+   "name": "Patenga Beach",
+   "district": "Chattogram",
+   "division": "Chattogram",
+   "latitude": 22.34,
+   "longitude": 91.83,
+   "tags": [
+    "beach",
+    "food"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "City beach by the Karnaphuli estuary."
+  },
+  {
+   "id": 30,
+   "name": "Foy's Lake",
+   "district": "Chattogram",
+   "division": "Chattogram",
+   "latitude": 22.34,
+   "longitude": 91.83,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Hill-ringed lake and leisure park."
+  },
+  {
+   "id": 31,
+   "name": "Chattogram War Cemetery",
+   "district": "Chattogram",
+   "division": "Chattogram",
+   "latitude": 22.34,
+   "longitude": 91.83,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 2600,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Well-kept Commonwealth war graves."
+  },
+  {
+   "id": 32,
+   "name": "Shalban Vihara (Mainamati)",
+   "district": "Cumilla",
+   "division": "Chattogram",
+   "latitude": 23.46,
+   "longitude": 91.18,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 100,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Ruins of an ancient Buddhist monastery."
+  },
+  {
+   "id": 33,
+   "name": "Kotila Mura",
+   "district": "Cumilla",
+   "division": "Chattogram",
+   "latitude": 23.46,
+   "longitude": 91.18,
+   "tags": [
+    "culture",
+    "hills"
+   ],
+   "distanceKm": 100,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Buddhist stupa mounds on a ridge."
+  },
+  {
+   "id": 34,
+   "name": "Cox's Bazar Beach",
+   "district": "Cox's Bazar",
+   "division": "Chattogram",
+   "latitude": 21.43,
+   "longitude": 92.01,
+   "tags": [
+    "beach",
+    "food"
+   ],
+   "distanceKm": 400,
+   "costPerDayBdt": 3500,
+   "recommendedDays": 3,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Long sandy sea beach with seafood and sunsets."
+  },
+  {
+   "id": 35,
+   "name": "Inani Beach",
+   "district": "Cox's Bazar",
+   "division": "Chattogram",
+   "latitude": 21.43,
+   "longitude": 92.01,
+   "tags": [
+    "beach",
+    "nature"
+   ],
+   "distanceKm": 400,
+   "costPerDayBdt": 3500,
+   "recommendedDays": 2,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Quieter beach with rocky coral stones."
+  },
+  {
+   "id": 36,
+   "name": "Himchari National Park",
+   "district": "Cox's Bazar",
+   "division": "Chattogram",
+   "latitude": 21.43,
+   "longitude": 92.01,
+   "tags": [
+    "nature",
+    "hills"
+   ],
+   "distanceKm": 400,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Waterfall and hill viewpoint near the sea."
+  },
+  {
+   "id": 37,
+   "name": "Saint Martin's Island",
+   "district": "Cox's Bazar",
+   "division": "Chattogram",
+   "latitude": 21.43,
+   "longitude": 92.01,
+   "tags": [
+    "beach",
+    "nature"
+   ],
+   "distanceKm": 400,
+   "costPerDayBdt": 4200,
+   "recommendedDays": 3,
+   "bestMonths": [
+    11,
+    12,
+    1
+   ],
+   "blurb": "Coral island at the southern tip of the country. Visitor access is limited to roughly Nov-Jan."
+  },
+  {
+   "id": 38,
+   "name": "Muhuri Project, Feni",
+   "district": "Feni",
+   "division": "Chattogram",
+   "latitude": 23.02,
+   "longitude": 91.4,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 160,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Dam and reservoir area at Parshuram."
+  },
+  {
+   "id": 39,
+   "name": "Alutila Cave",
+   "district": "Khagrachhari",
+   "division": "Chattogram",
+   "latitude": 23.12,
+   "longitude": 91.98,
+   "tags": [
+    "adventure",
+    "hills"
+   ],
+   "distanceKm": 280,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 2,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Narrow hill cave tourist spot."
+  },
+  {
+   "id": 40,
+   "name": "Richhang Waterfall",
+   "district": "Khagrachhari",
+   "division": "Chattogram",
+   "latitude": 23.12,
+   "longitude": 91.98,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 280,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "blurb": "Waterfall in the hill tracts."
+  },
+  {
+   "id": 41,
+   "name": "Char Alexander",
+   "district": "Lakshmipur",
+   "division": "Chattogram",
+   "latitude": 22.94,
+   "longitude": 90.84,
+   "tags": [
+    "beach",
+    "nature"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 2300,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Estuary island at the Meghna mouth."
+  },
+  {
+   "id": 42,
+   "name": "Nijhum Dwip",
+   "district": "Noakhali",
+   "division": "Chattogram",
+   "latitude": 22.82,
+   "longitude": 91.1,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 170,
+   "costPerDayBdt": 3200,
+   "recommendedDays": 2,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "blurb": "Mangrove island with deer and birdlife."
+  },
+  {
+   "id": 43,
+   "name": "Gandhi Ashram, Jayag",
+   "district": "Noakhali",
+   "division": "Chattogram",
+   "latitude": 22.82,
+   "longitude": 91.1,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 170,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Historic ashram linked to Mahatma Gandhi's 1946 visit."
+  },
+  {
+   "id": 44,
+   "name": "Kaptai Lake",
+   "district": "Rangamati",
+   "division": "Chattogram",
+   "latitude": 22.65,
+   "longitude": 92.18,
+   "tags": [
+    "nature",
+    "hills"
+   ],
+   "distanceKm": 310,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 2,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Large man-made lake among the hills."
+  },
+  {
+   "id": 45,
+   "name": "Hanging Bridge",
+   "district": "Rangamati",
+   "division": "Chattogram",
+   "latitude": 22.65,
+   "longitude": 92.18,
+   "tags": [
+    "hills",
+    "culture"
+   ],
+   "distanceKm": 310,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Suspension bridge and lake viewpoint."
+  },
+  {
+   "id": 46,
+   "name": "Sajek Valley",
+   "district": "Rangamati",
+   "division": "Chattogram",
+   "latitude": 22.65,
+   "longitude": 92.18,
+   "tags": [
+    "hills",
+    "nature"
+   ],
+   "distanceKm": 310,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 3,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Cloud-level hill resort region."
+  },
+  {
+   "id": 47,
+   "name": "Shuvolong Waterfall",
+   "district": "Rangamati",
+   "division": "Chattogram",
+   "latitude": 22.65,
+   "longitude": 92.18,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 310,
+   "costPerDayBdt": 3200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "blurb": "Waterfall reached by boat and trek."
+  },
+  {
+   "id": 48,
+   "name": "Mahasthangarh",
+   "district": "Bogura",
+   "division": "Rajshahi",
+   "latitude": 24.85,
+   "longitude": 89.37,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 200,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Oldest known archaeological site in Bangladesh."
+  },
+  {
+   "id": 49,
+   "name": "Vasu Bihar",
+   "district": "Bogura",
+   "division": "Rajshahi",
+   "latitude": 24.85,
+   "longitude": 89.37,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 200,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Ancient Buddhist monastery site."
+  },
+  {
+   "id": 50,
+   "name": "Panch Bibi Dargah",
+   "district": "Joypurhat",
+   "division": "Rajshahi",
+   "latitude": 25.1,
+   "longitude": 89.02,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Shrine complex with a large annual gathering."
+  },
+  {
+   "id": 51,
+   "name": "Paharpur Buddhist Vihara",
+   "district": "Naogaon",
+   "division": "Rajshahi",
+   "latitude": 24.8,
+   "longitude": 88.94,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "UNESCO World Heritage monastery ruins."
+  },
+  {
+   "id": 52,
+   "name": "Kusumba Mosque",
+   "district": "Naogaon",
+   "division": "Rajshahi",
+   "latitude": 24.8,
+   "longitude": 88.94,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Sultanate-period mosque with dark stone."
+  },
+  {
+   "id": 53,
+   "name": "Natore Rajbari (Uttara Ganabhaban)",
+   "district": "Natore",
+   "division": "Rajshahi",
+   "latitude": 24.41,
+   "longitude": 89.0,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 230,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Zamindar palace estate with gardens."
+  },
+  {
+   "id": 54,
+   "name": "Dighapatia Palace",
+   "district": "Natore",
+   "division": "Rajshahi",
+   "latitude": 24.41,
+   "longitude": 89.0,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 230,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Palace of the Dighapatia royal family."
+  },
+  {
+   "id": 55,
+   "name": "Choto Sona Mosque",
+   "district": "Chapainawabganj",
+   "division": "Rajshahi",
+   "latitude": 24.6,
+   "longitude": 88.28,
+   "tags": [
+    "culture",
+    "food"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Sultanate mosque at Gaur, in mango country."
+  },
+  {
+   "id": 56,
+   "name": "Kotwali Darwaza, Gaur",
+   "district": "Chapainawabganj",
+   "division": "Rajshahi",
+   "latitude": 24.6,
+   "longitude": 88.28,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Ceremonial gateway of old Gaur."
+  },
+  {
+   "id": 57,
+   "name": "Hardinge Bridge",
+   "district": "Pabna",
+   "division": "Rajshahi",
+   "latitude": 24.0,
+   "longitude": 89.23,
+   "tags": [
+    "culture",
+    "nature"
+   ],
+   "distanceKm": 160,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Historic railway bridge over the Padma."
+  },
+  {
+   "id": 58,
+   "name": "Puthia Temple Complex",
+   "district": "Rajshahi",
+   "division": "Rajshahi",
+   "latitude": 24.37,
+   "longitude": 88.6,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 260,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Terracotta temples and a zamindar palace."
+  },
+  {
+   "id": 59,
+   "name": "Varendra Research Museum",
+   "district": "Rajshahi",
+   "division": "Rajshahi",
+   "latitude": 24.37,
+   "longitude": 88.6,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 260,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Museum of regional archaeology and art."
+  },
+  {
+   "id": 60,
+   "name": "Bagha Mosque",
+   "district": "Rajshahi",
+   "division": "Rajshahi",
+   "latitude": 24.37,
+   "longitude": 88.6,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 260,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Terracotta-decorated mosque near a large pond."
+  },
+  {
+   "id": 61,
+   "name": "Bangabandhu Jamuna Bridge",
+   "district": "Sirajganj",
+   "division": "Rajshahi",
+   "latitude": 24.45,
+   "longitude": 89.7,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 140,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Long bridge over the Jamuna river."
+  },
+  {
+   "id": 62,
+   "name": "Rabindra Kachari Bari, Shahzadpur",
+   "district": "Sirajganj",
+   "division": "Rajshahi",
+   "latitude": 24.45,
+   "longitude": 89.7,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 140,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Tagore family estate on the river."
+  },
+  {
+   "id": 63,
+   "name": "Shat Gombuj Mosque",
+   "district": "Bagerhat",
+   "division": "Khulna",
+   "latitude": 22.65,
+   "longitude": 89.79,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 270,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Sixty-dome mosque, a UNESCO site."
+  },
+  {
+   "id": 64,
+   "name": "Khan Jahan Ali Tomb",
+   "district": "Bagerhat",
+   "division": "Khulna",
+   "latitude": 22.65,
+   "longitude": 89.79,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 270,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Shrine beside a large pond."
+  },
+  {
+   "id": 65,
+   "name": "Mathabhanga River, Chuadanga",
+   "district": "Chuadanga",
+   "division": "Khulna",
+   "latitude": 23.64,
+   "longitude": 88.85,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 220,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Quiet riverside countryside."
+  },
+  {
+   "id": 66,
+   "name": "Sagardari (Michael Madhusudan Dutta's House)",
+   "district": "Jashore",
+   "division": "Khulna",
+   "latitude": 23.17,
+   "longitude": 89.21,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 220,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Birthplace of the poet Michael Madhusudan Dutta."
+  },
+  {
+   "id": 67,
+   "name": "Nabaganga River, Jhenaidah",
+   "district": "Jhenaidah",
+   "division": "Khulna",
+   "latitude": 23.54,
+   "longitude": 89.17,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 200,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Riverside countryside."
+  },
+  {
+   "id": 68,
+   "name": "Sundarbans (Khulna entry)",
+   "district": "Khulna",
+   "division": "Khulna",
+   "latitude": 22.82,
+   "longitude": 89.55,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 270,
+   "costPerDayBdt": 4000,
+   "recommendedDays": 3,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Mangrove forest explored by boat."
+  },
+  {
+   "id": 69,
+   "name": "Lalon Shah's Akhra",
+   "district": "Kushtia",
+   "division": "Khulna",
+   "latitude": 23.9,
+   "longitude": 89.12,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Shrine of the Baul saint Lalon."
+  },
+  {
+   "id": 70,
+   "name": "Tagore Kuthibari, Shilaidaha",
+   "district": "Kushtia",
+   "division": "Khulna",
+   "latitude": 23.9,
+   "longitude": 89.12,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Rabindranath Tagore's riverside house."
+  },
+  {
+   "id": 71,
+   "name": "Nabaganga River, Magura",
+   "district": "Magura",
+   "division": "Khulna",
+   "latitude": 23.49,
+   "longitude": 89.42,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 180,
+   "costPerDayBdt": 1700,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Riverside countryside."
+  },
+  {
+   "id": 72,
+   "name": "Mujibnagar Memorial Complex",
+   "district": "Meherpur",
+   "division": "Khulna",
+   "latitude": 23.76,
+   "longitude": 88.63,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 260,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Site of the 1971 provisional government oath."
+  },
+  {
+   "id": 73,
+   "name": "Amjhupi Neelkuthi",
+   "district": "Meherpur",
+   "division": "Khulna",
+   "latitude": 23.76,
+   "longitude": 88.63,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 260,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Old indigo planter's house."
+  },
+  {
+   "id": 74,
+   "name": "S. M. Sultan Complex",
+   "district": "Narail",
+   "division": "Khulna",
+   "latitude": 23.17,
+   "longitude": 89.5,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Memorial complex for the painter S. M. Sultan."
+  },
+  {
+   "id": 75,
+   "name": "Sundarbans (Satkhira entry)",
+   "district": "Satkhira",
+   "division": "Khulna",
+   "latitude": 22.72,
+   "longitude": 89.07,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 300,
+   "costPerDayBdt": 3800,
+   "recommendedDays": 3,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Mangrove forest reached from the Shyamnagar side."
+  },
+  {
+   "id": 76,
+   "name": "Tengragiri Wildlife Sanctuary",
+   "district": "Barguna",
+   "division": "Barishal",
+   "latitude": 22.15,
+   "longitude": 90.12,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 2,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "blurb": "Coastal forest reserve."
+  },
+  {
+   "id": 77,
+   "name": "Durga Sagar",
+   "district": "Barishal",
+   "division": "Barishal",
+   "latitude": 22.7,
+   "longitude": 90.37,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 175,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Very large historic pond with a park."
+  },
+  {
+   "id": 78,
+   "name": "Guthia Mosque",
+   "district": "Barishal",
+   "division": "Barishal",
+   "latitude": 22.7,
+   "longitude": 90.37,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 175,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Old mosque with ornate design."
+  },
+  {
+   "id": 79,
+   "name": "Char Kukri Mukri",
+   "district": "Bhola",
+   "division": "Barishal",
+   "latitude": 22.69,
+   "longitude": 90.65,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 3200,
+   "recommendedDays": 2,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "blurb": "Remote coastal island with wildlife."
+  },
+  {
+   "id": 80,
+   "name": "Manpura Island",
+   "district": "Bhola",
+   "division": "Barishal",
+   "latitude": 22.69,
+   "longitude": 90.65,
+   "tags": [
+    "beach",
+    "nature"
+   ],
+   "distanceKm": 250,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 2,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2
+   ],
+   "blurb": "River-sea island with quiet shores."
+  },
+  {
+   "id": 81,
+   "name": "Kirtipasha Zamindar Bari",
+   "district": "Jhalokati",
+   "division": "Barishal",
+   "latitude": 22.64,
+   "longitude": 90.2,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Old zamindar house in Kirtipasha."
+  },
+  {
+   "id": 82,
+   "name": "Kuakata Beach",
+   "district": "Patuakhali",
+   "division": "Barishal",
+   "latitude": 22.36,
+   "longitude": 90.33,
+   "tags": [
+    "beach",
+    "food"
+   ],
+   "distanceKm": 270,
+   "costPerDayBdt": 3500,
+   "recommendedDays": 2,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Beach where you can see sunrise and sunset over the sea."
+  },
+  {
+   "id": 83,
+   "name": "Kuakata Buddhist Temple",
+   "district": "Patuakhali",
+   "division": "Barishal",
+   "latitude": 22.36,
+   "longitude": 90.33,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 270,
+   "costPerDayBdt": 3000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Rakhine Buddhist temple near the beach."
+  },
+  {
+   "id": 84,
+   "name": "Bhimruli Floating Guava Market",
+   "district": "Pirojpur",
+   "division": "Barishal",
+   "latitude": 22.58,
+   "longitude": 89.97,
+   "tags": [
+    "food",
+    "nature"
+   ],
+   "distanceKm": 230,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    7,
+    8,
+    9
+   ],
+   "blurb": "Boat-based guava market on canals."
+  },
+  {
+   "id": 85,
+   "name": "Satchari National Park",
+   "district": "Habiganj",
+   "division": "Sylhet",
+   "latitude": 24.38,
+   "longitude": 91.42,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 135,
+   "costPerDayBdt": 2400,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Rainforest park with gibbons and trails."
+  },
+  {
+   "id": 86,
+   "name": "Lawachara National Park",
+   "district": "Moulvibazar",
+   "division": "Sylhet",
+   "latitude": 24.48,
+   "longitude": 91.77,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 2,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Rainforest park near Srimangal."
+  },
+  {
+   "id": 87,
+   "name": "Madhabkunda Waterfall",
+   "district": "Moulvibazar",
+   "division": "Sylhet",
+   "latitude": 24.48,
+   "longitude": 91.77,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "blurb": "Popular multi-tier waterfall."
+  },
+  {
+   "id": 88,
+   "name": "Srimangal Tea Gardens",
+   "district": "Moulvibazar",
+   "division": "Sylhet",
+   "latitude": 24.48,
+   "longitude": 91.77,
+   "tags": [
+    "nature",
+    "food"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 2,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Tea estates and seven-layer tea."
+  },
+  {
+   "id": 89,
+   "name": "Tanguar Haor",
+   "district": "Sunamganj",
+   "division": "Sylhet",
+   "latitude": 25.07,
+   "longitude": 91.4,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 280,
+   "costPerDayBdt": 3400,
+   "recommendedDays": 3,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "blurb": "Wetland of lakes explored by boat."
+  },
+  {
+   "id": 90,
+   "name": "Niladri Lake",
+   "district": "Sunamganj",
+   "division": "Sylhet",
+   "latitude": 25.07,
+   "longitude": 91.4,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 280,
+   "costPerDayBdt": 3200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Blue-green lake near the border hills."
+  },
+  {
+   "id": 91,
+   "name": "Jaflong",
+   "district": "Sylhet",
+   "division": "Sylhet",
+   "latitude": 24.9,
+   "longitude": 91.87,
+   "tags": [
+    "nature",
+    "hills"
+   ],
+   "distanceKm": 240,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Stone-bed river near the Meghalaya hills."
+  },
+  {
+   "id": 92,
+   "name": "Ratargul Swamp Forest",
+   "district": "Sylhet",
+   "division": "Sylhet",
+   "latitude": 24.9,
+   "longitude": 91.87,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 240,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "blurb": "Freshwater swamp forest explored by boat."
+  },
+  {
+   "id": 93,
+   "name": "Bichanakandi",
+   "district": "Sylhet",
+   "division": "Sylhet",
+   "latitude": 24.9,
+   "longitude": 91.87,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 240,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "blurb": "Clear stream and stone beds."
+  },
+  {
+   "id": 94,
+   "name": "Hazrat Shahjalal Dargah",
+   "district": "Sylhet",
+   "division": "Sylhet",
+   "latitude": 24.9,
+   "longitude": 91.87,
+   "tags": [
+    "culture",
+    "food"
+   ],
+   "distanceKm": 240,
+   "costPerDayBdt": 2600,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Famous shrine in Sylhet city."
+  },
+  {
+   "id": 95,
+   "name": "Kantajew Temple",
+   "district": "Dinajpur",
+   "division": "Rangpur",
+   "latitude": 25.63,
+   "longitude": 88.64,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 410,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Terracotta temple of the 18th century."
+  },
+  {
+   "id": 96,
+   "name": "Ramsagar National Park",
+   "district": "Dinajpur",
+   "division": "Rangpur",
+   "latitude": 25.63,
+   "longitude": 88.64,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 410,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Large pond with a park and birdlife."
+  },
+  {
+   "id": 97,
+   "name": "Brahmaputra Bank, Gaibandha",
+   "district": "Gaibandha",
+   "division": "Rangpur",
+   "latitude": 25.33,
+   "longitude": 89.53,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 280,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Riverside char scenery."
+  },
+  {
+   "id": 98,
+   "name": "Brahmaputra Char, Kurigram",
+   "district": "Kurigram",
+   "division": "Rangpur",
+   "latitude": 25.81,
+   "longitude": 89.65,
+   "tags": [
+    "nature",
+    "adventure"
+   ],
+   "distanceKm": 330,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "River islands reached by boat."
+  },
+  {
+   "id": 99,
+   "name": "Teesta Barrage",
+   "district": "Lalmonirhat",
+   "division": "Rangpur",
+   "latitude": 25.92,
+   "longitude": 89.45,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 360,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Barrage and river viewpoint at Hatibandha."
+  },
+  {
+   "id": 100,
+   "name": "Tinbigha Corridor",
+   "district": "Lalmonirhat",
+   "division": "Rangpur",
+   "latitude": 25.92,
+   "longitude": 89.45,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 360,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Border corridor to the Dahagram enclave."
+  },
+  {
+   "id": 101,
+   "name": "Nil Sagar",
+   "district": "Nilphamari",
+   "division": "Rangpur",
+   "latitude": 25.93,
+   "longitude": 88.86,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 410,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Large historic pond."
+  },
+  {
+   "id": 102,
+   "name": "Banglabandha Land Port",
+   "district": "Panchagarh",
+   "division": "Rangpur",
+   "latitude": 26.34,
+   "longitude": 88.56,
+   "tags": [
+    "culture",
+    "nature"
+   ],
+   "distanceKm": 490,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Northernmost point of the country."
+  },
+  {
+   "id": 103,
+   "name": "Tetulia Tea Gardens",
+   "district": "Panchagarh",
+   "division": "Rangpur",
+   "latitude": 26.34,
+   "longitude": 88.56,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 490,
+   "costPerDayBdt": 2800,
+   "recommendedDays": 2,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Tea estates in the far north."
+  },
+  {
+   "id": 104,
+   "name": "Tajhat Palace",
+   "district": "Rangpur",
+   "division": "Rangpur",
+   "latitude": 25.75,
+   "longitude": 89.25,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 300,
+   "costPerDayBdt": 1900,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Palace with a museum of local history."
+  },
+  {
+   "id": 105,
+   "name": "Vinnya Jagat Theme Park",
+   "district": "Rangpur",
+   "division": "Rangpur",
+   "latitude": 25.75,
+   "longitude": 89.25,
+   "tags": [
+    "culture",
+    "food"
+   ],
+   "distanceKm": 300,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Family park and eatery."
+  },
+  {
+   "id": 106,
+   "name": "Ranisankail Countryside",
+   "district": "Thakurgaon",
+   "division": "Rangpur",
+   "latitude": 26.03,
+   "longitude": 88.46,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 460,
+   "costPerDayBdt": 2000,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Farmland and village scenery."
+  },
+  {
+   "id": 107,
+   "name": "Jamuna River Char, Jamalpur",
+   "district": "Jamalpur",
+   "division": "Mymensingh",
+   "latitude": 24.92,
+   "longitude": 89.94,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 140,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "River char scenery."
+  },
+  {
+   "id": 108,
+   "name": "Shashi Lodge",
+   "district": "Mymensingh",
+   "division": "Mymensingh",
+   "latitude": 24.75,
+   "longitude": 90.41,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 120,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Zamindar palace on the Brahmaputra bank."
+  },
+  {
+   "id": 109,
+   "name": "Zainul Abedin Museum",
+   "district": "Mymensingh",
+   "division": "Mymensingh",
+   "latitude": 24.75,
+   "longitude": 90.41,
+   "tags": [
+    "culture"
+   ],
+   "distanceKm": 120,
+   "costPerDayBdt": 1800,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Museum of the artist Zainul Abedin's works."
+  },
+  {
+   "id": 110,
+   "name": "Birishiri",
+   "district": "Netrokona",
+   "division": "Mymensingh",
+   "latitude": 24.87,
+   "longitude": 90.73,
+   "tags": [
+    "nature",
+    "culture"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "White clay hills and Someshwari river."
+  },
+  {
+   "id": 111,
+   "name": "Someshwari River",
+   "district": "Netrokona",
+   "division": "Mymensingh",
+   "latitude": 24.87,
+   "longitude": 90.73,
+   "tags": [
+    "nature"
+   ],
+   "distanceKm": 190,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "River near the Garo hills."
+  },
+  {
+   "id": 112,
+   "name": "Gajni Avakash Park",
+   "district": "Sherpur",
+   "division": "Mymensingh",
+   "latitude": 25.02,
+   "longitude": 90.02,
+   "tags": [
+    "nature",
+    "hills"
+   ],
+   "distanceKm": 160,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Hill park near the Garo foothills."
+  },
+  {
+   "id": 113,
+   "name": "Madhutila Eco Park",
+   "district": "Sherpur",
+   "division": "Mymensingh",
+   "latitude": 25.02,
+   "longitude": 90.02,
+   "tags": [
+    "nature",
+    "hills"
+   ],
+   "distanceKm": 160,
+   "costPerDayBdt": 2200,
+   "recommendedDays": 1,
+   "bestMonths": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ],
+   "blurb": "Eco park in Nalitabari."
+  }
+ ],
+ "activities": [
+  {
+   "id": 1,
+   "destinationId": 1,
+   "name": "Visit Lalbagh Fort",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 2,
+   "destinationId": 1,
+   "name": "Heritage walk near Lalbagh Fort",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 3,
+   "destinationId": 1,
+   "name": "Local meal in Dhaka",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 4,
+   "destinationId": 1,
+   "name": "Dhaka local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 5,
+   "destinationId": 2,
+   "name": "Visit Ahsan Manzil",
+   "category": "culture",
+   "estimatedCost": 100,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 6,
+   "destinationId": 2,
+   "name": "Heritage walk near Ahsan Manzil",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 7,
+   "destinationId": 2,
+   "name": "Local meal in Dhaka",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 8,
+   "destinationId": 2,
+   "name": "Dhaka local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 9,
+   "destinationId": 3,
+   "name": "Visit Jatiya Sangsad Bhaban",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 10,
+   "destinationId": 3,
+   "name": "Heritage walk near Jatiya Sangsad Bhaban",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 11,
+   "destinationId": 3,
+   "name": "Local meal in Dhaka",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 12,
+   "destinationId": 3,
+   "name": "Dhaka local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 13,
+   "destinationId": 4,
+   "name": "Visit Mathurapur Deul",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 14,
+   "destinationId": 4,
+   "name": "Heritage walk near Mathurapur Deul",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 15,
+   "destinationId": 4,
+   "name": "Local meal in Faridpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 16,
+   "destinationId": 4,
+   "name": "Faridpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 17,
+   "destinationId": 5,
+   "name": "Visit Bhawal National Park",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 18,
+   "destinationId": 5,
+   "name": "Nature walk near Bhawal National Park",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 19,
+   "destinationId": 5,
+   "name": "Local meal in Gazipur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 20,
+   "destinationId": 5,
+   "name": "Gazipur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 21,
+   "destinationId": 6,
+   "name": "Visit Bangabandhu Safari Park",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 22,
+   "destinationId": 6,
+   "name": "Nature walk near Bangabandhu Safari Park",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 23,
+   "destinationId": 6,
+   "name": "Local meal in Gazipur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 24,
+   "destinationId": 6,
+   "name": "Gazipur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 25,
+   "destinationId": 7,
+   "name": "Visit Nuhash Polli",
+   "category": "nature",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 26,
+   "destinationId": 7,
+   "name": "Nature walk near Nuhash Polli",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 27,
+   "destinationId": 7,
+   "name": "Local meal in Gazipur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 28,
+   "destinationId": 7,
+   "name": "Gazipur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 29,
+   "destinationId": 8,
+   "name": "Visit Bangabandhu Mausoleum, Tungipara",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 30,
+   "destinationId": 8,
+   "name": "Heritage walk near Bangabandhu Mausoleum, Tungipara",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 31,
+   "destinationId": 8,
+   "name": "Local meal in Gopalganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 32,
+   "destinationId": 8,
+   "name": "Gopalganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 33,
+   "destinationId": 9,
+   "name": "Visit Nikli Haor",
+   "category": "nature",
+   "estimatedCost": 400,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 34,
+   "destinationId": 9,
+   "name": "Nature walk near Nikli Haor",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 35,
+   "destinationId": 9,
+   "name": "Local meal in Kishoreganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 36,
+   "destinationId": 9,
+   "name": "Kishoreganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 37,
+   "destinationId": 10,
+   "name": "Visit Egarasindur Fort",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 38,
+   "destinationId": 10,
+   "name": "Heritage walk near Egarasindur Fort",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 39,
+   "destinationId": 10,
+   "name": "Local meal in Kishoreganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 40,
+   "destinationId": 10,
+   "name": "Kishoreganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 41,
+   "destinationId": 11,
+   "name": "Visit Shakuni Lake",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 42,
+   "destinationId": 11,
+   "name": "Nature walk near Shakuni Lake",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 43,
+   "destinationId": 11,
+   "name": "Local meal in Madaripur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 44,
+   "destinationId": 11,
+   "name": "Madaripur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 45,
+   "destinationId": 12,
+   "name": "Visit Baliati Zamindar Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 46,
+   "destinationId": 12,
+   "name": "Heritage walk near Baliati Zamindar Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 47,
+   "destinationId": 12,
+   "name": "Local meal in Manikganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 48,
+   "destinationId": 12,
+   "name": "Manikganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 49,
+   "destinationId": 13,
+   "name": "Visit Teota Zamindar Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 50,
+   "destinationId": 13,
+   "name": "Heritage walk near Teota Zamindar Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 51,
+   "destinationId": 13,
+   "name": "Local meal in Manikganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 52,
+   "destinationId": 13,
+   "name": "Manikganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 53,
+   "destinationId": 14,
+   "name": "Visit Idrakpur Fort",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 54,
+   "destinationId": 14,
+   "name": "Heritage walk near Idrakpur Fort",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 55,
+   "destinationId": 14,
+   "name": "Local meal in Munshiganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 56,
+   "destinationId": 14,
+   "name": "Munshiganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 57,
+   "destinationId": 15,
+   "name": "Visit Atish Dipankar's Birthplace",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 58,
+   "destinationId": 15,
+   "name": "Heritage walk near Atish Dipankar's Birthplace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 59,
+   "destinationId": 15,
+   "name": "Local meal in Munshiganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 60,
+   "destinationId": 15,
+   "name": "Munshiganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 61,
+   "destinationId": 16,
+   "name": "Visit Panam Nagar, Sonargaon",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 62,
+   "destinationId": 16,
+   "name": "Heritage walk near Panam Nagar, Sonargaon",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 63,
+   "destinationId": 16,
+   "name": "Local meal in Narayanganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 64,
+   "destinationId": 16,
+   "name": "Narayanganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 65,
+   "destinationId": 17,
+   "name": "Visit Goaldi Mosque, Sonargaon",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 66,
+   "destinationId": 17,
+   "name": "Heritage walk near Goaldi Mosque, Sonargaon",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 67,
+   "destinationId": 17,
+   "name": "Local meal in Narayanganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 68,
+   "destinationId": 17,
+   "name": "Narayanganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 69,
+   "destinationId": 18,
+   "name": "Visit Wari-Bateshwar Ruins",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 70,
+   "destinationId": 18,
+   "name": "Heritage walk near Wari-Bateshwar Ruins",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 71,
+   "destinationId": 18,
+   "name": "Local meal in Narsingdi",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 72,
+   "destinationId": 18,
+   "name": "Narsingdi local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 73,
+   "destinationId": 19,
+   "name": "Visit Goalanda Ghat",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 74,
+   "destinationId": 19,
+   "name": "Nature walk near Goalanda Ghat",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 75,
+   "destinationId": 19,
+   "name": "Local meal in Rajbari",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 76,
+   "destinationId": 19,
+   "name": "Rajbari local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 77,
+   "destinationId": 20,
+   "name": "Visit Padma Riverfront, Shariatpur",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 78,
+   "destinationId": 20,
+   "name": "Nature walk near Padma Riverfront, Shariatpur",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 79,
+   "destinationId": 20,
+   "name": "Local meal in Shariatpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 80,
+   "destinationId": 20,
+   "name": "Shariatpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 81,
+   "destinationId": 21,
+   "name": "Visit Atia Mosque",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 82,
+   "destinationId": 21,
+   "name": "Heritage walk near Atia Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 83,
+   "destinationId": 21,
+   "name": "Local meal in Tangail",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 84,
+   "destinationId": 21,
+   "name": "Tangail local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 85,
+   "destinationId": 22,
+   "name": "Visit Madhupur National Park",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 86,
+   "destinationId": 22,
+   "name": "Nature walk near Madhupur National Park",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 87,
+   "destinationId": 22,
+   "name": "Local meal in Tangail",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 88,
+   "destinationId": 22,
+   "name": "Tangail local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 89,
+   "destinationId": 23,
+   "name": "Visit Nilgiri Hills",
+   "category": "hills",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 90,
+   "destinationId": 23,
+   "name": "Nature walk near Nilgiri Hills",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 91,
+   "destinationId": 23,
+   "name": "Local meal in Bandarban",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 92,
+   "destinationId": 23,
+   "name": "Bandarban local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 93,
+   "destinationId": 24,
+   "name": "Visit Boga Lake",
+   "category": "hills",
+   "estimatedCost": 800,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 94,
+   "destinationId": 24,
+   "name": "Guided adventure near Boga Lake",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 95,
+   "destinationId": 24,
+   "name": "Local meal in Bandarban",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 96,
+   "destinationId": 24,
+   "name": "Bandarban local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 97,
+   "destinationId": 25,
+   "name": "Visit Nafakhum Waterfall",
+   "category": "nature",
+   "estimatedCost": 600,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 98,
+   "destinationId": 25,
+   "name": "Guided adventure near Nafakhum Waterfall",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 99,
+   "destinationId": 25,
+   "name": "Local meal in Bandarban",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 100,
+   "destinationId": 25,
+   "name": "Bandarban local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 101,
+   "destinationId": 26,
+   "name": "Visit Golden Temple (Buddha Dhatu Jadi)",
+   "category": "culture",
+   "estimatedCost": 100,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 102,
+   "destinationId": 26,
+   "name": "Viewpoint walk near Golden Temple (Buddha Dhatu Jadi)",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 103,
+   "destinationId": 26,
+   "name": "Local meal in Bandarban",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 104,
+   "destinationId": 26,
+   "name": "Bandarban local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 105,
+   "destinationId": 27,
+   "name": "Visit Titas River, Brahmanbaria",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 106,
+   "destinationId": 27,
+   "name": "Nature walk near Titas River, Brahmanbaria",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 107,
+   "destinationId": 27,
+   "name": "Local meal in Brahmanbaria",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 108,
+   "destinationId": 27,
+   "name": "Brahmanbaria local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 109,
+   "destinationId": 28,
+   "name": "Visit Meghna River Cruise, Chandpur",
+   "category": "nature",
+   "estimatedCost": 400,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 110,
+   "destinationId": 28,
+   "name": "Street-food walk near Meghna River Cruise, Chandpur",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 111,
+   "destinationId": 28,
+   "name": "Local meal in Chandpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 112,
+   "destinationId": 28,
+   "name": "Chandpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 113,
+   "destinationId": 29,
+   "name": "Visit Patenga Beach",
+   "category": "beach",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 114,
+   "destinationId": 29,
+   "name": "Street-food walk near Patenga Beach",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 115,
+   "destinationId": 29,
+   "name": "Local meal in Chattogram",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 116,
+   "destinationId": 29,
+   "name": "Chattogram local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 117,
+   "destinationId": 30,
+   "name": "Visit Foy's Lake",
+   "category": "nature",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 118,
+   "destinationId": 30,
+   "name": "Nature walk near Foy's Lake",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 119,
+   "destinationId": 30,
+   "name": "Local meal in Chattogram",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 120,
+   "destinationId": 30,
+   "name": "Chattogram local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 121,
+   "destinationId": 31,
+   "name": "Visit Chattogram War Cemetery",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 122,
+   "destinationId": 31,
+   "name": "Heritage walk near Chattogram War Cemetery",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 123,
+   "destinationId": 31,
+   "name": "Local meal in Chattogram",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 124,
+   "destinationId": 31,
+   "name": "Chattogram local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 125,
+   "destinationId": 32,
+   "name": "Visit Shalban Vihara (Mainamati)",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 126,
+   "destinationId": 32,
+   "name": "Heritage walk near Shalban Vihara (Mainamati)",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 127,
+   "destinationId": 32,
+   "name": "Local meal in Cumilla",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 128,
+   "destinationId": 32,
+   "name": "Cumilla local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 129,
+   "destinationId": 33,
+   "name": "Visit Kotila Mura",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 130,
+   "destinationId": 33,
+   "name": "Viewpoint walk near Kotila Mura",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 131,
+   "destinationId": 33,
+   "name": "Local meal in Cumilla",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 132,
+   "destinationId": 33,
+   "name": "Cumilla local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 133,
+   "destinationId": 34,
+   "name": "Visit Cox's Bazar Beach",
+   "category": "beach",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 134,
+   "destinationId": 34,
+   "name": "Street-food walk near Cox's Bazar Beach",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 135,
+   "destinationId": 34,
+   "name": "Local meal in Cox's Bazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 136,
+   "destinationId": 34,
+   "name": "Cox's Bazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 137,
+   "destinationId": 35,
+   "name": "Visit Inani Beach",
+   "category": "beach",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 138,
+   "destinationId": 35,
+   "name": "Nature walk near Inani Beach",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 139,
+   "destinationId": 35,
+   "name": "Local meal in Cox's Bazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 140,
+   "destinationId": 35,
+   "name": "Cox's Bazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 141,
+   "destinationId": 36,
+   "name": "Visit Himchari National Park",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 142,
+   "destinationId": 36,
+   "name": "Viewpoint walk near Himchari National Park",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 143,
+   "destinationId": 36,
+   "name": "Local meal in Cox's Bazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 144,
+   "destinationId": 36,
+   "name": "Cox's Bazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 145,
+   "destinationId": 37,
+   "name": "Visit Saint Martin's Island",
+   "category": "beach",
+   "estimatedCost": 600,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 146,
+   "destinationId": 37,
+   "name": "Nature walk near Saint Martin's Island",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 147,
+   "destinationId": 37,
+   "name": "Local meal in Cox's Bazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 148,
+   "destinationId": 37,
+   "name": "Cox's Bazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 149,
+   "destinationId": 38,
+   "name": "Visit Muhuri Project, Feni",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 150,
+   "destinationId": 38,
+   "name": "Nature walk near Muhuri Project, Feni",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 151,
+   "destinationId": 38,
+   "name": "Local meal in Feni",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 152,
+   "destinationId": 38,
+   "name": "Feni local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 153,
+   "destinationId": 39,
+   "name": "Visit Alutila Cave",
+   "category": "adventure",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 154,
+   "destinationId": 39,
+   "name": "Viewpoint walk near Alutila Cave",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 155,
+   "destinationId": 39,
+   "name": "Local meal in Khagrachhari",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 156,
+   "destinationId": 39,
+   "name": "Khagrachhari local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 157,
+   "destinationId": 40,
+   "name": "Visit Richhang Waterfall",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 158,
+   "destinationId": 40,
+   "name": "Guided adventure near Richhang Waterfall",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 159,
+   "destinationId": 40,
+   "name": "Local meal in Khagrachhari",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 160,
+   "destinationId": 40,
+   "name": "Khagrachhari local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 161,
+   "destinationId": 41,
+   "name": "Visit Char Alexander",
+   "category": "beach",
+   "estimatedCost": 400,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 162,
+   "destinationId": 41,
+   "name": "Nature walk near Char Alexander",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 163,
+   "destinationId": 41,
+   "name": "Local meal in Lakshmipur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 164,
+   "destinationId": 41,
+   "name": "Lakshmipur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 165,
+   "destinationId": 42,
+   "name": "Visit Nijhum Dwip",
+   "category": "nature",
+   "estimatedCost": 600,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 166,
+   "destinationId": 42,
+   "name": "Guided adventure near Nijhum Dwip",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 167,
+   "destinationId": 42,
+   "name": "Local meal in Noakhali",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 168,
+   "destinationId": 42,
+   "name": "Noakhali local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 169,
+   "destinationId": 43,
+   "name": "Visit Gandhi Ashram, Jayag",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 170,
+   "destinationId": 43,
+   "name": "Heritage walk near Gandhi Ashram, Jayag",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 171,
+   "destinationId": 43,
+   "name": "Local meal in Noakhali",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 172,
+   "destinationId": 43,
+   "name": "Noakhali local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 173,
+   "destinationId": 44,
+   "name": "Visit Kaptai Lake",
+   "category": "nature",
+   "estimatedCost": 400,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 174,
+   "destinationId": 44,
+   "name": "Viewpoint walk near Kaptai Lake",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 175,
+   "destinationId": 44,
+   "name": "Local meal in Rangamati",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 176,
+   "destinationId": 44,
+   "name": "Rangamati local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 177,
+   "destinationId": 45,
+   "name": "Visit Hanging Bridge",
+   "category": "hills",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 178,
+   "destinationId": 45,
+   "name": "Heritage walk near Hanging Bridge",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 179,
+   "destinationId": 45,
+   "name": "Local meal in Rangamati",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 180,
+   "destinationId": 45,
+   "name": "Rangamati local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 181,
+   "destinationId": 46,
+   "name": "Visit Sajek Valley",
+   "category": "hills",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 182,
+   "destinationId": 46,
+   "name": "Nature walk near Sajek Valley",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 183,
+   "destinationId": 46,
+   "name": "Local meal in Rangamati",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 184,
+   "destinationId": 46,
+   "name": "Rangamati local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 185,
+   "destinationId": 47,
+   "name": "Visit Shuvolong Waterfall",
+   "category": "nature",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 186,
+   "destinationId": 47,
+   "name": "Guided adventure near Shuvolong Waterfall",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 187,
+   "destinationId": 47,
+   "name": "Local meal in Rangamati",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 188,
+   "destinationId": 47,
+   "name": "Rangamati local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 189,
+   "destinationId": 48,
+   "name": "Visit Mahasthangarh",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 190,
+   "destinationId": 48,
+   "name": "Heritage walk near Mahasthangarh",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 191,
+   "destinationId": 48,
+   "name": "Local meal in Bogura",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 192,
+   "destinationId": 48,
+   "name": "Bogura local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 193,
+   "destinationId": 49,
+   "name": "Visit Vasu Bihar",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 194,
+   "destinationId": 49,
+   "name": "Heritage walk near Vasu Bihar",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 195,
+   "destinationId": 49,
+   "name": "Local meal in Bogura",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 196,
+   "destinationId": 49,
+   "name": "Bogura local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 197,
+   "destinationId": 50,
+   "name": "Visit Panch Bibi Dargah",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 198,
+   "destinationId": 50,
+   "name": "Heritage walk near Panch Bibi Dargah",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 199,
+   "destinationId": 50,
+   "name": "Local meal in Joypurhat",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 200,
+   "destinationId": 50,
+   "name": "Joypurhat local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 201,
+   "destinationId": 51,
+   "name": "Visit Paharpur Buddhist Vihara",
+   "category": "culture",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 202,
+   "destinationId": 51,
+   "name": "Heritage walk near Paharpur Buddhist Vihara",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 203,
+   "destinationId": 51,
+   "name": "Local meal in Naogaon",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 204,
+   "destinationId": 51,
+   "name": "Naogaon local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 205,
+   "destinationId": 52,
+   "name": "Visit Kusumba Mosque",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 206,
+   "destinationId": 52,
+   "name": "Heritage walk near Kusumba Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 207,
+   "destinationId": 52,
+   "name": "Local meal in Naogaon",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 208,
+   "destinationId": 52,
+   "name": "Naogaon local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 209,
+   "destinationId": 53,
+   "name": "Visit Natore Rajbari (Uttara Ganabhaban)",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 210,
+   "destinationId": 53,
+   "name": "Heritage walk near Natore Rajbari (Uttara Ganabhaban)",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 211,
+   "destinationId": 53,
+   "name": "Local meal in Natore",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 212,
+   "destinationId": 53,
+   "name": "Natore local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 213,
+   "destinationId": 54,
+   "name": "Visit Dighapatia Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 214,
+   "destinationId": 54,
+   "name": "Heritage walk near Dighapatia Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 215,
+   "destinationId": 54,
+   "name": "Local meal in Natore",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 216,
+   "destinationId": 54,
+   "name": "Natore local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 217,
+   "destinationId": 55,
+   "name": "Visit Choto Sona Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 218,
+   "destinationId": 55,
+   "name": "Street-food walk near Choto Sona Mosque",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 219,
+   "destinationId": 55,
+   "name": "Local meal in Chapainawabganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 220,
+   "destinationId": 55,
+   "name": "Chapainawabganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 221,
+   "destinationId": 56,
+   "name": "Visit Kotwali Darwaza, Gaur",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 222,
+   "destinationId": 56,
+   "name": "Heritage walk near Kotwali Darwaza, Gaur",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 223,
+   "destinationId": 56,
+   "name": "Local meal in Chapainawabganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 224,
+   "destinationId": 56,
+   "name": "Chapainawabganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 225,
+   "destinationId": 57,
+   "name": "Visit Hardinge Bridge",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 226,
+   "destinationId": 57,
+   "name": "Nature walk near Hardinge Bridge",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 227,
+   "destinationId": 57,
+   "name": "Local meal in Pabna",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 228,
+   "destinationId": 57,
+   "name": "Pabna local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 229,
+   "destinationId": 58,
+   "name": "Visit Puthia Temple Complex",
+   "category": "culture",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 230,
+   "destinationId": 58,
+   "name": "Heritage walk near Puthia Temple Complex",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 231,
+   "destinationId": 58,
+   "name": "Local meal in Rajshahi",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 232,
+   "destinationId": 58,
+   "name": "Rajshahi local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 233,
+   "destinationId": 59,
+   "name": "Visit Varendra Research Museum",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 234,
+   "destinationId": 59,
+   "name": "Heritage walk near Varendra Research Museum",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 235,
+   "destinationId": 59,
+   "name": "Local meal in Rajshahi",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 236,
+   "destinationId": 59,
+   "name": "Rajshahi local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 237,
+   "destinationId": 60,
+   "name": "Visit Bagha Mosque",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 238,
+   "destinationId": 60,
+   "name": "Heritage walk near Bagha Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 239,
+   "destinationId": 60,
+   "name": "Local meal in Rajshahi",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 240,
+   "destinationId": 60,
+   "name": "Rajshahi local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 241,
+   "destinationId": 61,
+   "name": "Visit Bangabandhu Jamuna Bridge",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 242,
+   "destinationId": 61,
+   "name": "Nature walk near Bangabandhu Jamuna Bridge",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 243,
+   "destinationId": 61,
+   "name": "Local meal in Sirajganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 244,
+   "destinationId": 61,
+   "name": "Sirajganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 245,
+   "destinationId": 62,
+   "name": "Visit Rabindra Kachari Bari, Shahzadpur",
+   "category": "culture",
+   "estimatedCost": 30,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 246,
+   "destinationId": 62,
+   "name": "Heritage walk near Rabindra Kachari Bari, Shahzadpur",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 247,
+   "destinationId": 62,
+   "name": "Local meal in Sirajganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 248,
+   "destinationId": 62,
+   "name": "Sirajganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 249,
+   "destinationId": 63,
+   "name": "Visit Shat Gombuj Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 250,
+   "destinationId": 63,
+   "name": "Heritage walk near Shat Gombuj Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 251,
+   "destinationId": 63,
+   "name": "Local meal in Bagerhat",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 252,
+   "destinationId": 63,
+   "name": "Bagerhat local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 253,
+   "destinationId": 64,
+   "name": "Visit Khan Jahan Ali Tomb",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 254,
+   "destinationId": 64,
+   "name": "Heritage walk near Khan Jahan Ali Tomb",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 255,
+   "destinationId": 64,
+   "name": "Local meal in Bagerhat",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 256,
+   "destinationId": 64,
+   "name": "Bagerhat local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 257,
+   "destinationId": 65,
+   "name": "Visit Mathabhanga River, Chuadanga",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 258,
+   "destinationId": 65,
+   "name": "Nature walk near Mathabhanga River, Chuadanga",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 259,
+   "destinationId": 65,
+   "name": "Local meal in Chuadanga",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 260,
+   "destinationId": 65,
+   "name": "Chuadanga local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 261,
+   "destinationId": 66,
+   "name": "Visit Sagardari (Michael Madhusudan Dutta's House)",
+   "category": "culture",
+   "estimatedCost": 30,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 262,
+   "destinationId": 66,
+   "name": "Heritage walk near Sagardari (Michael Madhusudan Dutta's House)",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 263,
+   "destinationId": 66,
+   "name": "Local meal in Jashore",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 264,
+   "destinationId": 66,
+   "name": "Jashore local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 265,
+   "destinationId": 67,
+   "name": "Visit Nabaganga River, Jhenaidah",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 266,
+   "destinationId": 67,
+   "name": "Nature walk near Nabaganga River, Jhenaidah",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 267,
+   "destinationId": 67,
+   "name": "Local meal in Jhenaidah",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 268,
+   "destinationId": 67,
+   "name": "Jhenaidah local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 269,
+   "destinationId": 68,
+   "name": "Visit Sundarbans (Khulna entry)",
+   "category": "nature",
+   "estimatedCost": 1500,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 270,
+   "destinationId": 68,
+   "name": "Guided adventure near Sundarbans (Khulna entry)",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 271,
+   "destinationId": 68,
+   "name": "Local meal in Khulna",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 272,
+   "destinationId": 68,
+   "name": "Khulna local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 273,
+   "destinationId": 69,
+   "name": "Visit Lalon Shah's Akhra",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 274,
+   "destinationId": 69,
+   "name": "Heritage walk near Lalon Shah's Akhra",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 275,
+   "destinationId": 69,
+   "name": "Local meal in Kushtia",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 276,
+   "destinationId": 69,
+   "name": "Kushtia local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 277,
+   "destinationId": 70,
+   "name": "Visit Tagore Kuthibari, Shilaidaha",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 278,
+   "destinationId": 70,
+   "name": "Heritage walk near Tagore Kuthibari, Shilaidaha",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 279,
+   "destinationId": 70,
+   "name": "Local meal in Kushtia",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 280,
+   "destinationId": 70,
+   "name": "Kushtia local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 281,
+   "destinationId": 71,
+   "name": "Visit Nabaganga River, Magura",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 282,
+   "destinationId": 71,
+   "name": "Nature walk near Nabaganga River, Magura",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 283,
+   "destinationId": 71,
+   "name": "Local meal in Magura",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 284,
+   "destinationId": 71,
+   "name": "Magura local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 285,
+   "destinationId": 72,
+   "name": "Visit Mujibnagar Memorial Complex",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 286,
+   "destinationId": 72,
+   "name": "Heritage walk near Mujibnagar Memorial Complex",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 287,
+   "destinationId": 72,
+   "name": "Local meal in Meherpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 288,
+   "destinationId": 72,
+   "name": "Meherpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 289,
+   "destinationId": 73,
+   "name": "Visit Amjhupi Neelkuthi",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 290,
+   "destinationId": 73,
+   "name": "Heritage walk near Amjhupi Neelkuthi",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 291,
+   "destinationId": 73,
+   "name": "Local meal in Meherpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 292,
+   "destinationId": 73,
+   "name": "Meherpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 293,
+   "destinationId": 74,
+   "name": "Visit S. M. Sultan Complex",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 294,
+   "destinationId": 74,
+   "name": "Heritage walk near S. M. Sultan Complex",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 295,
+   "destinationId": 74,
+   "name": "Local meal in Narail",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 296,
+   "destinationId": 74,
+   "name": "Narail local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 297,
+   "destinationId": 75,
+   "name": "Visit Sundarbans (Satkhira entry)",
+   "category": "nature",
+   "estimatedCost": 1500,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 298,
+   "destinationId": 75,
+   "name": "Guided adventure near Sundarbans (Satkhira entry)",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 299,
+   "destinationId": 75,
+   "name": "Local meal in Satkhira",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 300,
+   "destinationId": 75,
+   "name": "Satkhira local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 301,
+   "destinationId": 76,
+   "name": "Visit Tengragiri Wildlife Sanctuary",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 302,
+   "destinationId": 76,
+   "name": "Nature walk near Tengragiri Wildlife Sanctuary",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 303,
+   "destinationId": 76,
+   "name": "Local meal in Barguna",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 304,
+   "destinationId": 76,
+   "name": "Barguna local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 305,
+   "destinationId": 77,
+   "name": "Visit Durga Sagar",
+   "category": "nature",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 306,
+   "destinationId": 77,
+   "name": "Nature walk near Durga Sagar",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 307,
+   "destinationId": 77,
+   "name": "Local meal in Barishal",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 308,
+   "destinationId": 77,
+   "name": "Barishal local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 309,
+   "destinationId": 78,
+   "name": "Visit Guthia Mosque",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 310,
+   "destinationId": 78,
+   "name": "Heritage walk near Guthia Mosque",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 311,
+   "destinationId": 78,
+   "name": "Local meal in Barishal",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 312,
+   "destinationId": 78,
+   "name": "Barishal local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 313,
+   "destinationId": 79,
+   "name": "Visit Char Kukri Mukri",
+   "category": "nature",
+   "estimatedCost": 800,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 314,
+   "destinationId": 79,
+   "name": "Guided adventure near Char Kukri Mukri",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 315,
+   "destinationId": 79,
+   "name": "Local meal in Bhola",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 316,
+   "destinationId": 79,
+   "name": "Bhola local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 317,
+   "destinationId": 80,
+   "name": "Visit Manpura Island",
+   "category": "beach",
+   "estimatedCost": 400,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 318,
+   "destinationId": 80,
+   "name": "Nature walk near Manpura Island",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 319,
+   "destinationId": 80,
+   "name": "Local meal in Bhola",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 320,
+   "destinationId": 80,
+   "name": "Bhola local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 321,
+   "destinationId": 81,
+   "name": "Visit Kirtipasha Zamindar Bari",
+   "category": "culture",
+   "estimatedCost": 30,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 322,
+   "destinationId": 81,
+   "name": "Heritage walk near Kirtipasha Zamindar Bari",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 323,
+   "destinationId": 81,
+   "name": "Local meal in Jhalokati",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 324,
+   "destinationId": 81,
+   "name": "Jhalokati local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 325,
+   "destinationId": 82,
+   "name": "Visit Kuakata Beach",
+   "category": "beach",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 326,
+   "destinationId": 82,
+   "name": "Street-food walk near Kuakata Beach",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 327,
+   "destinationId": 82,
+   "name": "Local meal in Patuakhali",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 328,
+   "destinationId": 82,
+   "name": "Patuakhali local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 329,
+   "destinationId": 83,
+   "name": "Visit Kuakata Buddhist Temple",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 330,
+   "destinationId": 83,
+   "name": "Heritage walk near Kuakata Buddhist Temple",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 331,
+   "destinationId": 83,
+   "name": "Local meal in Patuakhali",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 332,
+   "destinationId": 83,
+   "name": "Patuakhali local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 333,
+   "destinationId": 84,
+   "name": "Visit Bhimruli Floating Guava Market",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 334,
+   "destinationId": 84,
+   "name": "Nature walk near Bhimruli Floating Guava Market",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 335,
+   "destinationId": 84,
+   "name": "Local meal in Pirojpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 336,
+   "destinationId": 84,
+   "name": "Pirojpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 337,
+   "destinationId": 85,
+   "name": "Visit Satchari National Park",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 338,
+   "destinationId": 85,
+   "name": "Guided adventure near Satchari National Park",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 339,
+   "destinationId": 85,
+   "name": "Local meal in Habiganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 340,
+   "destinationId": 85,
+   "name": "Habiganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 341,
+   "destinationId": 86,
+   "name": "Visit Lawachara National Park",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 342,
+   "destinationId": 86,
+   "name": "Guided adventure near Lawachara National Park",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 343,
+   "destinationId": 86,
+   "name": "Local meal in Moulvibazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 344,
+   "destinationId": 86,
+   "name": "Moulvibazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 345,
+   "destinationId": 87,
+   "name": "Visit Madhabkunda Waterfall",
+   "category": "nature",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 346,
+   "destinationId": 87,
+   "name": "Nature walk near Madhabkunda Waterfall",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 347,
+   "destinationId": 87,
+   "name": "Local meal in Moulvibazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 348,
+   "destinationId": 87,
+   "name": "Moulvibazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 349,
+   "destinationId": 88,
+   "name": "Visit Srimangal Tea Gardens",
+   "category": "nature",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 350,
+   "destinationId": 88,
+   "name": "Street-food walk near Srimangal Tea Gardens",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 351,
+   "destinationId": 88,
+   "name": "Local meal in Moulvibazar",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 352,
+   "destinationId": 88,
+   "name": "Moulvibazar local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 353,
+   "destinationId": 89,
+   "name": "Visit Tanguar Haor",
+   "category": "nature",
+   "estimatedCost": 800,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 354,
+   "destinationId": 89,
+   "name": "Guided adventure near Tanguar Haor",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 355,
+   "destinationId": 89,
+   "name": "Local meal in Sunamganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 356,
+   "destinationId": 89,
+   "name": "Sunamganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 357,
+   "destinationId": 90,
+   "name": "Visit Niladri Lake",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 358,
+   "destinationId": 90,
+   "name": "Nature walk near Niladri Lake",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 359,
+   "destinationId": 90,
+   "name": "Local meal in Sunamganj",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 360,
+   "destinationId": 90,
+   "name": "Sunamganj local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 361,
+   "destinationId": 91,
+   "name": "Visit Jaflong",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 362,
+   "destinationId": 91,
+   "name": "Viewpoint walk near Jaflong",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 363,
+   "destinationId": 91,
+   "name": "Local meal in Sylhet",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 364,
+   "destinationId": 91,
+   "name": "Sylhet local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 365,
+   "destinationId": 92,
+   "name": "Visit Ratargul Swamp Forest",
+   "category": "nature",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 366,
+   "destinationId": 92,
+   "name": "Guided adventure near Ratargul Swamp Forest",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 367,
+   "destinationId": 92,
+   "name": "Local meal in Sylhet",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 368,
+   "destinationId": 92,
+   "name": "Sylhet local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 369,
+   "destinationId": 93,
+   "name": "Visit Bichanakandi",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 370,
+   "destinationId": 93,
+   "name": "Nature walk near Bichanakandi",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 371,
+   "destinationId": 93,
+   "name": "Local meal in Sylhet",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 372,
+   "destinationId": 93,
+   "name": "Sylhet local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 373,
+   "destinationId": 94,
+   "name": "Visit Hazrat Shahjalal Dargah",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 374,
+   "destinationId": 94,
+   "name": "Street-food walk near Hazrat Shahjalal Dargah",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 375,
+   "destinationId": 94,
+   "name": "Local meal in Sylhet",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 376,
+   "destinationId": 94,
+   "name": "Sylhet local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 377,
+   "destinationId": 95,
+   "name": "Visit Kantajew Temple",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 378,
+   "destinationId": 95,
+   "name": "Heritage walk near Kantajew Temple",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 379,
+   "destinationId": 95,
+   "name": "Local meal in Dinajpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 380,
+   "destinationId": 95,
+   "name": "Dinajpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 381,
+   "destinationId": 96,
+   "name": "Visit Ramsagar National Park",
+   "category": "nature",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 382,
+   "destinationId": 96,
+   "name": "Nature walk near Ramsagar National Park",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 383,
+   "destinationId": 96,
+   "name": "Local meal in Dinajpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 384,
+   "destinationId": 96,
+   "name": "Dinajpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 385,
+   "destinationId": 97,
+   "name": "Visit Brahmaputra Bank, Gaibandha",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 386,
+   "destinationId": 97,
+   "name": "Nature walk near Brahmaputra Bank, Gaibandha",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 387,
+   "destinationId": 97,
+   "name": "Local meal in Gaibandha",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 388,
+   "destinationId": 97,
+   "name": "Gaibandha local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 389,
+   "destinationId": 98,
+   "name": "Visit Brahmaputra Char, Kurigram",
+   "category": "nature",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 390,
+   "destinationId": 98,
+   "name": "Guided adventure near Brahmaputra Char, Kurigram",
+   "category": "adventure",
+   "estimatedCost": 500,
+   "isIndoor": false,
+   "durationHours": 3
+  },
+  {
+   "id": 391,
+   "destinationId": 98,
+   "name": "Local meal in Kurigram",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 392,
+   "destinationId": 98,
+   "name": "Kurigram local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 393,
+   "destinationId": 99,
+   "name": "Visit Teesta Barrage",
+   "category": "nature",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 394,
+   "destinationId": 99,
+   "name": "Nature walk near Teesta Barrage",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 395,
+   "destinationId": 99,
+   "name": "Local meal in Lalmonirhat",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 396,
+   "destinationId": 99,
+   "name": "Lalmonirhat local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 397,
+   "destinationId": 100,
+   "name": "Visit Tinbigha Corridor",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 398,
+   "destinationId": 100,
+   "name": "Heritage walk near Tinbigha Corridor",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 399,
+   "destinationId": 100,
+   "name": "Local meal in Lalmonirhat",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 400,
+   "destinationId": 100,
+   "name": "Lalmonirhat local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 401,
+   "destinationId": 101,
+   "name": "Visit Nil Sagar",
+   "category": "nature",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 402,
+   "destinationId": 101,
+   "name": "Nature walk near Nil Sagar",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 403,
+   "destinationId": 101,
+   "name": "Local meal in Nilphamari",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 404,
+   "destinationId": 101,
+   "name": "Nilphamari local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 405,
+   "destinationId": 102,
+   "name": "Visit Banglabandha Land Port",
+   "category": "culture",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 406,
+   "destinationId": 102,
+   "name": "Nature walk near Banglabandha Land Port",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 407,
+   "destinationId": 102,
+   "name": "Local meal in Panchagarh",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 408,
+   "destinationId": 102,
+   "name": "Panchagarh local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 409,
+   "destinationId": 103,
+   "name": "Visit Tetulia Tea Gardens",
+   "category": "nature",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 410,
+   "destinationId": 103,
+   "name": "Nature walk near Tetulia Tea Gardens",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 411,
+   "destinationId": 103,
+   "name": "Local meal in Panchagarh",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 412,
+   "destinationId": 103,
+   "name": "Panchagarh local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 413,
+   "destinationId": 104,
+   "name": "Visit Tajhat Palace",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 414,
+   "destinationId": 104,
+   "name": "Heritage walk near Tajhat Palace",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 415,
+   "destinationId": 104,
+   "name": "Local meal in Rangpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 416,
+   "destinationId": 104,
+   "name": "Rangpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 417,
+   "destinationId": 105,
+   "name": "Visit Vinnya Jagat Theme Park",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 418,
+   "destinationId": 105,
+   "name": "Street-food walk near Vinnya Jagat Theme Park",
+   "category": "food",
+   "estimatedCost": 300,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 419,
+   "destinationId": 105,
+   "name": "Local meal in Rangpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 420,
+   "destinationId": 105,
+   "name": "Rangpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 421,
+   "destinationId": 106,
+   "name": "Visit Ranisankail Countryside",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 422,
+   "destinationId": 106,
+   "name": "Nature walk near Ranisankail Countryside",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 423,
+   "destinationId": 106,
+   "name": "Local meal in Thakurgaon",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 424,
+   "destinationId": 106,
+   "name": "Thakurgaon local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 425,
+   "destinationId": 107,
+   "name": "Visit Jamuna River Char, Jamalpur",
+   "category": "nature",
+   "estimatedCost": 200,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 426,
+   "destinationId": 107,
+   "name": "Nature walk near Jamuna River Char, Jamalpur",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 427,
+   "destinationId": 107,
+   "name": "Local meal in Jamalpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 428,
+   "destinationId": 107,
+   "name": "Jamalpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 429,
+   "destinationId": 108,
+   "name": "Visit Shashi Lodge",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 430,
+   "destinationId": 108,
+   "name": "Heritage walk near Shashi Lodge",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 431,
+   "destinationId": 108,
+   "name": "Local meal in Mymensingh",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 432,
+   "destinationId": 108,
+   "name": "Mymensingh local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 433,
+   "destinationId": 109,
+   "name": "Visit Zainul Abedin Museum",
+   "category": "culture",
+   "estimatedCost": 20,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 434,
+   "destinationId": 109,
+   "name": "Heritage walk near Zainul Abedin Museum",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 435,
+   "destinationId": 109,
+   "name": "Local meal in Mymensingh",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 436,
+   "destinationId": 109,
+   "name": "Mymensingh local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 437,
+   "destinationId": 110,
+   "name": "Visit Birishiri",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 438,
+   "destinationId": 110,
+   "name": "Heritage walk near Birishiri",
+   "category": "culture",
+   "estimatedCost": 50,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 439,
+   "destinationId": 110,
+   "name": "Local meal in Netrokona",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 440,
+   "destinationId": 110,
+   "name": "Netrokona local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 441,
+   "destinationId": 111,
+   "name": "Visit Someshwari River",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 442,
+   "destinationId": 111,
+   "name": "Nature walk near Someshwari River",
+   "category": "nature",
+   "estimatedCost": 0,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 443,
+   "destinationId": 111,
+   "name": "Local meal in Netrokona",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 444,
+   "destinationId": 111,
+   "name": "Netrokona local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 445,
+   "destinationId": 112,
+   "name": "Visit Gajni Avakash Park",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 446,
+   "destinationId": 112,
+   "name": "Viewpoint walk near Gajni Avakash Park",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 447,
+   "destinationId": 112,
+   "name": "Local meal in Sherpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 448,
+   "destinationId": 112,
+   "name": "Sherpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  },
+  {
+   "id": 449,
+   "destinationId": 113,
+   "name": "Visit Madhutila Eco Park",
+   "category": "nature",
+   "estimatedCost": 100,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 450,
+   "destinationId": 113,
+   "name": "Viewpoint walk near Madhutila Eco Park",
+   "category": "hills",
+   "estimatedCost": 150,
+   "isIndoor": false,
+   "durationHours": 2
+  },
+  {
+   "id": 451,
+   "destinationId": 113,
+   "name": "Local meal in Sherpur",
+   "category": "food",
+   "estimatedCost": 500,
+   "isIndoor": true,
+   "durationHours": 2
+  },
+  {
+   "id": 452,
+   "destinationId": 113,
+   "name": "Sherpur local market visit",
+   "category": "culture",
+   "estimatedCost": 300,
+   "isIndoor": true,
+   "durationHours": 1
+  }
+ ],
+ "districts": [
+  "Bagerhat",
+  "Bandarban",
+  "Barguna",
+  "Barishal",
+  "Bhola",
+  "Bogura",
+  "Brahmanbaria",
+  "Chandpur",
+  "Chapainawabganj",
+  "Chattogram",
+  "Chuadanga",
+  "Cox's Bazar",
+  "Cumilla",
+  "Dhaka",
+  "Dinajpur",
+  "Faridpur",
+  "Feni",
+  "Gaibandha",
+  "Gazipur",
+  "Gopalganj",
+  "Habiganj",
+  "Jamalpur",
+  "Jashore",
+  "Jhalokati",
+  "Jhenaidah",
+  "Joypurhat",
+  "Khagrachhari",
+  "Khulna",
+  "Kishoreganj",
+  "Kurigram",
+  "Kushtia",
+  "Lakshmipur",
+  "Lalmonirhat",
+  "Madaripur",
+  "Magura",
+  "Manikganj",
+  "Meherpur",
+  "Moulvibazar",
+  "Munshiganj",
+  "Mymensingh",
+  "Naogaon",
+  "Narail",
+  "Narayanganj",
+  "Narsingdi",
+  "Natore",
+  "Netrokona",
+  "Nilphamari",
+  "Noakhali",
+  "Pabna",
+  "Panchagarh",
+  "Patuakhali",
+  "Pirojpur",
+  "Rajbari",
+  "Rajshahi",
+  "Rangamati",
+  "Rangpur",
+  "Satkhira",
+  "Shariatpur",
+  "Sherpur",
+  "Sirajganj",
+  "Sunamganj",
+  "Sylhet",
+  "Tangail",
+  "Thakurgaon"
+ ]
+}

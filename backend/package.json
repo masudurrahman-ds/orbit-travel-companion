@@ -1,0 +1,11 @@
+{
+  "name": "orbit-backend",
+  "version": "0.1.0",
+  "description": "ORBIT backend: auth, visits, leaderboard, community spots and the AI travel agent",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  }
+}
