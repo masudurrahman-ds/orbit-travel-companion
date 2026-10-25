@@ -253,8 +253,8 @@ fun AccountScreen(vm: OrbitViewModel) {
             if (picked != null) { importing = true; llmInfo = null; vm.importModel(picked) { msg -> importing = false; llmInfo = msg } }
         }
         Text(
-            "The built-in guide already works without it. A language model adds Bangla and looser wording: it only translates your message into a request the guide understands, and the guide still gives all prices and places from the app's own data. " +
-                "Get a .litertlm model file (for example a Gemma model) from its official page, check its license, then choose the file here. It stays on this phone and nothing is uploaded. Files are large, so use Wi-Fi to download and keep free storage.",
+            "The built-in guide works offline without a model. Add a compatible local language model for generative answers and better handling of open-ended requests. ORBIT's planner remains responsible for destinations, budgets and itinerary calculations. " +
+                "Get a LiteRT-LM-compatible .litertlm model (for example Gemma 3 1B IT) from a trusted model publisher, review its license and hardware requirements, then choose it here. The file stays in private app storage. Model files are large and performance depends on your device.",
             fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (llmReady) {
