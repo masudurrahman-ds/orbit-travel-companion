@@ -1,5 +1,6 @@
 package com.crowncouncil.orbit.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,10 +49,16 @@ fun SectionLabel(text: String) = Text(tr(text), fontSize = 13.sp, fontWeight = F
 
 @Composable
 fun InfoCard(title: String, body: String, container: Color = MaterialTheme.colorScheme.surface, content: Color = MaterialTheme.colorScheme.onSurface) {
-    Card(Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = container, contentColor = content)) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(title, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-            Text(body, fontSize = 14.sp)
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(22.dp),
+        colors = CardDefaults.cardColors(containerColor = container, contentColor = content),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.72f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+    ) {
+        Column(Modifier.padding(horizontal = 18.dp, vertical = 16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(title, fontWeight = FontWeight.Bold, fontSize = 16.sp, lineHeight = 22.sp)
+            Text(body, fontSize = 14.sp, lineHeight = 20.sp)
         }
     }
 }
