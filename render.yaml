@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: orbit-travel-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    disk:
+      name: orbit-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: ORBIT_SECRET
+        generateValue: true
+      - key: ORBIT_DATA
+        value: /var/data/db.json
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ORBIT_IMAGE_MODEL
+        value: gpt-image-1
+      - key: RESEND_API_KEY
+        sync: false
+      - key: ORBIT_EMAIL_FROM
+        sync: false

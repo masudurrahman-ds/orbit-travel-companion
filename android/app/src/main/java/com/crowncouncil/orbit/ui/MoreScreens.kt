@@ -5,8 +5,10 @@ package com.crowncouncil.orbit.ui
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -14,7 +16,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -38,6 +42,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
@@ -55,6 +62,7 @@ import org.json.JSONObject
 fun MoreScreen(onOpen: (Screen) -> Unit) {
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Title("More")
+        InfoCard("Your travel toolkit", "Everything for planning, exploring, tracking and sharing your journey.", container = MaterialTheme.colorScheme.surfaceVariant)
         listOf(
             Screen.Trip to "Day-by-day plan for your current trip",
             Screen.Budget to "Track spending against your budget",
@@ -65,10 +73,31 @@ fun MoreScreen(onOpen: (Screen) -> Unit) {
             Screen.Rankings to "See who has visited the most",
             Screen.Submit to "Suggest a spot we are missing",
             Screen.Account to "Sign in, privacy and your data"
-        ).forEach { (s, hint) ->
-            Card(Modifier.fillMaxWidth().clickable { onOpen(s) }, shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
-                Column(Modifier.padding(16.dp)) { Text(tr(s.label), style = MaterialTheme.typography.titleMedium); Text(hint, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        ).forEachIndexed { index, (s, hint) ->
+            Card(
+                Modifier.fillMaxWidth().clickable { onOpen(s) },
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            ) {
+                Row(
+                    Modifier.padding(horizontal = 15.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    Box(
+                        Modifier.size(44.dp).clip(CircleShape)
+                            .background(Brush.linearGradient(listOf(Navy, Teal))),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("%02d".format(index + 1), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    }
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(tr(s.label), style = MaterialTheme.typography.titleMedium)
+                        Text(hint, fontSize = 13.sp, lineHeight = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    Text("›", color = MaterialTheme.colorScheme.primary, fontSize = 28.sp, fontWeight = FontWeight.Light)
+                }
             }
         }
     }
@@ -224,8 +253,8 @@ fun AccountScreen(vm: OrbitViewModel) {
             if (picked != null) { importing = true; llmInfo = null; vm.importModel(picked) { msg -> importing = false; llmInfo = msg } }
         }
         Text(
-            "The built-in guide already works without it. A language model adds Bangla and looser wording: it only translates your message into a request the guide understands, and the guide still gives all prices and places from the app's own data. " +
-                "Get a .litertlm model file (for example a Gemma model) from its official page, check its license, then choose the file here. It stays on this phone and nothing is uploaded. Files are large, so use Wi-Fi to download and keep free storage.",
+            "The built-in guide works offline without a model. Add a compatible local language model for generative answers and better handling of open-ended requests. ORBIT's planner remains responsible for destinations, budgets and itinerary calculations. " +
+                "Get a LiteRT-LM-compatible .litertlm model (for example Gemma 3 1B IT) from a trusted model publisher, review its license and hardware requirements, then choose it here. The file stays in private app storage. Model files are large and performance depends on your device.",
             fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (llmReady) {

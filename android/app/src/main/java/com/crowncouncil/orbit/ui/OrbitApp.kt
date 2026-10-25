@@ -1,5 +1,6 @@
 package com.crowncouncil.orbit.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
@@ -69,6 +71,11 @@ fun OrbitApp(vm: OrbitViewModel = viewModel()) {
     val current = entry?.destination?.route
     val barItems = Screen.entries.filter { it.inBar }
 
+    // Back should return through the app's navigation stack; it should not abruptly exit a nested screen.
+    BackHandler(enabled = current != Screen.Home.route) {
+        if (!nav.popBackStack()) nav.navigate(Screen.Home.route) { launchSingleTop = true }
+    }
+
     fun go(screen: Screen) = nav.navigate(screen.route) {
         if (screen.inBar) {
             popUpTo(nav.graph.findStartDestination().id) { saveState = true }
@@ -90,9 +97,24 @@ fun OrbitApp(vm: OrbitViewModel = viewModel()) {
                 modifier = Modifier.weight(1f),
                 containerColor = MaterialTheme.colorScheme.background,
                 bottomBar = {
-                    if (!wide) NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
+                    if (!wide) NavigationBar(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        tonalElevation = 8.dp
+                    ) {
                         barItems.forEach { s ->
-                            NavigationBarItem(selected = selected(s), onClick = { go(s) }, icon = { Icon(s.icon, contentDescription = tr(s.label)) }, label = { Text(tr(s.label), maxLines = 1) })
+                            NavigationBarItem(
+                                selected = selected(s),
+                                onClick = { go(s) },
+                                icon = { Icon(s.icon, contentDescription = tr(s.label)) },
+                                label = { Text(tr(s.label), maxLines = 1, style = MaterialTheme.typography.labelSmall) },
+                                colors = NavigationBarItemDefaults.colors(
+                                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                                    indicatorColor = MaterialTheme.colorScheme.primary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            )
                         }
                     }
                 }

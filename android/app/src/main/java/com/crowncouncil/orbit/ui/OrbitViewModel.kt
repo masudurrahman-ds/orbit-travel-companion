@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.crowncouncil.orbit.BuildConfig
 import com.crowncouncil.orbit.data.ActivityOption
+import com.crowncouncil.orbit.data.ChatTurn
 import com.crowncouncil.orbit.data.Destination
 import com.crowncouncil.orbit.data.Expense
 import com.crowncouncil.orbit.data.ItineraryItem
@@ -58,6 +59,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 data class PriceStat(val median: Int, val count: Int)
+data class OrbitPhoto(val title: String, val thumbnailUrl: String, val artist: String, val license: String, val licenseUrl: String, val sourcePage: String)
 
 data class ChatMessage(val fromUser: Boolean, val text: String, val plan: JSONObject? = null, val brainPlan: BrainPlan? = null)
 
@@ -110,6 +112,9 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
     val generatedImageB64 = MutableStateFlow<String?>(null)
     val imageBusy = MutableStateFlow(false)
     val imageError = MutableStateFlow<String?>(null)
+    val photos = MutableStateFlow<List<OrbitPhoto>>(emptyList())
+    val photosBusy = MutableStateFlow(false)
+    val photosError = MutableStateFlow<String?>(null)
     private var brainState = BrainState()
     private val brain = Brain(Lexicon(app.assets.open("brain-data.json").bufferedReader().use { it.readText() }))
     private val modelStore = ModelStore(app)
@@ -129,6 +134,14 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
     private var lastRefresh = 0L
 
     init {
+        viewModelScope.launch {
+            repo.chatTurns.collect { stored ->
+                if (chat.value.size <= 1 && stored.isNotEmpty()) {
+                    chat.value = listOf(ChatMessage(false, "I am your ORBIT guide. I use your saved on-device conversation and preferences to keep plans consistent.")) +
+                        stored.asReversed().map { ChatMessage(it.fromUser, it.text) }
+                }
+            }
+        }
         viewModelScope.launch { repo.seedIfEmpty() }
         if (signedIn) viewModelScope.launch { syncVisits() }
         refreshExtras()
@@ -397,12 +410,15 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
 
     fun ask(text: String, location: Pair<Double, Double>? = null, targetId: Long? = null) {
         if (text.isBlank() || chatBusy.value) return
-        chat.update { it + ChatMessage(true, text.trim()) }
+        val userText = text.trim()
+        chat.update { it + ChatMessage(true, userText) }
         chatBusy.value = true
         viewModelScope.launch {
             val cloudOk = BuildConfig.USE_CLOUD_AI && signedIn && user.value?.consent?.ai == true
-            val reply = if (cloudOk) cloudReply(text.trim(), location, targetId) ?: nativeReply(text.trim(), location, targetId) else nativeReply(text.trim(), location, targetId)
+            repo.addChatTurn(ChatTurn(fromUser = true, text = userText))
+            val reply = if (cloudOk) cloudReply(userText, location, targetId) ?: nativeReply(userText, location, targetId) else nativeReply(userText, location, targetId)
             chat.update { it + reply }
+            repo.addChatTurn(ChatTurn(fromUser = false, text = reply.text))
             chatBusy.value = false
         }
     }
@@ -413,8 +429,18 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
             visits = visits.value.reversed().map { BrainVisit(it.destinationId) },   // oldest first
             memory = notes.value.map { it.text }, month = java.time.LocalDate.now().monthValue,
             location = location?.let { BrainLocation(it.first, it.second, targetId) },
-            advisories = advisories.value
+            advisories = advisories.value,
+            transport = transport
         )
+        // Rebuild the native Brain's short-term planning state from local chat history after app restarts.
+        // Replay only prior user turns; actions are intentionally ignored so old "remember" commands are not repeated.
+        if (brainState.lastQuery == null && brainState.lastPlaceId == null && chat.value.size > 2) {
+            val priorTurns = chat.value.drop(1).dropLast(1).filter { it.fromUser }.takeLast(20)
+            for (turn in priorTurns) {
+                val prior = withContext(Dispatchers.Default) { brain.respond(turn.text, ctx, brainState) }
+                brainState = prior.state
+            }
+        }
         var r = withContext(Dispatchers.Default) { brain.respond(text, ctx, brainState) }
         // Optional language layer: only when ORBIT Brain did not understand, and only if the traveller imported a model and turned it on.
         if (!r.understood && llmEnabled.value && modelStore.exists()) {
@@ -425,11 +451,31 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
                 val lastDestination = destinations.value.firstOrNull { it.id == brainState.lastPlaceId }?.name
                     ?: brainState.lastPlan?.destinationName
                 if (!lastDestination.isNullOrBlank()) append("Last destination: $lastDestination. ")
+                val savedPreferences = notes.value.takeLast(12).map { it.text }
+                if (savedPreferences.isNotEmpty()) append("Saved traveller preferences: ${savedPreferences.joinToString("; ").take(900)}. ")
+                val recentConversation = chat.value.drop(1).takeLast(8)
+                if (recentConversation.isNotEmpty()) {
+                    append("Recent conversation: ")
+                    recentConversation.forEach { turn ->
+                        append(if (turn.fromUser) "Traveller: " else "ORBIT: ")
+                        append(turn.text.take(350))
+                        append(" | ")
+                    }
+                }
             }
-            val command = Translation.sanitize(runCatching { translator.translate(text, priorContext) }.getOrNull())
+            val generated = runCatching { translator.translate(text, priorContext) }.getOrNull()?.trim()
+            if (generated != null && generated.startsWith("DIRECT_ANSWER:", ignoreCase = true)) {
+                val answer = generated.substringAfter(":").trim().take(1200)
+                if (answer.isNotBlank()) return ChatMessage(false, answer + "\n\nGenerated on your device; travel facts are not independently verified.")
+            }
+            val commandText = generated
+                ?.removePrefix("PLAN_INTENT:")
+                ?.removePrefix("plan_intent:")
+                ?.trim()
+            val command = Translation.sanitize(commandText)
             if (command != null) {
                 val second = withContext(Dispatchers.Default) { brain.respond(command, ctx, brainState) }
-                if (second.understood) r = second.copy(reply = Translation.NOTICE + "\n" + second.reply)   // the model's own words are never shown
+                if (second.understood) r = second.copy(reply = Translation.NOTICE + "\n" + second.reply)
             }
         }
         brainState = r.state
@@ -468,4 +514,11 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
 
     fun deleteNote(id: Long) { viewModelScope.launch { repo.deleteNote(id) } }
     fun forgetAllNotes() { viewModelScope.launch { repo.clearNotes() } }
+    fun clearConversationMemory() {
+        viewModelScope.launch {
+            repo.clearChat()
+            chat.value = listOf(ChatMessage(false, "Conversation memory cleared. I will start fresh from here."))
+            brainState = BrainState()
+        }
+    }
 }

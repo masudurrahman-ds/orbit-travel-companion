@@ -6,6 +6,7 @@
  */
 const planner = require('./planner');
 const LEX = require('../data/brain-data.json');
+const transport = require('./transport');
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const TIER_LABEL = { budget: 'Budget', value: 'Value', fancy: 'Fancy' };
@@ -242,6 +243,22 @@ function respond(utterance, ctx, state = {}) {
   if (shortText && hasAny(norm, t.greeting) && !anyEntity) return out('Hello. Tell me what kind of trip you want, or say "something I have not visited". I will fill in the details.');
   if (hasAny(norm, t.help) && !hasAny(norm, t.plan)) return out('I can plan trips by budget, days, interests and season, pick Budget, Value or Fancy tours, build itineraries, estimate costs, compare places, suggest places you have not visited, and remember your preferences. ' + SUGGESTIONS);
 
+  // Explain a recommendation with evidence from the destination dataset and current assumptions.
+  if (hasAny(norm, t.why)) {
+    const match = dests[0] || (state.lastPlace && ctx.destinations.find((d) => d.id === state.lastPlace));
+    if (!match) return out('I can explain the trade-offs, but I need a destination to evaluate first. Ask me to recommend a trip, then ask "why this place?".');
+    const { query, assumed } = resolveQuery(ent, ctx, state, prefs);
+    const d = dests.length ? pickFor(dests[0], query, ctx) : match;
+    const estimate = planner.estimateTrip(d, query);
+    const cost = estimate.totalBdt;
+    const season = d.bestMonths.includes(query.month) ? 'your selected month is in its listed best season' : 'your selected month is outside its listed best season';
+    const tags = Array.isArray(d.tags) ? d.tags : String(d.tags || '').split(',');
+    const matched = tags.filter((tag) => query.interests.includes(tag));
+    const fit = matched.length ? 'It matches your interests in ' + matched.join(', ') + '.' : 'Its recorded travel themes are ' + tags.join(', ') + '.';
+    const budgetFit = cost <= query.budget ? 'The estimated total, ' + bdt(cost) + ', is within your ' + bdt(query.budget) + ' budget.' : 'The estimated total, ' + bdt(cost) + ', is above your ' + bdt(query.budget) + ' budget, so switch to Budget style or shorten the trip.';
+    return out('Why ' + d.name + ': ' + fit + ' The season check says ' + season + '. ' + budgetFit + ' These are planning estimates, not live quotes.' + (assumed.length ? ' Assumptions: ' + assumed.join(', ') + '.' : ''), { state: { lastQuery: query, lastPlace: d.id } });
+  }
+
   // --- progress
   if (hasAny(norm, t.progress)) {
     const districts = new Set(ctx.destinations.filter((d) => visitedIds.has(d.id)).map((d) => d.district));
@@ -276,6 +293,26 @@ function respond(utterance, ctx, state = {}) {
     const winner = ra.score.total >= rb.score.total ? ra : rb, other = winner === ra ? rb : ra;
     const line = (r) => `${r.destination.name}: ${bdt(r.score.estimatedCostBdt)}, ${r.destination.bestMonths.includes(query.month) ? 'in season' : 'off-season'} in ${MONTHS[query.month - 1]}, ${r.destination.tags.join('/')}`;
     return out(`${winner.destination.name} fits better for ${query.days} days, ${query.travellers} travellers, ${TIER_LABEL[query.tier]} tour.\n${line(winner)}\n${line(other)}\nCosts are estimates.`, { state: { lastQuery: query, lastPlace: winner.destination.id } });
+  }
+
+  // --- transport names and dated fare evidence (never present a cached fare as live)
+  const asksTransport = /\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\b/.test(norm);
+  if (asksTransport && (dests.length || state.lastPlace)) {
+    const match = dests[0] || { dest: ctx.destinations.find((x) => x.id === state.lastPlace), byDistrict: false };
+    const d = match.dest ? pickFor(match, resolveQuery(ent, ctx, state, prefs).query, ctx) : null;
+    if (d) {
+      const info = transport.estimateTransport(d);
+      const route = transport.COSTS.entries.find((e) => e.category === 'transport' && e.district === d.district && e.id.startsWith('route_'));
+      const v = route?.value || {};
+      const parts = [];
+      if (v.bus_nonac_tk) parts.push('Non-AC bus: ' + bdt(v.bus_nonac_tk.seats51) + ' (51-seat chart) or ' + bdt(v.bus_nonac_tk.seats40) + ' (40-seat chart), one way from Dhaka.');
+      else if (d.distanceKm > 10) parts.push('Non-AC bus estimate: ' + bdt(Math.round(d.distanceKm * transport.PER_KM.low / 10) * 10) + '–' + bdt(Math.round(d.distanceKm * transport.PER_KM.high / 10) * 10) + ' one way, based on a per-km rate and approximate road distance.');
+      if (v.train_tk) parts.push('Train classes/fare entries: ' + Object.entries(v.train_tk).map(([k, n]) => k.replaceAll('_', ' ') + ' ' + bdt(n)).join('; ') + '.');
+      if (v.air_oneway_from_tk) parts.push('Flight listing from ' + bdt(v.air_oneway_from_tk) + ' one way; dynamic fare, not a quote.');
+      if (!parts.length) parts.push('I do not have a verified route-specific fare for this destination in the local dataset yet.');
+      const checked = route?.asOf || transport.COSTS.entries.find((e) => e.id === 'bus_nonac_perkm_hike')?.asOf || transport.COSTS.meta.compiledOn;
+      return out('Getting to ' + d.name + ' from Dhaka:\\n' + parts.join('\\n') + '\\nFare data checked: ' + checked + '. This is dated reference data, not a live operator quote. Fares, availability and schedules can change; confirm with the railway/operator before paying. I cannot confirm real-time seat availability from this dataset.', { state: { lastPlace: d.id } });
+    }
   }
 
   // --- when to go

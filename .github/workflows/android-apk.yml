@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [main]
+    branches: [main, "fix/orbit-ui-and-deployment", "ui/polished-travel-experience"]
     paths:
       - "android/**"
       - ".github/workflows/android-apk.yml"
@@ -41,7 +41,15 @@ jobs:
 
       - name: Build debug APK
         working-directory: android
-        run: gradle :app:assembleDebug --no-daemon
+        env:
+          ORBIT_API_URL: ${{ vars.ORBIT_API_URL }}
+        run: |
+          if [ -n "$ORBIT_API_URL" ]; then
+            gradle :app:assembleDebug --no-daemon -PORBIT_API_URL="$ORBIT_API_URL"
+          else
+            echo "::warning::Repository variable ORBIT_API_URL is unset; this APK will use the Android-emulator-only default URL."
+            gradle :app:assembleDebug --no-daemon
+          fi
 
       - name: Upload installable APK
         uses: actions/upload-artifact@v4

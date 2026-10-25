@@ -56,7 +56,8 @@ class BrainContext(
     val memory: List<String>,
     val month: Int,
     val location: BrainLocation? = null,
-    val advisories: List<BrainAdvisory> = emptyList()
+    val advisories: List<BrainAdvisory> = emptyList(),
+    val transport: TransportData? = null
 )
 
 data class BrainReply(val reply: String, val state: BrainState, val plan: BrainPlan?, val actions: List<BrainAction>, val understood: Boolean = true)
@@ -317,6 +318,21 @@ class Brain(private val lex: Lexicon) {
         if (shortText && hasAny(norm, trig("greeting")) && !anyEntity) return out("Hello. Tell me what kind of trip you want, or say \"something I have not visited\". I will fill in the details.")
         if (hasAny(norm, trig("help")) && !hasAny(norm, trig("plan"))) return out("I can plan trips by budget, days, interests and season, pick Budget, Value or Fancy tours, build itineraries, estimate costs, compare places, suggest places you have not visited, and remember your preferences. $suggestions")
 
+        // Explain a recommendation using the actual destination data and current planning assumptions.
+        if (hasAny(norm, trig("why"))) {
+            val target = dests.firstOrNull()?.dest
+                ?: state.lastPlaceId?.let { id -> ctx.destinations.firstOrNull { it.id == id } }
+            if (target == null) return out("I can explain the trade-offs, but I need a destination to evaluate first. Ask me to recommend a trip, then ask \"why this place?\".")
+            val (query, assumed) = resolveQuery(ent, ctx, state.lastQuery, prefs)
+            val cost = estimate(target, query)
+            val season = if (query.month in target.monthSet()) "your selected month is in its listed best season" else "your selected month is outside its listed best season"
+            val matched = target.tagSet().filter { tag -> query.interests.any { it.equals(tag, ignoreCase = true) } }
+            val fit = if (matched.isNotEmpty()) "It matches your interests in ${matched.joinToString(", ")}." else "Its recorded travel themes are ${target.tagSet().joinToString(", ")}."
+            val budgetFit = if (cost <= query.budget) "The estimated total, ${bdt(cost)}, is within your ${bdt(query.budget)} budget." else "The estimated total, ${bdt(cost)}, is above your ${bdt(query.budget)} budget, so I would switch to Budget style or shorten the trip."
+            val assumptions = if (assumed.isNotEmpty()) " Assumptions: ${assumed.joinToString(", ")}." else ""
+            return out("Why ${target.name}: $fit The season check says $season. $budgetFit These are planning estimates, not live quotes.$assumptions", state.copy(lastQuery = query, lastPlaceId = target.id))
+        }
+
         // progress
         if (hasAny(norm, trig("progress"))) {
             val districts = ctx.destinations.filter { it.id in visitedIds }.map { it.district }.toSet()
@@ -352,6 +368,20 @@ class Brain(private val lex: Lexicon) {
             val other = if (winner === ra) rb else ra
             fun line(r: RankedDestination) = "${r.destination.name}: ${bdt(r.score.estimatedCost)}, ${if (query.month in r.destination.monthSet()) "in season" else "off-season"} in ${monthsLong[query.month - 1]}, ${r.destination.tagSet().joinToString("/")}"
             return out("${winner.destination.name} fits better for ${query.days} days, ${query.travellers} travellers, ${tierLabel(query.tier)} tour.\n${line(winner)}\n${line(other)}\nCosts are estimates.", state.copy(lastQuery = query, lastPlaceId = winner.destination.id))
+        }
+
+        // transport names and dated fare evidence; never imply cached fares are live
+        val asksTransport = Regex("\\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\\b").containsMatchIn(norm)
+        if (asksTransport && (dests.isNotEmpty() || state.lastPlaceId != null)) {
+            val match = dests.firstOrNull() ?: ctx.destinations.firstOrNull { it.id == state.lastPlaceId }?.let { Match(it, "", 0, false) }
+            val target = match?.let { if (it.byDistrict) pickFor(it, resolveQuery(ent, ctx, state.lastQuery, prefs).first, ctx) else it.dest }
+            if (target != null && ctx.transport != null) {
+                val info = ctx.transport.describe(target)
+                val checked = ctx.transport.checkedOn
+                return out("Getting to ${target.name} from Dhaka:\\n" + info.lines.joinToString("\\n") +
+                    "\\nFare data checked: $checked. This is dated reference data, not a live operator quote. Fares, availability and schedules can change; confirm with the railway or operator before paying. I cannot confirm real-time seat availability from this dataset.",
+                    state.copy(lastPlaceId = target.id))
+            }
         }
 
         // when to go

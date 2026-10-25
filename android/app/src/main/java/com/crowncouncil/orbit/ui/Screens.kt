@@ -49,6 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -66,63 +67,93 @@ fun HomeScreen(vm: OrbitViewModel) {
     val rows by vm.rows.collectAsState()
     val expenses by vm.expenses.collectAsState()
     val dests by vm.destinations.collectAsState()
+    val visited by vm.visitedIds.collectAsState()
+    val advisories by vm.advisories.collectAsState()
+    val name = vm.user.collectAsState().value?.displayName?.substringBefore(" ") ?: "Traveller"
+    val districtsTotal = dests.map { it.district }.distinct().size
+    val districtsDone = dests.filter { it.id in visited }.map { it.district }.distinct().size
 
-    LazyColumn(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(Modifier.fillMaxSize().padding(horizontal = 18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         item {
-            val visited by vm.visitedIds.collectAsState()
-            val districtsTotal = dests.map { it.district }.distinct().size
-            val districtsDone = dests.filter { it.id in visited }.map { it.district }.distinct().size
-            val name = vm.user.collectAsState().value?.displayName
-            Box(
-                Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(24.dp))
-                    .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(Navy, Teal))).padding(22.dp)
-            ) {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(if (name != null) "Welcome, $name" else "ORBIT", style = MaterialTheme.typography.headlineMedium, color = Color.White)
-                    Text("Plan smarter. Travel better.", color = Amber, fontWeight = FontWeight.SemiBold)
-                    Text("$districtsDone of $districtsTotal districts visited", color = Color.White.copy(alpha = 0.9f))
-                    LinearProgressIndicator(
-                        progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal },
-                        modifier = Modifier.fillMaxWidth(), color = Amber, trackColor = Color.White.copy(alpha = 0.25f)
-                    )
+            Row(Modifier.fillMaxWidth().padding(top = 18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("O R B I T", color = MaterialTheme.colorScheme.onBackground, fontSize = 19.sp, letterSpacing = 4.sp, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif)
+                    Text("THE ART OF GETTING AWAY", color = Gold, fontSize = 9.sp, letterSpacing = 2.sp, fontWeight = FontWeight.Medium)
+                }
+                Box(Modifier.size(42.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
+                    Text("✳", color = Gold, fontSize = 23.sp)
                 }
             }
         }
         item {
-            val adv by vm.advisories.collectAsState()
-            val tripDest = trip?.let { t0 -> dests.firstOrNull { it.id == t0.destinationId } }
-            val relevant = adv.filter { it.scope == "national" || (tripDest != null && ((it.scope == "division" && it.target == tripDest.division) || (it.scope == "district" && it.target == tripDest.district))) }
-                .sortedByDescending { severityRank(it.severity) }.take(4)
-            if (relevant.isNotEmpty()) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SectionLabel("ADVISORIES")
-                    relevant.forEach { a -> InfoCard(a.title, a.text, container = severityColor(a.severity).copy(alpha = 0.16f)) }
+            Box(Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp))
+                .background(Brush.linearGradient(listOf(Color(0xFF28291F), Color(0xFF101310), Color(0xFF20251E))))
+                .padding(horizontal = 22.dp, vertical = 24.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(13.dp)) {
+                    Text("A WORLD,\nWELL DISCOVERED.", color = Color(0xFFF1EBDD), fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 30.sp, lineHeight = 35.sp)
+                    Box(Modifier.width(42.dp).size(height = 1.dp, width = 42.dp).background(Gold))
+                    Text("Thoughtful journeys through Bangladesh and beyond.", color = Color(0xFFD0CABB), fontSize = 13.sp, lineHeight = 20.sp)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text("✦", color = Gold, fontSize = 15.sp)
+                        Text("${districtsDone} OF ${districtsTotal} DISTRICTS EXPLORED", color = Color(0xFFD8C08A), fontSize = 10.sp, letterSpacing = 1.2.sp)
+                    }
+                    LinearProgressIndicator(progress = { if (districtsTotal == 0) 0f else districtsDone.toFloat() / districtsTotal }, modifier = Modifier.fillMaxWidth(), color = Gold, trackColor = Color.White.copy(alpha = 0.12f))
                 }
             }
         }
-        if (trip == null) {
-            item { InfoCard("No trip yet", "Open the Plan tab, set your budget, days and interests, then pick a ranked destination.") }
-        } else {
-            val dest = dests.firstOrNull { it.id == trip.destinationId }
-            val spent = expenses.sumOf { it.amount }
-            item {
-                InfoCard(
-                    title = trip.title,
-                    body = "${trip.days} days | ${trip.travellers} traveller(s) | ${monthName(trip.startMonth)} | budget ${bdt(trip.budget)}",
-                    container = Teal, content = Color.White
-                )
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text("GOOD TO SEE YOU, $name", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, letterSpacing = 1.6.sp)
+                Text("Where to next?", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium)
+                Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                    listOf("Plan a journey", "Explore places", "Ask ORBIT").forEach { label ->
+                        Box(Modifier.weight(1f).clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp)).background(MaterialTheme.colorScheme.surfaceVariant).padding(vertical = 13.dp, horizontal = 8.dp), contentAlignment = Alignment.Center) {
+                            Text(label, color = MaterialTheme.colorScheme.onSurface, fontSize = 11.sp, fontWeight = FontWeight.Medium)
+                        }
+                    }
+                }
+                Text("Use the navigation below to begin.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp)
             }
+        }
+        if (trip != null) {
             item {
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Box(Modifier.weight(1f)) { InfoCard("Weather", weatherLabel(dest, trip.startMonth)) }
-                    Box(Modifier.weight(1f)) { InfoCard("Spent", bdt(spent)) }
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    SectionLabel("YOUR CURRENT JOURNEY")
+                    InfoCard(title = trip.title, body = "${trip.days} days  ·  ${trip.travellers} traveller(s)  ·  ${monthName(trip.startMonth)}\nBudget ${bdt(trip.budget)}  ·  Spent ${bdt(expenses.sumOf { it.amount })}", container = MaterialTheme.colorScheme.surfaceVariant)
+                    rows.take(2).forEach { row -> InfoCard(row.name, "DAY ${row.dayNo}  ·  %02d:00  ·  ${row.category.cap()}".format(row.startHour)) }
                 }
             }
-            if (dest != null) item { TransportCard(vm.transport.describe(dest)) }
-            item { SectionLabel("NEXT UP") }
-            items(rows.take(3), key = { it.id }) { r ->
-                InfoCard(r.name, "Day ${r.dayNo}, %02d:00 | ${r.category.cap()}".format(r.startHour))
+        }
+        val featured = dests.take(4)
+        if (featured.isNotEmpty()) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    SectionLabel("PLACES WORTH THE JOURNEY")
+                    Text("A few considered suggestions.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp)
+                    featured.forEachIndexed { index, destination ->
+                        Row(Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp)).background(MaterialTheme.colorScheme.surface).padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                            Text("%02d".format(index + 1), color = Gold, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 22.sp)
+                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                                Text(destination.name, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
+                                Text("${destination.district}  ·  ${destination.division}", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+                            }
+                            Text("↗", color = Gold, fontSize = 19.sp)
+                        }
+                    }
+                }
             }
+        }
+        val relevant = advisories.sortedByDescending { severityRank(it.severity) }.take(2)
+        if (relevant.isNotEmpty()) {
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                    SectionLabel("TRAVEL NOTES")
+                    relevant.forEach { advisory -> InfoCard(advisory.title, advisory.text, container = MaterialTheme.colorScheme.surfaceVariant) }
+                }
+            }
+        }
+        item {
+            Text("ORBIT  ·  PRIVATE BY DESIGN  ·  MADE FOR THE CURIOUS", Modifier.fillMaxWidth().padding(vertical = 14.dp), color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 9.sp, letterSpacing = 1.1.sp)
         }
     }
 }
@@ -135,8 +166,13 @@ fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        Title("Plan your trip")
-        SectionLabel("TOUR STYLE")
+        Title("Design your escape")
+        InfoCard(
+            "A trip that fits you",
+            "Choose your pace, budget and interests. ORBIT ranks destinations against your preferences before you commit.",
+            container = MaterialTheme.colorScheme.surfaceVariant
+        )
+        SectionLabel("01  ·  TOUR STYLE")
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Tier.entries.forEach { t ->
                 FilterChip(selected = q.tier == t, onClick = { vm.update { it.copy(tier = t) } }, label = { Text(t.label) })
@@ -146,21 +182,21 @@ fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
         Stepper("Days", q.days, 1..7) { v -> vm.update { it.copy(days = v) } }
         Stepper("Travellers", q.travellers, 1..10) { v -> vm.update { it.copy(travellers = v) } }
 
-        SectionLabel("BUDGET: ${bdt(q.budget)}")
+        SectionLabel("02  ·  YOUR BUDGET: ${bdt(q.budget)}")
         Slider(
             value = q.budget.toFloat(),
             onValueChange = { v -> vm.update { p -> p.copy(budget = (v / 500f).roundToInt() * 500) } },
             valueRange = 5_000f..100_000f
         )
 
-        SectionLabel("TRAVEL MONTH")
+        SectionLabel("03  ·  WHEN ARE YOU GOING?")
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             (1..12).forEach { m ->
                 FilterChip(selected = q.month == m, onClick = { vm.update { it.copy(month = m) } }, label = { Text(monthName(m)) })
             }
         }
 
-        SectionLabel("INTERESTS")
+        SectionLabel("04  ·  WHAT DO YOU LOVE?")
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             INTERESTS.forEach { tag ->
                 FilterChip(
@@ -170,7 +206,11 @@ fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
                 )
             }
         }
-        Button(onClick = onFind, modifier = Modifier.fillMaxWidth()) { Text(tr("Find destinations")) }
+        Button(onClick = onFind, modifier = Modifier.fillMaxWidth()) { Text("Discover my destinations  →") }
+        Text(
+            "Recommendations are estimates based on the local destination dataset, your preferences and the current scoring rules.",
+            fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 17.sp
+        )
     }
 }
 
@@ -197,8 +237,10 @@ fun ExploreScreen(vm: OrbitViewModel, onPlanned: () -> Unit) {
 
     LazyColumn(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
-            Title("Explore")
-            Text("${q.tier.label} tour | ${q.days} days, ${bdt(q.budget)}, ${monthName(q.month)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Title("Find your place")
+            Text("Ranked for your travel style", fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
+            Text("${q.tier.label} tour  ·  ${q.days} days  ·  ${bdt(q.budget)}  ·  ${monthName(q.month)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.size(2.dp))
             Spacer(Modifier.size(8.dp))
             OutlinedTextField(
                 value = search, onValueChange = { search = it },
@@ -256,8 +298,8 @@ private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Bo
     Card(Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(46.dp).clip(CircleShape).background(Navy), contentAlignment = Alignment.Center) {
-                    Text("${r.score.percent}", color = Color.White, fontWeight = FontWeight.Bold)
+                Box(Modifier.size(48.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Navy, Teal))), contentAlignment = Alignment.Center) {
+                    Text("${r.score.percent}", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
@@ -268,11 +310,25 @@ private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Bo
                     Icon(if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder, "Favorite", tint = Rose)
                 }
             }
-            Text(d.blurb, fontSize = 14.sp)
-            Text(
-                "Estimated ${bdt(r.score.estimatedCost)} | ${if (r.score.affordable) "within budget" else "over budget"}" + if (visited) " | Visited" else "",
-                fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = if (r.score.affordable) Green else Rose
-            )
+            Text(d.blurb, fontSize = 14.sp, lineHeight = 20.sp)
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(14.dp))
+                    .background(if (r.score.affordable) Green.copy(alpha = 0.09f) else Rose.copy(alpha = 0.09f))
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text("ESTIMATED COST", fontSize = 10.sp, letterSpacing = 1.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
+                    Text(bdt(r.score.estimatedCost), fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                }
+                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(if (r.score.affordable) "BUDGET FIT" else "OVER BUDGET", fontSize = 10.sp, letterSpacing = 0.5.sp, fontWeight = FontWeight.Bold,
+                        color = if (r.score.affordable) Green else Rose)
+                    if (visited) Text("Visited", fontSize = 12.sp, color = Teal, fontWeight = FontWeight.SemiBold)
+                }
+            }
             SectionLabel("WHY THIS SCORE")
             FactorBar("Budget fit", r.score.budget, Orange)
             FactorBar("Interest match", r.score.interest, Purple)
