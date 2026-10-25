@@ -374,13 +374,13 @@ class Brain(private val lex: Lexicon) {
         val asksTransport = Regex("\\b(bus|coach|train|rail|flight|plane|airfare|transport|fare|ticket|route|how to get)\\b").containsMatchIn(norm)
         if (asksTransport && (dests.isNotEmpty() || state.lastPlaceId != null)) {
             val match = dests.firstOrNull() ?: ctx.destinations.firstOrNull { it.id == state.lastPlaceId }?.let { Match(it, "", 0, false) }
-            val target = match?.let { if (it.byDistrict) pickFor(it, resolveQuery(ent, ctx, state, prefs).first) else it.dest }
+            val target = match?.let { if (it.byDistrict) pickFor(it, resolveQuery(ent, ctx, state.lastQuery, prefs).first, ctx) else it.dest }
             if (target != null && ctx.transport != null) {
                 val info = ctx.transport.describe(target)
                 val checked = ctx.transport.checkedOn
                 return out("Getting to ${target.name} from Dhaka:\\n" + info.lines.joinToString("\\n") +
                     "\\nFare data checked: $checked. This is dated reference data, not a live operator quote. Fares, availability and schedules can change; confirm with the railway or operator before paying. I cannot confirm real-time seat availability from this dataset.",
-                    state = state.copy(lastPlaceId = target.id))
+                    state.copy(lastPlaceId = target.id))
             }
         }
 
