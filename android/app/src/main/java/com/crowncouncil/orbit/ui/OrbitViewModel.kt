@@ -446,6 +446,17 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
                 val lastDestination = destinations.value.firstOrNull { it.id == brainState.lastPlaceId }?.name
                     ?: brainState.lastPlan?.destinationName
                 if (!lastDestination.isNullOrBlank()) append("Last destination: $lastDestination. ")
+                val savedPreferences = notes.value.takeLast(12).map { it.text }
+                if (savedPreferences.isNotEmpty()) append("Saved traveller preferences: ${savedPreferences.joinToString("; ").take(900)}. ")
+                val recentConversation = chat.value.drop(1).takeLast(8)
+                if (recentConversation.isNotEmpty()) {
+                    append("Recent conversation: ")
+                    recentConversation.forEach { turn ->
+                        append(if (turn.fromUser) "Traveller: " else "ORBIT: ")
+                        append(turn.text.take(350))
+                        append(" | ")
+                    }
+                }
             }
             val generated = runCatching { translator.translate(text, priorContext) }.getOrNull()?.trim()
             if (generated != null && generated.startsWith("DIRECT_ANSWER:", ignoreCase = true)) {
