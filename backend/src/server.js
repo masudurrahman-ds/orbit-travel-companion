@@ -423,7 +423,7 @@ function createApp(opts = {}) {
   // Public reference imagery from Wikimedia Commons, with attribution/licensing metadata.
   // This is photo retrieval, not generated imagery; callers must display the returned credit.
   route('GET', '/api/places/photos', async (req, res, ctx) => {
-    const q = clean(ctx.url.searchParams.get('q'), 100);
+    const q = clean(new URL(req.url, 'http://localhost').searchParams.get('q'), 100);
     if (q.length < 2) return send(res, 400, { error: 'query_required', message: 'Provide a destination or subject.' });
     try {
       const apiUrl = new URL('https://commons.wikimedia.org/w/api.php');
