@@ -300,6 +300,13 @@ class Brain(private val lex: Lexicon) {
 
     // ------------------------------------------------------------ the agent
     fun respond(utterance: String, ctx: BrainContext, state: BrainState = BrainState()): BrainReply {
+        val result = respondEnglish(utterance, ctx, state)
+        val isBangla = Regex("[\\u0980-\\u09FF]").containsMatchIn(utterance) ||
+            lex.banglish.keys.any { key -> Regex("(^|\\\\W)" + Regex.escape(key) + "($|\\\\W)", RegexOption.IGNORE_CASE).containsMatchIn(utterance) }
+        return if (isBangla) result.copy(reply = BengaliResponse.render(result.reply)) else result
+    }
+
+    private fun respondEnglish(utterance: String, ctx: BrainContext, state: BrainState = BrainState()): BrainReply {
         val norm = normalize(utterance)
         val month = ctx.month
         val prefs = readPreferences(ctx.memory)
