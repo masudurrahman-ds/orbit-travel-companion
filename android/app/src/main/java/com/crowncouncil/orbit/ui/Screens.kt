@@ -163,58 +163,98 @@ fun HomeScreen(vm: OrbitViewModel) {
 fun PlanScreen(vm: OrbitViewModel, onFind: () -> Unit) {
     val q by vm.query.collectAsState()
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(17.dp)
     ) {
-        Title("Design your escape")
-        InfoCard(
-            "A trip that fits you",
-            "Choose your pace, budget and interests. ORBIT ranks destinations against your preferences before you commit.",
-            container = MaterialTheme.colorScheme.surfaceVariant
-        )
-        SectionLabel("01  ·  TOUR STYLE")
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Tier.entries.forEach { t ->
-                FilterChip(selected = q.tier == t, onClick = { vm.update { it.copy(tier = t) } }, label = { Text(t.label) })
+        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+            SectionLabel("THE JOURNEY DESIGNER  ·  01")
+            Text("Make room\\nfor somewhere new.", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium, lineHeight = 36.sp)
+            Text("A few thoughtful choices are all it takes to find a journey that feels like yours.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp, lineHeight = 20.sp)
+        }
+        Box(
+            Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(7.dp))
+                .background(Brush.linearGradient(listOf(Color(0xFF282B22), Color(0xFF111611))))
+                .padding(17.dp)
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                Text("YOUR TRAVEL BRIEF", color = Color(0xFFD8BC7A), fontSize = 9.sp, letterSpacing = 1.5.sp, fontWeight = FontWeight.Bold)
+                Text("${q.days} days  ·  ${q.travellers} traveller(s)", color = Color(0xFFF1EBDD), fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 21.sp)
+                Text("${q.tier.label} experience  ·  ${monthName(q.month)}  ·  ${bdt(q.budget)}", color = Color(0xFFCBC4B3), fontSize = 11.sp)
             }
         }
-        Text(tierBlurb(q.tier), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Stepper("Days", q.days, 1..7) { v -> vm.update { it.copy(days = v) } }
-        Stepper("Travellers", q.travellers, 1..10) { v -> vm.update { it.copy(travellers = v) } }
-
-        SectionLabel("02  ·  YOUR BUDGET: ${bdt(q.budget)}")
-        Slider(
-            value = q.budget.toFloat(),
-            onValueChange = { v -> vm.update { p -> p.copy(budget = (v / 500f).roundToInt() * 500) } },
-            valueRange = 5_000f..100_000f
-        )
-
-        SectionLabel("03  ·  WHEN ARE YOU GOING?")
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            (1..12).forEach { m ->
-                FilterChip(selected = q.month == m, onClick = { vm.update { it.copy(month = m) } }, label = { Text(monthName(m)) })
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            SectionLabel("01  /  THE PACE")
+            Text("What kind of escape?", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge)
+            Row(horizontalArrangement = Arrangement.spacedBy(7.dp), modifier = Modifier.fillMaxWidth()) {
+                Tier.entries.forEach { tier ->
+                    FilterChip(selected = q.tier == tier, onClick = { vm.update { it.copy(tier = tier) } }, label = { Text(tier.label) })
+                }
+            }
+            Text(tierBlurb(q.tier), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 18.sp)
+        }
+        Card(
+            Modifier.fillMaxWidth(),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(7.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = androidx.compose.foundation.BorderStroke(1.dp, Gold.copy(alpha = .22f))
+        ) {
+            Column(Modifier.padding(15.dp), verticalArrangement = Arrangement.spacedBy(13.dp)) {
+                SectionLabel("02  /  THE COMPANY")
+                Stepper("Days away", q.days, 1..7) { value -> vm.update { it.copy(days = value) } }
+                androidx.compose.material3.HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .45f))
+                Stepper("Travellers", q.travellers, 1..10) { value -> vm.update { it.copy(travellers = value) } }
             }
         }
-
-        SectionLabel("04  ·  WHAT DO YOU LOVE?")
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            INTERESTS.forEach { tag ->
-                FilterChip(
-                    selected = tag in q.interests,
-                    onClick = { vm.update { p -> p.copy(interests = if (tag in p.interests) p.interests - tag else p.interests + tag) } },
-                    label = { Text(tag.cap()) }
-                )
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SectionLabel("03  /  THE INVESTMENT")
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom) {
+                Text("Your total budget", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge)
+                Text(bdt(q.budget), color = Gold, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            }
+            Slider(
+                value = q.budget.toFloat(),
+                onValueChange = { value -> vm.update { current -> current.copy(budget = (value / 500f).roundToInt() * 500) } },
+                valueRange = 5_000f..100_000f
+            )
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("BDT 5,000", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp)
+                Text("BDT 100,000", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp)
             }
         }
-        Button(onClick = onFind, modifier = Modifier.fillMaxWidth()) { Text("Discover my destinations  →") }
+        Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+            SectionLabel("04  /  THE SEASON")
+            Text("When will you go?", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(7.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                (1..12).forEach { month ->
+                    FilterChip(selected = q.month == month, onClick = { vm.update { it.copy(month = month) } }, label = { Text(monthName(month)) })
+                }
+            }
+        }
+        Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+            SectionLabel("05  /  THE FEELING")
+            Text("What draws you in?", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(7.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                INTERESTS.forEach { tag ->
+                    FilterChip(
+                        selected = tag in q.interests,
+                        onClick = { vm.update { current -> current.copy(interests = if (tag in current.interests) current.interests - tag else current.interests + tag) } },
+                        label = { Text(tag.cap()) }
+                    )
+                }
+            }
+        }
+        Button(onClick = onFind, modifier = Modifier.fillMaxWidth(), contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 15.dp)) {
+            Text("Reveal my destinations  →")
+        }
         Text(
-            "Recommendations are estimates based on the local destination dataset, your preferences and the current scoring rules.",
-            fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 17.sp
+            "ORBIT ranks places using the bundled destination dataset, your preferences and transparent estimated costs. Fares and conditions should be verified before travel.",
+            fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 16.sp
         )
     }
 }
 
 // ---------------------------------------------------------------- Explore
+
 @Composable
 fun ExploreScreen(vm: OrbitViewModel, onPlanned: () -> Unit) {
     val ranked by vm.ranked.collectAsState()
