@@ -25,8 +25,8 @@ val prepareBangladeshBoundaries by tasks.registering {
         val boundaryText = target.readText()
         require(
             boundaryText.contains("FeatureCollection") &&
-                boundaryText.contains("\\"features\\"") &&
-                boundaryText.length > 1_000_000
+            boundaryText.contains("features") &&
+            boundaryText.length > 1_000_000
         ) {
             "Downloaded Bangladesh ADM3 boundary asset is not a valid FeatureCollection."
         }
@@ -48,7 +48,8 @@ android {
         versionCode = 1
         versionName = "0.2.0"
         // Backend URL. 10.0.2.2 is the emulator's alias for the computer running the backend.
-        buildConfigField("String", "API_BASE_URL", "\\"\u0024{project.findProperty("ORBIT_API_URL") ?: "http://10.0.2.2:8080"}\\"")
+        val apiBaseUrl = project.findProperty("ORBIT_API_URL")?.toString() ?: "http://10.0.2.2:8080"
+        buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
         // Google Maps key: put MAPS_API_KEY=... in ~/.gradle/gradle.properties (never commit it).
         manifestPlaceholders["MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY")?.toString() ?: ""
         // The built-in ORBIT Brain is always the guide. Set ORBIT_CLOUD_AI=true only if you also run the optional cloud guide on the backend.
