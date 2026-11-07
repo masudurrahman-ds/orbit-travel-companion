@@ -55,7 +55,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
 import com.crowncouncil.orbit.data.Destination
 import com.crowncouncil.orbit.data.GeoBoundary
-import com.crowncouncil.orbit.data.GeoBoundaryCatalog
 import com.crowncouncil.orbit.data.TouristLocation
 import com.crowncouncil.orbit.data.TouristLocationCatalog
 import com.crowncouncil.orbit.domain.BangladeshMap
@@ -80,7 +79,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
     var rating by remember { mutableStateOf<Destination?>(null) }
     val ctx = LocalContext.current
     val touristLocations = remember(ctx) { TouristLocationCatalog.load(ctx) }
-    val geographicBoundaries = remember(ctx) { GeoBoundaryCatalog.load(ctx) }
+    val geographicBoundaries = vm.geographicBoundaries
     val visitList by vm.visits.collectAsState()
     val trip by vm.currentTrip.collectAsState()
     val tripRows by vm.rows.collectAsState()
