@@ -97,7 +97,7 @@ fun MoreScreen(onOpen: (Screen) -> Unit) {
                 }
             }
         }
-        SectionLabel("YOUR TOOLS  ·  ${entries.size} DESTINATIONS")
+        SectionLabel("YOUR TOOLS  ·  ${entries.size} TOOLS")
         entries.forEachIndexed { index, (screen, detail) ->
             Card(
                 Modifier.fillMaxWidth().clickable { onOpen(screen) },
