@@ -44,7 +44,17 @@ object BengaliResponse {
         "Budget tour" to "কম বাজেটের ভ্রমণ"
     )
 
-    fun render(english: String): String {
+    fun render(english: String, userMessage: String = ""): String {
+        val normalizedInput = userMessage.lowercase()
+        val tone = when {
+            listOf("ভয়", "ভয়", "চিন্তা", "টেনশন", "নিরাপদ", "সমস্যা", "দুশ্চিন্তা", "worried", "afraid", "tension").any { normalizedInput.contains(it) } ->
+                "তোমার উদ্বেগটা বুঝতে পারছি। নিরাপত্তা ও বাস্তব পরিস্থিতি মাথায় রেখে ধীরে-সুস্থে পরিকল্পনা করি।"
+            listOf("উচ্ছ্বসিত", "এক্সাইটেড", "অপেক্ষা করতে পারছি না", "দারুণ লাগছে", "excited", "can't wait").any { normalizedInput.contains(it) } ->
+                "বাহ, দারুণ! চলো, এই ভ্রমণটাকে স্মরণীয় করে তোলার মতো পরিকল্পনা করি।"
+            listOf("ক্লান্ত", "বিরক্ত", "মন খারাপ", "হতাশ", "tired", "stressed", "upset").any { normalizedInput.contains(it) } ->
+                "বুঝতে পারছি—এমন সময়ে সহজ ও চাপমুক্ত পরিকল্পনাই ভালো।"
+            else -> ""
+        }
         var result = english
         for ((from, to) in phrases) {
             val pattern = Regex("(?<![\\\\p{L}\\\\p{N}])" + Regex.escape(from) + "(?![\\\\p{L}\\\\p{N}])", RegexOption.IGNORE_CASE)
@@ -52,6 +62,6 @@ object BengaliResponse {
         }
         result = result.replace("BDT ", "৳")
             .replace(" — ", " — ")
-        return result
+        return if (tone.isBlank()) result else tone + "\n\n" + result
     }
 }
