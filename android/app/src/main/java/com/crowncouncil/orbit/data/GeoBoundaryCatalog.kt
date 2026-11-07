@@ -65,7 +65,7 @@ object GeoBoundaryCatalog {
                 val geometry = feature.optJSONObject("geometry") ?: return@runCatching null
                 val coordinates = geometry.optJSONArray("coordinates") ?: return@runCatching null
                 val polygons = when (geometry.optString("type")) {
-                    "Polygon" -> listOf(parseRings(coordinates))
+                    "Polygon" -> parseRings(coordinates)?.let(::listOf).orEmpty()
                     "MultiPolygon" -> (0 until coordinates.length()).mapNotNull { polygonIndex ->
                         parseRings(coordinates.getJSONArray(polygonIndex))
                     }
