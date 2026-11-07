@@ -1,6 +1,7 @@
 package com.crowncouncil.orbit.domain
 
 import com.crowncouncil.orbit.data.Destination
+import com.crowncouncil.orbit.data.GeoBoundary
 import com.crowncouncil.orbit.data.TouristLocation
 import java.util.Locale
 
@@ -26,11 +27,30 @@ object GeoKnowledge {
             .replace(Regex("\\s+"), " ")
             .trim()
 
-    private fun catalogue(tourist: List<TouristLocation>, destinations: List<Destination>): List<Place> {
-        val places = tourist.map {
-            Place(it.name, it.latitude, it.longitude, it.district, it.division, it.upazila)
-        } + destinations.map {
-            Place(it.name, it.latitude, it.longitude, it.district, it.division, null)
+    private fun catalogue(
+        tourist: List<TouristLocation>,
+        destinations: List<Destination>,
+        boundaries: List<GeoBoundary>
+    ): List<Place> {
+        fun administrativeArea(latitude: Double, longitude: Double): GeoBoundary? =
+            boundaries.firstOrNull { it.hasAdministrativeMatch && it.contains(longitude, latitude) }
+
+        val places = tourist.map { point ->
+            val area = administrativeArea(point.latitude, point.longitude)
+            Place(
+                point.name, point.latitude, point.longitude,
+                area?.districtName ?: point.district,
+                area?.divisionName ?: point.division,
+                area?.name ?: point.upazila
+            )
+        } + destinations.map { destination ->
+            val area = administrativeArea(destination.latitude, destination.longitude)
+            Place(
+                destination.name, destination.latitude, destination.longitude,
+                area?.districtName ?: destination.district,
+                area?.divisionName ?: destination.division,
+                area?.name
+            )
         }
         return places.distinctBy { normalize(it.name) }
     }
@@ -40,6 +60,7 @@ object GeoKnowledge {
         utterance: String,
         tourist: List<TouristLocation>,
         destinations: List<Destination>,
+        boundaries: List<GeoBoundary>,
         currentLocation: BrainLocation? = null
     ): String? {
         val text = normalize(utterance)
@@ -49,7 +70,7 @@ object GeoKnowledge {
             .any { text.contains(it) }
         if (!asksNearby && !asksInRegion) return null
 
-        val places = catalogue(tourist, destinations)
+        val places = catalogue(tourist, destinations, boundaries)
         if (places.isEmpty()) return "The offline geographic catalogue is not available on this device yet."
 
         if (asksInRegion) {
