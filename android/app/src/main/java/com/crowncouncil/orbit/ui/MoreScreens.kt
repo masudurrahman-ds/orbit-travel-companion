@@ -226,9 +226,10 @@ fun SubmitSpotScreen(vm: OrbitViewModel) {
     val scope = rememberCoroutineScope()
 
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Title("Add a spot")
-        if (user == null) { InfoCard("Sign in to contribute", "Spot suggestions need an account so we can limit spam."); return@Column }
-        Text("Suggest a place worth visiting. New spots are reviewed before they appear for everyone.", fontSize = 13.sp)
+        SectionLabel("CONTRIBUTE TO THE ATLAS")
+        Text("Every place has\na story.", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium, lineHeight = 36.sp)
+        Text("Know somewhere worth discovering? Send it to the ORBIT editorial queue for review.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (user == null) { InfoCard("Contribute when you are ready", "Sign in to suggest a place. Every submission is reviewed before appearing in the atlas."); return@Column }
         OutlinedTextField(name, { name = it.take(60) }, label = { Text("Spot name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
         Column {
             OutlinedButton(onClick = { menu = true }, modifier = Modifier.fillMaxWidth()) { Text(district.ifEmpty { "Choose district" }) }
@@ -236,12 +237,14 @@ fun SubmitSpotScreen(vm: OrbitViewModel) {
                 districts.forEach { d -> DropdownMenuItem(text = { Text(d) }, onClick = { district = d; menu = false }) }
             }
         }
-        SectionLabel("TAGS (1 TO 3)")
+        SectionLabel("THE PLACE  /  01")
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             INTERESTS.forEach { tg -> FilterChip(selected = tg in tags, onClick = { tags = if (tg in tags) tags - tg else if (tags.size < 3) tags + tg else tags }, label = { Text(tg.cap()) }) }
         }
+        SectionLabel("TRAVEL CHARACTER  /  02")
         OutlinedTextField(cost, { cost = it.filter(Char::isDigit).take(5) }, label = { Text("Typical cost per person per day (BDT)") }, singleLine = true, modifier = Modifier.fillMaxWidth(),
             keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = KeyboardType.Number))
+        SectionLabel("A NOTE FOR FUTURE TRAVELLERS  /  03")
         OutlinedTextField(desc, { desc = it.take(300) }, label = { Text("What makes it special?") }, modifier = Modifier.fillMaxWidth(), maxLines = 4)
         result?.let { Text(it, fontWeight = FontWeight.SemiBold) }
         Button(
