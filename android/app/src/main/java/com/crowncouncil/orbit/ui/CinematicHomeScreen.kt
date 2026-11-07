@@ -10,9 +10,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Explore
-import androidx.compose.material.icons.filled.FlightTakeoff
-import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -40,13 +40,13 @@ private val heroPlaces=listOf(
 
 @Composable
 fun CinematicHomeScreen(vm:OrbitViewModel,onPlan:()->Unit,onExplore:()->Unit,onGuide:()->Unit,onMap:()->Unit) {
- val visited by vm.visitedIds.collectAsState()
+ val visited by vm.visitedIds.collectAsState()\n val destinations by vm.destinations.collectAsState()
  val user by vm.user.collectAsState()
  var index by remember{mutableIntStateOf(0)}
  LaunchedEffect(Unit){while(true){delay(5000);index=(index+1)%heroPlaces.size}}
  val transition=rememberInfiniteTransition(label="vehicle")
  val travel by transition.animateFloat(0f,1f,infiniteRepeatable(tween(6800,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="travel")
- val districtCount=visited.size
+ val districtCount=destinations.filter{it.id in visited}.map{it.district}.distinct().size
  LazyColumn(Modifier.fillMaxSize(),contentPadding=PaddingValues(bottom=28.dp),verticalArrangement=Arrangement.spacedBy(20.dp)){
   item{Row(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=16.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically){
    Column{Text("O R B I T",style=MaterialTheme.typography.titleLarge,letterSpacing=4.sp);Text("BANGLADESH, IN MOTION",color=MaterialTheme.colorScheme.primary,fontSize=9.sp,letterSpacing=2.sp,fontWeight=FontWeight.Bold)}
@@ -60,7 +60,7 @@ fun CinematicHomeScreen(vm:OrbitViewModel,onPlan:()->Unit,onExplore:()->Unit,onG
     Text(heroPlaces[index].name,color=Color.White,style=MaterialTheme.typography.headlineMedium,fontSize=36.sp)
     Text(heroPlaces[index].line,color=Color.White.copy(alpha=.9f),fontSize=14.sp)
     Text(heroPlaces[index].region,color=Color.White.copy(alpha=.75f),fontSize=12.sp)
-    Button(onClick=onExplore,colors=ButtonDefaults.buttonColors(containerColor=Color(0xFFD5B979),contentColor=Color(0xFF171711))){Text("Discover this place");Icon(Icons.Default.Explore,null,Modifier.padding(start=6.dp))}
+    Button(onClick=onExplore,colors=ButtonDefaults.buttonColors(containerColor=Color(0xFFD5B979),contentColor=Color(0xFF171711))){Text("Discover this place");Icon(Icons.Default.Search,null,Modifier.padding(start=6.dp))}
    }
    Column(Modifier.align(Alignment.BottomEnd).padding(end=10.dp,bottom=10.dp).offset(x=(travel*34f).dp),horizontalAlignment=Alignment.End) {
     Text("BANGLADESH RAIL · LIVE JOURNEY",color=Color.White.copy(alpha=.86f),fontSize=8.sp,letterSpacing=1.sp)
@@ -76,13 +76,13 @@ fun CinematicHomeScreen(vm:OrbitViewModel,onPlan:()->Unit,onExplore:()->Unit,onG
    Row(Modifier.align(Alignment.TopEnd).padding(16.dp),horizontalArrangement=Arrangement.spacedBy(5.dp)){heroPlaces.indices.forEach{i->Box(Modifier.size(if(i==index)18.dp else 6.dp,6.dp).clip(CircleShape).background(if(i==index)Color.White else Color.White.copy(alpha=.55f)))}}
   }}
   item{Row(Modifier.fillMaxWidth().padding(horizontal=16.dp),horizontalArrangement=Arrangement.spacedBy(9.dp)){
-   ActionTile("Plan a trip","Create itinerary",Icons.Default.FlightTakeoff,onPlan,Modifier.weight(1f))
+   ActionTile("Plan a trip","Create itinerary",Icons.Default.Create,onPlan,Modifier.weight(1f))
    ActionTile("Ask ORBIT","AI travel guide",Icons.Default.Face,onGuide,Modifier.weight(1f))
-   ActionTile("Explore map","Bangladesh",Icons.Default.Map,onMap,Modifier.weight(1f))
+   ActionTile("Explore map","Bangladesh",Icons.Default.Place,onMap,Modifier.weight(1f))
   }}
   item{Row(Modifier.fillMaxWidth().padding(horizontal=20.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically){
    Column{Text("Welcome back, ${user?.displayName?.substringBefore(" ") ?: "Traveller"}",style=MaterialTheme.typography.titleLarge);Text("Your next story starts somewhere.",color=MaterialTheme.colorScheme.onSurfaceVariant,fontSize=13.sp)}
-   Column(horizontalAlignment=Alignment.End){Text("$districtCount / 113",color=MaterialTheme.colorScheme.primary,fontWeight=FontWeight.Bold);Text("places explored",fontSize=10.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)}
+   Column(horizontalAlignment=Alignment.End){Text("$districtCount / 64",color=MaterialTheme.colorScheme.primary,fontWeight=FontWeight.Bold);Text("districts explored",fontSize=10.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)}
   }}
   item{Column(Modifier.padding(horizontal=18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){Text("Find your kind of escape",style=MaterialTheme.typography.titleLarge);Row(horizontalArrangement=Arrangement.spacedBy(7.dp)){listOf("Beach","Hills","Nature","Heritage").forEach{OutlinedButton(onClick=onExplore,modifier=Modifier.weight(1f),contentPadding=PaddingValues(horizontal=3.dp)){Text(it,fontSize=11.sp)}}}}}
   item{Column(Modifier.padding(horizontal=18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){
