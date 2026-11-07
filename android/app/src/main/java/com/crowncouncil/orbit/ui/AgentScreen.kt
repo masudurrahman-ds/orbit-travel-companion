@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -184,7 +183,7 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
                 Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                     AssistChip(onClick = { vm.ask("Plan a budget-friendly trip within BDT ${q.budget}.") }, label = { Text("Budget escape") })
                     AssistChip(onClick = { vm.ask("Suggest a destination I have not visited.") }, label = { Text("Surprise me") })
-                    AssistChip(onClick = { imageMode = !imageMode }, label = { Icon(Icons.Default.Image, null, Modifier.size(15.dp)); Text("Image") })
+                    AssistChip(onClick = { imageMode = !imageMode }, label = { Text("Image") })
                 }
                 Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedTextField(
