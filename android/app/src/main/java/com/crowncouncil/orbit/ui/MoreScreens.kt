@@ -63,6 +63,18 @@ fun MoreScreen(onOpen: (Screen) -> Unit) {
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Title("More")
         InfoCard("Your travel toolkit", "Everything for planning, exploring, tracking and sharing your journey.", container = MaterialTheme.colorScheme.surfaceVariant)
+        val appearance = LocalOrbitThemePreference.current
+        Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp)) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text("Appearance", style = MaterialTheme.typography.titleMedium)
+                Text("Choose how ORBIT looks on this device.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf("system" to "System", "light" to "Light", "dark" to "Dark").forEach { (value, label) ->
+                        FilterChip(selected = appearance.mode == value, onClick = { appearance.setMode(value) }, label = { Text(label) })
+                    }
+                }
+            }
+        }
         listOf(
             Screen.Trip to "Day-by-day plan for your current trip",
             Screen.Budget to "Track spending against your budget",
