@@ -53,6 +53,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
 import com.crowncouncil.orbit.data.Destination
+import com.crowncouncil.orbit.data.TouristLocation
+import com.crowncouncil.orbit.data.TouristLocationCatalog
 import com.crowncouncil.orbit.domain.BangladeshMap
 import com.crowncouncil.orbit.domain.Badge
 import com.crowncouncil.orbit.domain.Badges
@@ -68,11 +70,13 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
     val dests by vm.destinations.collectAsState()
     val visited by vm.visitedIds.collectAsState()
     var selected by remember { mutableStateOf<String?>(null) }
+    var selectedTourist by remember { mutableStateOf<TouristLocation?>(null) }
     var search by remember { mutableStateOf("") }
     var mapZoom by remember { mutableStateOf(1f) }
     var mapPan by remember { mutableStateOf(Offset.Zero) }
     var rating by remember { mutableStateOf<Destination?>(null) }
     val ctx = LocalContext.current
+    val touristLocations = remember(ctx) { TouristLocationCatalog.load(ctx) }
     val visitList by vm.visits.collectAsState()
     val trip by vm.currentTrip.collectAsState()
     val tripRows by vm.rows.collectAsState()
@@ -141,7 +145,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text("BANGLADESH", color = Color(0xFFE9D6A5), fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-                    Text("64 DISTRICTS", color = Color(0xFF9CB2A7), fontSize = 10.sp, letterSpacing = 1.sp)
+                    Text("64 DISTRICTS · ${touristLocations.size} PLACES", color = Color(0xFF9CB2A7), fontSize = 9.sp, letterSpacing = 0.5.sp)
                 }
                 Canvas(
                     Modifier.fillMaxWidth().aspectRatio(BangladeshMap.ASPECT)
@@ -153,15 +157,30 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                             translationY = mapPan.y
                             clip = true
                         }
-                        .pointerInput(mapZoom, mapPan, centres) {
+                        .pointerInput(mapZoom, mapPan, centres, touristLocations) {
                             detectTapGestures { tap ->
                                 val mapTap = Offset((tap.x - mapPan.x) / mapZoom, (tap.y - mapPan.y) / mapZoom)
                                 val limit = 40.dp.toPx() / mapZoom
-                                val hit = centres.minByOrNull { (_, p) ->
-                                    (Offset(p.first * size.width, p.second * size.height) - mapTap).getDistance()
+                                val touristHit = touristLocations.minByOrNull { place ->
+                                    val point = BangladeshMap.project(place.longitude, place.latitude)
+                                    (Offset(point.first * size.width, point.second * size.height) - mapTap).getDistance()
                                 }
-                                if (hit != null && (Offset(hit.value.first * size.width, hit.value.second * size.height) - mapTap).getDistance() <= limit) {
-                                    selected = hit.key
+                                val touristDistance = touristHit?.let { place ->
+                                    val point = BangladeshMap.project(place.longitude, place.latitude)
+                                    (Offset(point.first * size.width, point.second * size.height) - mapTap).getDistance()
+                                } ?: Float.MAX_VALUE
+                                val districtHit = centres.minByOrNull { (_, point) ->
+                                    (Offset(point.first * size.width, point.second * size.height) - mapTap).getDistance()
+                                }
+                                val districtDistance = districtHit?.let { (_, point) ->
+                                    (Offset(point.first * size.width, point.second * size.height) - mapTap).getDistance()
+                                } ?: Float.MAX_VALUE
+                                if (touristDistance <= limit && touristDistance <= districtDistance) {
+                                    selectedTourist = touristHit
+                                    selected = null
+                                } else if (districtHit != null && districtDistance <= limit) {
+                                    selected = districtHit.key
+                                    selectedTourist = null
                                 }
                             }
                         }
@@ -201,6 +220,17 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                     path.close()
                     drawPath(path, Brush.linearGradient(listOf(Color(0xFF426A58), Color(0xFF213F35), Color(0xFF172C27))))
                     drawPath(path, Color(0xFFC6A568), style = Stroke(width = 2.dp.toPx()))
+                    // Exact tourist placemarks from the offline Travel Mate import.
+                    touristLocations.forEach { place ->
+                        val point = BangladeshMap.project(place.longitude, place.latitude)
+                        val c = Offset(point.first * size.width, point.second * size.height)
+                        val markerScale = mapZoom.coerceAtLeast(1f)
+                        drawCircle(Color(0xFF07110E), radius = (5.5f / markerScale).dp.toPx(), center = c)
+                        drawCircle(Color(0xFF73D6C2), radius = (3.2f / markerScale).dp.toPx(), center = c)
+                        if (selectedTourist?.id == place.id) {
+                            drawCircle(Color(0xFFFFD77F), radius = (8f / markerScale).dp.toPx(), center = c, style = Stroke(width = 1.5.dp.toPx()))
+                        }
+                    }
                     centres.forEach { (district, point) ->
                         val c = Offset(point.first * size.width, point.second * size.height)
                         if (district in doneDistricts) {
@@ -244,8 +274,8 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                         Text("Visited", color = Color(0xFFE8E5DA), fontSize = 11.sp)
                     }
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                        Text("●", color = Color(0xFFB8C9BF), fontSize = 12.sp)
-                        Text("Not yet visited", color = Color(0xFFE8E5DA), fontSize = 11.sp)
+                        Text("●", color = Color(0xFF73D6C2), fontSize = 12.sp)
+                        Text("Tourist place", color = Color(0xFFE8E5DA), fontSize = 11.sp)
                     }
                     Text("Tap a marker", color = Color(0xFFB8C9BF), fontSize = 10.sp)
                 }
@@ -257,8 +287,8 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
             onValueChange = { search = it },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            label = { Text("Find a district") },
-            placeholder = { Text("e.g. Sylhet, Bandarban, Dhaka") }
+            label = { Text("Find a district or tourist place") },
+            placeholder = { Text("e.g. Jaflong, Tara Masjid, Sylhet") }
         )
         FlowRow(horizontalArrangement = Arrangement.spacedBy(7.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
             shownDistricts.forEach { district ->
@@ -268,6 +298,28 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                     onClick = { selected = if (selected == district) null else district },
                     label = { Text((if (done) "✓ " else "") + district, fontSize = 12.sp) }
                 )
+            }
+        }
+
+        selectedTourist?.let { place ->
+            Card(
+                Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+            ) {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                        Text("FEATURED PLACE", color = Gold, fontSize = 10.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold)
+                        TextButton(onClick = { selectedTourist = null }) { Text("Close") }
+                    }
+                    Text(place.name, style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        listOfNotNull(place.upazila, place.district, place.sourceRegion.takeIf { it.isNotBlank() }).distinct().joinToString(" · ").ifBlank { "Bangladesh" },
+                        color = faint, fontSize = 12.sp
+                    )
+                    Text("${"%.5f".format(place.latitude)}, ${"%.5f".format(place.longitude)}", color = faint, fontSize = 11.sp)
+                    Text("Offline map point · Source: Travel Mate KML", color = faint, fontSize = 10.sp)
+                }
             }
         }
 
@@ -324,7 +376,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                 }) { Text("Trip story") }
             }
         }
-        Text("Map pins use destination coordinates in ORBIT's bundled dataset. The outline is a stylised illustration, not an official boundary or navigation map.", color = faint, fontSize = 11.sp, lineHeight = 16.sp)
+        Text("Tourist markers use the bundled offline Travel Mate placemarks. District outline remains a stylised illustration, not an official boundary or navigation map. Confirm source reuse permission before public release.", color = faint, fontSize = 11.sp, lineHeight = 16.sp)
     }
 
     rating?.let { spot ->
