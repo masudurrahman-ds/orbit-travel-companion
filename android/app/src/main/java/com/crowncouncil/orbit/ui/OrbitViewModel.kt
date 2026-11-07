@@ -9,6 +9,7 @@ import com.crowncouncil.orbit.BuildConfig
 import com.crowncouncil.orbit.data.ActivityOption
 import com.crowncouncil.orbit.data.ChatTurn
 import com.crowncouncil.orbit.data.Destination
+import com.crowncouncil.orbit.data.GeoBoundaryCatalog
 import com.crowncouncil.orbit.data.Expense
 import com.crowncouncil.orbit.data.ItineraryItem
 import com.crowncouncil.orbit.data.ItineraryRow
@@ -129,6 +130,7 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
     val transport = TransportData(app.assets.open("travel-costs.json").bufferedReader().use { it.readText() })
     /** Loaded once per ViewModel and shared with the offline geographic reasoning tool. */
     private val touristPlaces = TouristLocationCatalog.load(app)
+    val geographicBoundaries = GeoBoundaryCatalog.load(app)
 
     // Advisories and community prices come from the backend and are cached so they still show offline.
     private val cache = app.getSharedPreferences("orbit_cache", Context.MODE_PRIVATE)
@@ -434,7 +436,8 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
             location = location?.let { BrainLocation(it.first, it.second, targetId) },
             advisories = advisories.value,
             transport = transport,
-            touristPlaces = touristPlaces
+            touristPlaces = touristPlaces,
+            geographicBoundaries = geographicBoundaries
         )
         // Rebuild the native Brain's short-term planning state from local chat history after app restarts.
         // Replay only prior user turns; actions are intentionally ignored so old "remember" commands are not repeated.
