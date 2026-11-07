@@ -5,6 +5,29 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
+// Pin the administrative boundary source so every build packages the same offline geometry.
+val bangladeshBoundaryAsset = layout.projectDirectory.file("src/main/assets/bangladesh-upazilas.geojson")
+val prepareBangladeshBoundaries by tasks.registering {
+    outputs.file(bangladeshBoundaryAsset)
+    doLast {
+        val target = bangladeshBoundaryAsset.asFile
+        if (!target.exists() || target.length() == 0L) {
+            target.parentFile.mkdirs()
+            val source = java.net.URL(
+                "https://raw.githubusercontent.com/wmgeolab/geoBoundaries/9469f09/releaseData/gbOpen/BGD/ADM3/geoBoundaries-BGD-ADM3_simplified.geojson"
+            )
+            source.openStream().use { input ->
+                target.outputStream().use { output -> input.copyTo(output) }
+            }
+        }
+        require(target.length() > 100_000L) { "Bangladesh ADM3 boundary asset download was incomplete." }
+    }
+}
+
+tasks.named("preBuild").configure {
+    dependsOn(prepareBangladeshBoundaries)
+}
+
 android {
     namespace = "com.crowncouncil.orbit"
     compileSdk = 35
