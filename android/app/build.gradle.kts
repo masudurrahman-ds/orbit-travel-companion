@@ -20,7 +20,11 @@ val prepareBangladeshBoundaries by tasks.registering {
                 target.outputStream().use { output -> input.copyTo(output) }
             }
         }
-        require(target.length() > 100_000L) { "Bangladesh ADM3 boundary asset download was incomplete." }
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+            .digest(target.readBytes()).joinToString("") { "%02x".format(it) }
+        require(digest == "49ac76da270c80f17563894eae79a3c8df818312d1d5fbfde0334a9be2864017") {
+            "Bangladesh ADM3 boundary asset checksum mismatch."
+        }
     }
 }
 
