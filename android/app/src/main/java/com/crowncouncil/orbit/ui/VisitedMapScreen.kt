@@ -165,11 +165,19 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                                 }
                             }
                         }
-                        .pointerInput(Unit) {
+                        .pointerInput(mapZoom, mapPan) {
                             detectTransformGestures { centroid, pan, zoomChange, _ ->
                                 val nextZoom = (mapZoom * zoomChange).coerceIn(1f, 5f)
                                 val zoomRatio = nextZoom / mapZoom
-                                mapPan = (mapPan + pan + (centroid - Offset.Zero) * (1f - zoomRatio))
+                                val proposed = mapPan + pan + (centroid - Offset.Zero) * (1f - zoomRatio)
+                                // Keep the transformed map covering the viewport: users can pan
+                                // freely, but cannot lose the country completely off-screen.
+                                val maxX = size.width * (1f - nextZoom)
+                                val maxY = size.height * (1f - nextZoom)
+                                mapPan = Offset(
+                                    proposed.x.coerceIn(maxX, 0f),
+                                    proposed.y.coerceIn(maxY, 0f)
+                                )
                                 mapZoom = nextZoom
                             }
                         }
