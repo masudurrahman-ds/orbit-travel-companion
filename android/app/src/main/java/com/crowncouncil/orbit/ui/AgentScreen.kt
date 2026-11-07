@@ -36,6 +36,8 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
     val imageBusy by vm.imageBusy.collectAsState()
     val imageError by vm.imageError.collectAsState()
     val q by vm.query.collectAsState()
+    val llmReady by vm.llmReady.collectAsState()
+    val llmEnabled by vm.llmEnabled.collectAsState()
     val list = rememberLazyListState()
     var input by remember { mutableStateOf("") }
     var imagePrompt by remember { mutableStateOf("") }
@@ -59,8 +61,8 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
                 }
                 Surface(shape = RoundedCornerShape(30.dp), color = Color.White.copy(alpha = .08f)) {
                     Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Box(Modifier.size(6.dp).clip(CircleShape).background(if (vm.llmReady.value) Color(0xFF9DC49A) else Color(0xFFD8BC7A)))
-                        Text(if (vm.llmReady.value) "ON-DEVICE AI" else "LOCAL BRAIN", color = Color(0xFFE7DEC9), fontSize = 9.sp, letterSpacing = .7.sp)
+                        Box(Modifier.size(6.dp).clip(CircleShape).background(if (llmReady && llmEnabled) Color(0xFF9DC49A) else Color(0xFFD8BC7A)))
+                        Text(if (llmReady && llmEnabled) "ON-DEVICE MODEL" else "LOCAL BRAIN", color = Color(0xFFE7DEC9), fontSize = 9.sp, letterSpacing = .7.sp)
                     }
                 }
             }
