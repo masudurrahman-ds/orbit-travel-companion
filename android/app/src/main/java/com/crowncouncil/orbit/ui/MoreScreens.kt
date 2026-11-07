@@ -142,26 +142,70 @@ fun RankingScreen(vm: OrbitViewModel) {
         if (!r.ok) { status = if (r.status == 0) "Cannot reach the server." else "Could not load rankings."; return }
         val arr = r.body?.optJSONArray("top") ?: JSONArray()
         rows = (0 until arr.length()).map { arr.getJSONObject(it) }
-        me = r.body?.optJSONObject("me"); optedIn = r.body?.optBoolean("optedIn") == true
+        me = r.body?.optJSONObject("me")
+        optedIn = r.body?.optBoolean("optedIn") == true
         status = if (rows.isEmpty()) "No travellers on the board yet." else ""
     }
     LaunchedEffect(user) { if (user != null) load() }
 
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Title("Traveller rankings")
-        if (user == null) { InfoCard("Sign in to compete", "Rankings need an account. Create one under More, Account."); return@Column }
-        Text("Ranked by GPS-verified check-ins first, then by different spots and districts visited. Verified means the phone reported a position near the spot; it raises the bar but is not proof.", fontSize = 13.sp)
+    Column(
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(13.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+            SectionLabel("THE ORBIT COMMUNITY")
+            Text("The traveller\nindex.", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium, lineHeight = 36.sp)
+            Text("A record of the places people have explored, measured by check-ins and discovery.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp, lineHeight = 19.sp)
+        }
+        if (user == null) {
+            InfoCard("Your journey starts here", "Sign in from Account to join the community traveller index.")
+            return@Column
+        }
         if (!optedIn) {
-            InfoCard("You are not on the board", "Join to appear with your display name and visit counts. You can leave any time.")
-            Button(onClick = { scope.launch { user?.consent?.let { c -> vm.updateConsent(c.copy(leaderboard = true)) { scope.launch { load() } } } } }) { Text(tr("Join the leaderboard")) }
-        } else me?.let { InfoCard("Your rank: #${it.optInt("rank")}", "${it.optInt("verified")} GPS-verified, ${it.optInt("spots")} spots in ${it.optInt("districts")} districts") }
-        if (status.isNotEmpty()) Text(status)
-        rows.forEach { r ->
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("#${r.optInt("rank")}  ${r.optString("displayName")}" + if (r.optBoolean("isMe")) "  (you)" else "", fontWeight = if (r.optBoolean("isMe")) FontWeight.Bold else FontWeight.Normal)
-                Text("${r.optInt("verified")} verified | ${r.optInt("spots")} spots | ${r.optInt("districts")} districts", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp)
+            InfoCard("Your name stays private", "Join only if you want your display name and visit counts to appear on the public board. You can opt out at any time.")
+            Button(onClick = { scope.launch { user?.consent?.let { consent -> vm.updateConsent(consent.copy(leaderboard = true)) { scope.launch { load() } } } } }) {
+                Text("Join the traveller index  →")
+            }
+        } else {
+            me?.let {
+                Box(
+                    Modifier.fillMaxWidth().clip(androidx.compose.foundation.shape.RoundedCornerShape(7.dp))
+                        .background(Brush.linearGradient(listOf(Color(0xFF292B22), Color(0xFF111511))))
+                        .padding(17.dp)
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text("YOUR CURRENT POSITION", color = Color(0xFFD8BC7A), fontSize = 9.sp, letterSpacing = 1.4.sp, fontWeight = FontWeight.Bold)
+                        Text("#${it.optInt("rank")}", color = Color(0xFFF1EBDD), fontSize = 34.sp, fontWeight = FontWeight.Light, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif)
+                        Text("${it.optInt("verified")} GPS-reported check-ins  ·  ${it.optInt("spots")} spots  ·  ${it.optInt("districts")} districts", color = Color(0xFFCBC4B3), fontSize = 11.sp)
+                    }
+                }
             }
         }
+        if (status.isNotEmpty()) Text(status, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+        if (rows.isNotEmpty()) {
+            SectionLabel("COMMUNITY LEADERS")
+            rows.forEach { row ->
+                Card(
+                    Modifier.fillMaxWidth(),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(7.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = .4f))
+                ) {
+                    Row(
+                        Modifier.padding(horizontal = 13.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Text("%02d".format(row.optInt("rank")), color = Gold, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 21.sp)
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text(row.optString("displayName") + if (row.optBoolean("isMe")) "  ·  YOU" else "", fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface, fontSize = 14.sp)
+                            Text("${row.optInt("verified")} verified  ·  ${row.optInt("spots")} spots  ·  ${row.optInt("districts")} districts", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp)
+                        }
+                    }
+                }
+            }
+        }
+        Text("GPS-reported proximity raises the check-in confidence; it is not independent proof that a visit occurred.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, lineHeight = 15.sp)
     }
 }
 
