@@ -24,7 +24,7 @@ val prepareBangladeshBoundaries by tasks.registering {
             }
         }
         val boundaryText = target.readText()
-        require(boundaryText.contains("\"type\":\"FeatureCollection\"") &&
+        require(Regex("\\\"type\\\"\\\\s*:\\\\s*\\\"FeatureCollection\\\"").containsMatchIn(boundaryText) &&
             boundaryText.contains("\"features\"") && boundaryText.length > 1_000_000) {
             "Downloaded Bangladesh ADM3 boundary asset is not a valid FeatureCollection."
         }
