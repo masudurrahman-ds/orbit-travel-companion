@@ -2,7 +2,7 @@ package com.crowncouncil.orbit.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,10 +10,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,83 +21,265 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 
-private data class HeroPlace(val name:String,val region:String,val line:String,val image:String)
-private val heroPlaces=listOf(
- HeroPlace("Sajek Valley","Rangamati · Chattogram","Clouds at your doorstep","https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=85"),
- HeroPlace("Cox's Bazar","Cox's Bazar · Chattogram","A horizon that never ends","https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1200&q=85"),
- HeroPlace("Jaflong","Sylhet","Where rivers meet the hills","https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&q=85"),
- HeroPlace("Ratargul","Sylhet","Into the quiet green","https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=85")
+private data class HeroPlace(val name: String, val region: String, val line: String, val image: String, val number: String)
+
+private val heroPlaces = listOf(
+    HeroPlace("Sajek Valley", "Rangamati · Chattogram", "Above the clouds, closer to yourself", "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1400&q=90", "01"),
+    HeroPlace("Cox's Bazar", "Cox's Bazar · Chattogram", "Follow the horizon a little further", "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1400&q=90", "02"),
+    HeroPlace("Jaflong", "Sylhet", "Where the river finds the hills", "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1400&q=90", "03"),
+    HeroPlace("Ratargul", "Sylhet", "A quieter kind of adventure", "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1400&q=90", "04")
 )
 
+private val OrbitGold = Color(0xFFD4B879)
+private val OrbitInk = Color(0xFF10120F)
+
 @Composable
-fun CinematicHomeScreen(vm:OrbitViewModel,onPlan:()->Unit,onExplore:()->Unit,onGuide:()->Unit,onMap:()->Unit) {
- val visited by vm.visitedIds.collectAsState()
- val destinations by vm.destinations.collectAsState()
- val user by vm.user.collectAsState()
- var index by remember{mutableIntStateOf(0)}
- LaunchedEffect(Unit){while(true){delay(5000);index=(index+1)%heroPlaces.size}}
- val transition=rememberInfiniteTransition(label="vehicle")
- val travel by transition.animateFloat(0f,1f,infiniteRepeatable(tween(6800,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="travel")
- val districtCount=destinations.filter{it.id in visited}.map{it.district}.distinct().size
- LazyColumn(Modifier.fillMaxSize(),contentPadding=PaddingValues(bottom=28.dp),verticalArrangement=Arrangement.spacedBy(20.dp)){
-  item{Row(Modifier.fillMaxWidth().padding(horizontal=20.dp,vertical=16.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically){
-   Column{Text("O R B I T",style=MaterialTheme.typography.titleLarge,letterSpacing=4.sp);Text("BANGLADESH, IN MOTION",color=MaterialTheme.colorScheme.primary,fontSize=9.sp,letterSpacing=2.sp,fontWeight=FontWeight.Bold)}
-   Text("✳",fontSize=25.sp,color=MaterialTheme.colorScheme.primary)
-  }}
-  item{Box(Modifier.fillMaxWidth().padding(horizontal=16.dp).height(430.dp).clip(RoundedCornerShape(28.dp))){
-   Crossfade(index,label="hero-photo"){i->AsyncImage(model=heroPlaces[i].image,contentDescription=heroPlaces[i].name,modifier=Modifier.fillMaxSize(),contentScale=androidx.compose.ui.layout.ContentScale.Crop)}
-   Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Transparent,Color.Black.copy(alpha=.12f),Color.Black.copy(alpha=.88f)))))
-   Column(Modifier.align(Alignment.BottomStart).padding(23.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
-    Text("BANGLADESH · DESTINATION SPOTLIGHT",color=Color.White.copy(alpha=.8f),fontSize=9.sp,letterSpacing=1.4.sp)
-    Text(heroPlaces[index].name,color=Color.White,style=MaterialTheme.typography.headlineMedium,fontSize=36.sp)
-    Text(heroPlaces[index].line,color=Color.White.copy(alpha=.9f),fontSize=14.sp)
-    Text(heroPlaces[index].region,color=Color.White.copy(alpha=.75f),fontSize=12.sp)
-    Button(onClick=onExplore,colors=ButtonDefaults.buttonColors(containerColor=Color(0xFFD5B979),contentColor=Color(0xFF171711))){Text("Discover this place");Icon(Icons.Default.Search,null,Modifier.padding(start=6.dp))}
-   }
-   Column(Modifier.align(Alignment.BottomEnd).padding(end=10.dp,bottom=10.dp).offset(x=(travel*34f).dp),horizontalAlignment=Alignment.End) {
-    Text("BANGLADESH RAIL · LIVE JOURNEY",color=Color.White.copy(alpha=.86f),fontSize=8.sp,letterSpacing=1.sp)
-    Canvas(Modifier.size(width=158.dp,height=48.dp)) {
-     drawRoundRect(Color.White.copy(alpha=.25f),Offset(3f,8f),Size(size.width-8f,28f),CornerRadius(10f,10f))
-     drawRoundRect(Color.White.copy(alpha=.58f),Offset(10f,13f),Size(size.width-25f,17f),CornerRadius(5f,5f))
-     for(i in 0..4) drawRoundRect(Color(0xFF34443D).copy(alpha=.72f),Offset(16f+i*25f,16f),Size(18f,10f),CornerRadius(2f,2f))
-     drawRoundRect(Color(0xFFD5B979).copy(alpha=.9f),Offset(size.width-20f,18f),Size(8f,8f),CornerRadius(3f,3f))
-     drawCircle(Color(0xFF222522),5f,Offset(34f,38f));drawCircle(Color(0xFF222522),5f,Offset(size.width-37f,38f))
-     drawCircle(Color.White.copy(alpha=.75f),2f,Offset(34f,38f));drawCircle(Color.White.copy(alpha=.75f),2f,Offset(size.width-37f,38f))
+fun CinematicHomeScreen(vm: OrbitViewModel, onPlan: () -> Unit, onExplore: () -> Unit, onGuide: () -> Unit, onMap: () -> Unit) {
+    val visited by vm.visitedIds.collectAsState()
+    val destinations by vm.destinations.collectAsState()
+    val user by vm.user.collectAsState()
+    val appearance = LocalOrbitThemePreference.current
+    var index by remember { mutableIntStateOf(0) }
+    var showAllPlaces by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(6500)
+            index = (index + 1) % heroPlaces.size
+        }
     }
-   }
-   Row(Modifier.align(Alignment.TopEnd).padding(16.dp),horizontalArrangement=Arrangement.spacedBy(5.dp)){heroPlaces.indices.forEach{i->Box(Modifier.size(if(i==index)18.dp else 6.dp,6.dp).clip(CircleShape).background(if(i==index)Color.White else Color.White.copy(alpha=.55f)))}}
-  }}
-  item{Row(Modifier.fillMaxWidth().padding(horizontal=16.dp),horizontalArrangement=Arrangement.spacedBy(9.dp)){
-   ActionTile("Plan a trip","Create itinerary",Icons.Default.Create,onPlan,Modifier.weight(1f))
-   ActionTile("Ask ORBIT","AI travel guide",Icons.Default.Face,onGuide,Modifier.weight(1f))
-   ActionTile("Explore map","Bangladesh",Icons.Default.Place,onMap,Modifier.weight(1f))
-  }}
-  item{Row(Modifier.fillMaxWidth().padding(horizontal=20.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically){
-   Column{Text("Welcome back, ${user?.displayName?.substringBefore(" ") ?: "Traveller"}",style=MaterialTheme.typography.titleLarge);Text("Your next story starts somewhere.",color=MaterialTheme.colorScheme.onSurfaceVariant,fontSize=13.sp)}
-   Column(horizontalAlignment=Alignment.End){Text("$districtCount / 64",color=MaterialTheme.colorScheme.primary,fontWeight=FontWeight.Bold);Text("districts explored",fontSize=10.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)}
-  }}
-  item{Column(Modifier.padding(horizontal=18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){Text("Find your kind of escape",style=MaterialTheme.typography.titleLarge);Row(horizontalArrangement=Arrangement.spacedBy(7.dp)){listOf("Beach","Hills","Nature","Heritage").forEach{OutlinedButton(onClick=onExplore,modifier=Modifier.weight(1f),contentPadding=PaddingValues(horizontal=3.dp)){Text(it,fontSize=11.sp)}}}}}
-  item{Column(Modifier.padding(horizontal=18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){
-   Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.SpaceBetween){Text("Places worth the journey",style=MaterialTheme.typography.titleLarge);Text("See all →",color=MaterialTheme.colorScheme.primary,modifier=Modifier.clickable(onClick=onExplore))}
-   heroPlaces.drop(1).forEach{place->Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(17.dp)).background(MaterialTheme.colorScheme.surface).clickable(onClick=onExplore).padding(9.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)){
-    AsyncImage(place.image,place.name,Modifier.size(82.dp).clip(RoundedCornerShape(12.dp)),contentScale=androidx.compose.ui.layout.ContentScale.Crop)
-    Column(Modifier.weight(1f)){Text(place.name,fontWeight=FontWeight.SemiBold);Text(place.region,fontSize=12.sp,color=MaterialTheme.colorScheme.onSurfaceVariant);Text(place.line,fontSize=11.sp,color=MaterialTheme.colorScheme.primary)}
-    Text("↗",color=MaterialTheme.colorScheme.primary,fontSize=20.sp)
-   }}
-  }}
- }
+
+    val motion = rememberInfiniteTransition(label = "journey-motion")
+    val vehicleOffset by motion.animateFloat(
+        initialValue = -12f,
+        targetValue = 12f,
+        animationSpec = infiniteRepeatable(tween(3200, easing = FastOutSlowInEasing), RepeatMode.Reverse),
+        label = "vehicle-offset"
+    )
+    val districtCount = destinations.filter { it.id in visited }.map { it.district }.distinct().size
+    val travellerName = user?.displayName?.substringBefore(" ") ?: "Traveller"
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(bottom = 34.dp),
+        verticalArrangement = Arrangement.spacedBy(25.dp)
+    ) {
+        item {
+            Row(
+                Modifier.fillMaxWidth().padding(start = 22.dp, end = 18.dp, top = 19.dp, bottom = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("O R B I T", color = MaterialTheme.colorScheme.onBackground, fontSize = 23.sp, fontWeight = FontWeight.Light, letterSpacing = 5.sp, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif)
+                    Text("THE ART OF GOING FURTHER", color = MaterialTheme.colorScheme.secondary, fontSize = 8.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.8.sp)
+                }
+                Surface(
+                    onClick = { appearance.setMode(if (appearance.mode == "dark") "light" else "dark") },
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.25f))
+                ) {
+                    Box(Modifier.size(42.dp), contentAlignment = Alignment.Center) {
+                        Text(if (appearance.mode == "dark") "☼" else "◐", fontSize = 19.sp, color = MaterialTheme.colorScheme.primary)
+                    }
+                }
+            }
+        }
+
+        item {
+            Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).height(490.dp).clip(RoundedCornerShape(7.dp))) {
+                Crossfade(targetState = index, label = "destination-spotlight") { selected ->
+                    AsyncImage(
+                        model = heroPlaces[selected].image,
+                        contentDescription = heroPlaces[selected].name,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                    )
+                }
+                Box(
+                    Modifier.fillMaxSize().background(
+                        Brush.verticalGradient(
+                            0f to Color.Black.copy(alpha = 0.04f),
+                            0.35f to Color.Black.copy(alpha = 0.12f),
+                            1f to Color.Black.copy(alpha = 0.88f)
+                        )
+                    )
+                )
+                Row(Modifier.align(Alignment.TopStart).padding(18.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                    Box(Modifier.size(6.dp).clip(CircleShape).background(OrbitGold))
+                    Text("THE BANGLADESH COLLECTION", color = Color.White.copy(alpha = 0.92f), fontSize = 9.sp, letterSpacing = 1.7.sp, fontWeight = FontWeight.SemiBold)
+                }
+                Column(
+                    Modifier.align(Alignment.BottomStart).fillMaxWidth().padding(start = 23.dp, end = 23.dp, bottom = 25.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text("DESTINATION \${heroPlaces[index].number}  /  04", color = OrbitGold, fontSize = 9.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold)
+                    Text(heroPlaces[index].name, color = Color.White, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 39.sp, lineHeight = 43.sp)
+                    Text(heroPlaces[index].line, color = Color.White.copy(alpha = 0.9f), fontSize = 13.sp)
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text(heroPlaces[index].region, color = Color.White.copy(alpha = 0.75f), fontSize = 10.sp)
+                            Text("BANGLADESH", color = Color.White.copy(alpha = 0.55f), fontSize = 8.sp, letterSpacing = 1.5.sp)
+                        }
+                        Button(
+                            onClick = onExplore,
+                            shape = RoundedCornerShape(3.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = OrbitGold, contentColor = OrbitInk),
+                            contentPadding = PaddingValues(horizontal = 15.dp, vertical = 10.dp)
+                        ) {
+                            Text("EXPLORE", fontSize = 10.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold)
+                            Icon(Icons.Default.Search, null, Modifier.padding(start = 7.dp).size(15.dp))
+                        }
+                    }
+                }
+                Row(Modifier.align(Alignment.TopEnd).padding(18.dp), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                    heroPlaces.indices.forEach { item ->
+                        Box(
+                            Modifier.width(if (item == index) 22.dp else 6.dp).height(5.dp).clip(CircleShape)
+                                .background(if (item == index) OrbitGold else Color.White.copy(alpha = 0.55f))
+                                .clickable { index = item }
+                        )
+                    }
+                }
+                // Decorative train motif: an atmospheric animation, not live vehicle tracking.
+                Column(Modifier.align(Alignment.CenterEnd).offset(x = vehicleOffset.dp).padding(top = 42.dp, end = 12.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("A JOURNEY THROUGH BANGLADESH", color = Color.White.copy(alpha = 0.78f), fontSize = 7.sp, letterSpacing = 1.sp)
+                    Row(
+                        Modifier.clip(RoundedCornerShape(5.dp)).background(Color.Black.copy(alpha = 0.34f)).padding(horizontal = 9.dp, vertical = 7.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        repeat(3) {
+                            Box(Modifier.width(22.dp).height(13.dp).clip(RoundedCornerShape(2.dp)).background(Color.White.copy(alpha = 0.78f)))
+                        }
+                        Box(Modifier.width(5.dp).height(13.dp).background(OrbitGold))
+                    }
+                }
+            }
+        }
+
+        item {
+            Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                LuxuryAction("PLAN", "Build your escape", Icons.Default.Create, onPlan, Modifier.weight(1f))
+                LuxuryAction("ORBIT BRAIN", "Ask your guide", Icons.Default.Face, onGuide, Modifier.weight(1f))
+                LuxuryAction("ATLAS", "Explore the map", Icons.Default.Place, onMap, Modifier.weight(1f))
+            }
+        }
+
+        item {
+            Row(Modifier.fillMaxWidth().padding(horizontal = 21.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text("YOUR NEXT CHAPTER", color = MaterialTheme.colorScheme.secondary, fontSize = 9.sp, letterSpacing = 1.7.sp, fontWeight = FontWeight.Bold)
+                    Text("Welcome, $travellerName.", color = MaterialTheme.colorScheme.onBackground, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 24.sp)
+                    Text("The country is yours to discover.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+                }
+                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text("$districtCount", color = MaterialTheme.colorScheme.primary, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 30.sp)
+                    Text("OF 64 DISTRICTS", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 8.sp, letterSpacing = 1.sp)
+                }
+            }
+        }
+
+        item {
+            Column(Modifier.padding(horizontal = 19.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom) {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text("CURATED FOR YOUR MOOD", color = MaterialTheme.colorScheme.secondary, fontSize = 9.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.Bold)
+                        Text("Find your kind of escape", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onBackground)
+                    }
+                    Text("VIEW ALL  ↗", color = MaterialTheme.colorScheme.primary, fontSize = 9.sp, letterSpacing = 0.8.sp, modifier = Modifier.clickable(onClick = onExplore))
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                    listOf("Coast", "Highlands", "Wild", "Heritage").forEach { category ->
+                        Surface(
+                            Modifier.weight(1f).clickable(onClick = onExplore),
+                            shape = RoundedCornerShape(3.dp),
+                            color = MaterialTheme.colorScheme.surface,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.24f))
+                        ) {
+                            Box(Modifier.padding(vertical = 12.dp, horizontal = 3.dp), contentAlignment = Alignment.Center) {
+                                Text(category.uppercase(), fontSize = 8.sp, letterSpacing = 0.6.sp, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Medium)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        item {
+            Column(Modifier.padding(horizontal = 19.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom) {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text("THE EDITOR'S SELECTION", color = MaterialTheme.colorScheme.secondary, fontSize = 9.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.Bold)
+                        Text("Places worth the journey", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onBackground)
+                    }
+                    Text(if (showAllPlaces) "LESS  ↑" else "ALL PLACES  ↗", color = MaterialTheme.colorScheme.primary, fontSize = 9.sp, letterSpacing = 0.8.sp, modifier = Modifier.clickable { showAllPlaces = !showAllPlaces })
+                }
+                val selection = if (showAllPlaces) heroPlaces else heroPlaces.filterIndexed { i, _ -> i != index }.take(3)
+                selection.forEach { place ->
+                    Row(
+                        Modifier.fillMaxWidth().clip(RoundedCornerShape(5.dp)).background(MaterialTheme.colorScheme.surface)
+                            .clickable { index = heroPlaces.indexOf(place); onExplore() }.padding(9.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        AsyncImage(model = place.image, contentDescription = place.name, modifier = Modifier.size(86.dp, 76.dp).clip(RoundedCornerShape(3.dp)), contentScale = androidx.compose.ui.layout.ContentScale.Crop)
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(place.region.uppercase(), color = MaterialTheme.colorScheme.secondary, fontSize = 8.sp, letterSpacing = 1.sp)
+                            Text(place.name, color = MaterialTheme.colorScheme.onSurface, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 18.sp)
+                            Text(place.line, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, maxLines = 2)
+                        }
+                        Text("↗", color = MaterialTheme.colorScheme.primary, fontSize = 19.sp)
+                    }
+                }
+            }
+        }
+
+        item {
+            Surface(
+                Modifier.fillMaxWidth().padding(horizontal = 19.dp),
+                shape = RoundedCornerShape(5.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.22f))
+            ) {
+                Row(Modifier.padding(horizontal = 15.dp, vertical = 14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text("YOUR BANGLADESH PASSPORT", color = MaterialTheme.colorScheme.secondary, fontSize = 8.sp, letterSpacing = 1.3.sp, fontWeight = FontWeight.Bold)
+                        Text("Every district has a story.", color = MaterialTheme.colorScheme.onSurface, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 17.sp)
+                        Text("$districtCount of 64 districts explored", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp)
+                    }
+                    CircularProgressIndicator(
+                        progress = { (districtCount / 64f).coerceIn(0f, 1f) },
+                        modifier = Modifier.size(43.dp),
+                        color = MaterialTheme.colorScheme.primary,
+                        trackColor = MaterialTheme.colorScheme.outlineVariant,
+                        strokeWidth = 3.dp
+                    )
+                }
+            }
+        }
+    }
 }
-@Composable private fun ActionTile(title:String,sub:String,icon:androidx.compose.ui.graphics.vector.ImageVector,click:()->Unit,modifier:Modifier){
- Card(modifier.clickable(onClick=click),shape=RoundedCornerShape(17.dp),colors=CardDefaults.cardColors(containerColor=MaterialTheme.colorScheme.surfaceVariant)){
-  Column(Modifier.padding(11.dp),verticalArrangement=Arrangement.spacedBy(7.dp)){Icon(icon,null,tint=MaterialTheme.colorScheme.primary);Text(title,fontWeight=FontWeight.Bold,fontSize=12.sp);Text(sub,fontSize=10.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)}
- }
+
+@Composable
+private fun LuxuryAction(title: String, subtitle: String, icon: androidx.compose.ui.graphics.vector.ImageVector, onClick: () -> Unit, modifier: Modifier) {
+    Surface(
+        modifier = modifier.clickable(onClick = onClick),
+        shape = RoundedCornerShape(4.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.26f))
+    ) {
+        Column(Modifier.padding(horizontal = 10.dp, vertical = 13.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Icon(icon, contentDescription = title, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(19.dp))
+            Text(title, color = MaterialTheme.colorScheme.onSurface, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp, maxLines = 1)
+            Text(subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 9.sp, maxLines = 1)
+        }
+    }
 }
