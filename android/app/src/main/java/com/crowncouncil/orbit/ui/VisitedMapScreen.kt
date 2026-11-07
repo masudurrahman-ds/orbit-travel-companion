@@ -233,30 +233,42 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                         val y = size.height * i / 6f
                         drawLine(grid, Offset(0f, y), Offset(size.width, y), 1.dp.toPx())
                     }
-                    // Real ADM3 geometry: each upazila polygon is rendered from the bundled GeoJSON.
-                    geographicBoundaries.forEach { boundary ->
-                        boundary.polygons.forEach { rings ->
-                            val boundaryPath = Path().apply {
-                                fillType = PathFillType.EvenOdd
-                                rings.forEach { ring ->
-                                    ring.forEachIndexed { index, point ->
-                                        val projected = BangladeshMap.project(point.longitude, point.latitude)
-                                        val x = projected.first * size.width
-                                        val y = projected.second * size.height
-                                        if (index == 0) moveTo(x, y) else lineTo(x, y)
+                    // Real ADM3 geometry is preferred; retain the old illustration as a safe fallback.
+                    if (geographicBoundaries.isEmpty()) {
+                        val fallback = Path()
+                        BangladeshMap.outline.forEachIndexed { index, (longitude, latitude) ->
+                            val point = BangladeshMap.project(longitude, latitude)
+                            if (index == 0) fallback.moveTo(point.first * size.width, point.second * size.height)
+                            else fallback.lineTo(point.first * size.width, point.second * size.height)
+                        }
+                        fallback.close()
+                        drawPath(fallback, Brush.linearGradient(listOf(Color(0xFF426A58), Color(0xFF213F35), Color(0xFF172C27))))
+                        drawPath(fallback, Color(0xFFC6A568), style = Stroke(width = 2.dp.toPx()))
+                    } else {
+                        geographicBoundaries.forEach { boundary ->
+                            boundary.polygons.forEach { rings ->
+                                val boundaryPath = Path().apply {
+                                    fillType = PathFillType.EvenOdd
+                                    rings.forEach { ring ->
+                                        ring.forEachIndexed { index, point ->
+                                            val projected = BangladeshMap.project(point.longitude, point.latitude)
+                                            val x = projected.first * size.width
+                                            val y = projected.second * size.height
+                                            if (index == 0) moveTo(x, y) else lineTo(x, y)
+                                        }
+                                        close()
                                     }
-                                    close()
                                 }
+                                drawPath(
+                                    boundaryPath,
+                                    Brush.linearGradient(listOf(Color(0xFF426A58), Color(0xFF213F35), Color(0xFF172C27)))
+                                )
+                                drawPath(
+                                    boundaryPath,
+                                    Color(0xFFB89B69).copy(alpha = 0.72f),
+                                    style = Stroke(width = 0.65.dp.toPx())
+                                )
                             }
-                            drawPath(
-                                boundaryPath,
-                                Brush.linearGradient(listOf(Color(0xFF426A58), Color(0xFF213F35), Color(0xFF172C27)))
-                            )
-                            drawPath(
-                                boundaryPath,
-                                Color(0xFFB89B69).copy(alpha = 0.72f),
-                                style = Stroke(width = 0.65.dp.toPx())
-                            )
                         }
                     }
                     // Exact tourist placemarks from the offline Travel Mate import.
@@ -299,7 +311,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                     }
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text("Upazila boundaries · geoBoundaries", color = Color(0xFFB8C9BF), fontSize = 10.sp)
+                    Text(if (geographicBoundaries.isEmpty()) "Stylised map · GIS data unavailable" else "Upazila boundaries · geoBoundaries", color = Color(0xFFB8C9BF), fontSize = 10.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
                         TextButton(onClick = { mapZoom = (mapZoom / 1.25f).coerceAtLeast(1f); if (mapZoom == 1f) mapPan = Offset.Zero }) { Text("−", color = Color(0xFFE9D6A5), fontSize = 20.sp) }
                         Text("${(mapZoom * 100).toInt()}%", color = Color(0xFFE9D6A5), fontSize = 11.sp)
