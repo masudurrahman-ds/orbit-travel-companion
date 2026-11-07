@@ -43,6 +43,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
@@ -53,6 +54,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
 import com.crowncouncil.orbit.data.Destination
+import com.crowncouncil.orbit.data.GeoBoundary
+import com.crowncouncil.orbit.data.GeoBoundaryCatalog
 import com.crowncouncil.orbit.data.TouristLocation
 import com.crowncouncil.orbit.data.TouristLocationCatalog
 import com.crowncouncil.orbit.domain.BangladeshMap
@@ -63,7 +66,7 @@ import com.crowncouncil.orbit.domain.Story
 /**
  * Interactive travel passport map. District markers are derived from the actual destination
  * corpus; tapping any marker or district chip opens that district's destination list.
- * The boundary is intentionally labelled stylised, not an official administrative GIS layer.
+ * The map uses bundled geoBoundaries ADM3 geometry; the underlying source vintage is 2020.
  */
 @Composable
 fun VisitedMapScreen(vm: OrbitViewModel) {
@@ -77,6 +80,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
     var rating by remember { mutableStateOf<Destination?>(null) }
     val ctx = LocalContext.current
     val touristLocations = remember(ctx) { TouristLocationCatalog.load(ctx) }
+    val geographicBoundaries = remember(ctx) { GeoBoundaryCatalog.load(ctx) }
     val visitList by vm.visits.collectAsState()
     val trip by vm.currentTrip.collectAsState()
     val tripRows by vm.rows.collectAsState()
@@ -154,7 +158,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text("BANGLADESH", color = Color(0xFFE9D6A5), fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-                    Text("64 DISTRICTS · ${touristLocations.size} PLACES", color = Color(0xFF9CB2A7), fontSize = 9.sp, letterSpacing = 0.5.sp)
+                    Text("${byDistrict.size} DISTRICTS · ${touristLocations.size} PLACES", color = Color(0xFF9CB2A7), fontSize = 9.sp, letterSpacing = 0.5.sp)
                 }
                 Canvas(
                     Modifier.fillMaxWidth().aspectRatio(BangladeshMap.ASPECT)
@@ -166,7 +170,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                             translationY = mapPan.y
                             clip = true
                         }
-                        .pointerInput(mapZoom, mapPan, centres, touristLocations) {
+                        .pointerInput(mapZoom, mapPan, centres, touristLocations, geographicBoundaries) {
                             detectTapGestures { tap ->
                                 val mapTap = Offset((tap.x - mapPan.x) / mapZoom, (tap.y - mapPan.y) / mapZoom)
                                 val limit = 40.dp.toPx() / mapZoom
@@ -190,6 +194,16 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                                 } else if (districtHit != null && districtDistance <= limit) {
                                     selected = districtHit.key
                                     selectedTourist = null
+                                } else {
+                                    val longitude = BangladeshMap.MIN_LON +
+                                        (mapTap.x / size.width) * (BangladeshMap.MAX_LON - BangladeshMap.MIN_LON)
+                                    val latitude = BangladeshMap.MIN_LAT +
+                                        (1.0 - mapTap.y / size.height) * (BangladeshMap.MAX_LAT - BangladeshMap.MIN_LAT)
+                                    val area = geographicBoundaries.firstOrNull { it.contains(longitude, latitude) }
+                                    if (area?.districtName != null) {
+                                        selected = area.districtName
+                                        selectedTourist = null
+                                    }
                                 }
                             }
                         }
@@ -220,15 +234,32 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                         val y = size.height * i / 6f
                         drawLine(grid, Offset(0f, y), Offset(size.width, y), 1.dp.toPx())
                     }
-                    val path = Path()
-                    BangladeshMap.outline.forEachIndexed { index, (lon, lat) ->
-                        val (x, y) = BangladeshMap.project(lon, lat)
-                        if (index == 0) path.moveTo(x * size.width, y * size.height)
-                        else path.lineTo(x * size.width, y * size.height)
+                    // Real ADM3 geometry: each upazila polygon is rendered from the bundled GeoJSON.
+                    geographicBoundaries.forEach { boundary ->
+                        boundary.polygons.forEach { rings ->
+                            val boundaryPath = Path().apply {
+                                fillType = PathFillType.EvenOdd
+                                rings.forEach { ring ->
+                                    ring.forEachIndexed { index, point ->
+                                        val projected = BangladeshMap.project(point.longitude, point.latitude)
+                                        val x = projected.first * size.width
+                                        val y = projected.second * size.height
+                                        if (index == 0) moveTo(x, y) else lineTo(x, y)
+                                    }
+                                    close()
+                                }
+                            }
+                            drawPath(
+                                boundaryPath,
+                                Brush.linearGradient(listOf(Color(0xFF426A58), Color(0xFF213F35), Color(0xFF172C27)))
+                            )
+                            drawPath(
+                                boundaryPath,
+                                Color(0xFFB89B69).copy(alpha = 0.72f),
+                                style = Stroke(width = 0.65.dp.toPx())
+                            )
+                        }
                     }
-                    path.close()
-                    drawPath(path, Brush.linearGradient(listOf(Color(0xFF426A58), Color(0xFF213F35), Color(0xFF172C27))))
-                    drawPath(path, Color(0xFFC6A568), style = Stroke(width = 2.dp.toPx()))
                     // Exact tourist placemarks from the offline Travel Mate import.
                     touristLocations.forEach { place ->
                         val point = BangladeshMap.project(place.longitude, place.latitude)
@@ -269,7 +300,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                     }
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text("Pinch or drag to explore", color = Color(0xFFB8C9BF), fontSize = 10.sp)
+                    Text("Upazila boundaries · geoBoundaries", color = Color(0xFFB8C9BF), fontSize = 10.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
                         TextButton(onClick = { mapZoom = (mapZoom / 1.25f).coerceAtLeast(1f); if (mapZoom == 1f) mapPan = Offset.Zero }) { Text("−", color = Color(0xFFE9D6A5), fontSize = 20.sp) }
                         Text("${(mapZoom * 100).toInt()}%", color = Color(0xFFE9D6A5), fontSize = 11.sp)
