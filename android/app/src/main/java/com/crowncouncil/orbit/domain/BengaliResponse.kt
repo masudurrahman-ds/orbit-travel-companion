@@ -38,21 +38,6 @@ object BengaliResponse {
         "Assumed:" to "ধরে নেওয়া হয়েছে:",
         "Tags:" to "বৈশিষ্ট্য:",
         "Best months:" to "ভ্রমণের ভালো মাস:",
-        "about" to "প্রায়",
-        "for" to "জনের জন্য",
-        "days" to "দিন",
-        "day" to "দিন",
-        "people" to "জন",
-        "person" to "জন",
-        "travellers" to "জন ভ্রমণকারী",
-        "within" to "বাজেটের মধ্যে",
-        "over" to "বাজেটের বেশি",
-        "Stay" to "থাকা",
-        "food" to "খাবার",
-        "transport" to "যাতায়াত",
-        "activities" to "কার্যক্রম",
-        "in season" to "মৌসুমে",
-        "off-season" to "মৌসুমের বাইরে",
         "luxury tour" to "বিলাসবহুল ভ্রমণ",
         "Fancy tour" to "প্রিমিয়াম ভ্রমণ",
         "Value tour" to "সাশ্রয়ী ও মানসম্মত ভ্রমণ",
@@ -61,7 +46,10 @@ object BengaliResponse {
 
     fun render(english: String): String {
         var result = english
-        for ((from, to) in phrases) result = result.replace(from, to, ignoreCase = true)
+        for ((from, to) in phrases) {
+            val pattern = Regex("(?<![\\\\p{L}\\\\p{N}])" + Regex.escape(from) + "(?![\\\\p{L}\\\\p{N}])", RegexOption.IGNORE_CASE)
+            result = pattern.replace(result, to)
+        }
         result = result.replace("BDT ", "৳")
             .replace(" — ", " — ")
         return result
