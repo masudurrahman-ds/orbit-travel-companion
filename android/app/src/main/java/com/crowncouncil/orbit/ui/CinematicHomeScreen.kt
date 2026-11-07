@@ -40,7 +40,8 @@ private val heroPlaces=listOf(
 
 @Composable
 fun CinematicHomeScreen(vm:OrbitViewModel,onPlan:()->Unit,onExplore:()->Unit,onGuide:()->Unit,onMap:()->Unit) {
- val visited by vm.visitedIds.collectAsState()\n val destinations by vm.destinations.collectAsState()
+ val visited by vm.visitedIds.collectAsState()
+ val destinations by vm.destinations.collectAsState()
  val user by vm.user.collectAsState()
  var index by remember{mutableIntStateOf(0)}
  LaunchedEffect(Unit){while(true){delay(5000);index=(index+1)%heroPlaces.size}}
