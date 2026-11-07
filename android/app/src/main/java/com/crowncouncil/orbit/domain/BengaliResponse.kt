@@ -17,6 +17,7 @@ object BengaliResponse {
         "These are straight-line distances, not driving distances or travel times." to "এগুলো সরলরেখায় মাপা দূরত্ব—সড়কপথের দূরত্ব বা যাত্রার সময় নয়।",
         "To find nearby places, name a starting place or enable location access and share your current position with ORBIT." to "কাছাকাছি জায়গা খুঁজতে শুরুর স্থানটির নাম বলো, অথবা লোকেশন অনুমতি দিয়ে ORBIT-এর সঙ্গে বর্তমান অবস্থান শেয়ার করো।",
         "I couldn't find a listed place within" to "আমার সংরক্ষিত তালিকায় এই সীমার মধ্যে কোনো স্থান খুঁজে পাইনি:",
+        "You are welcome." to "স্বাগতম!",
         "You are welcome. Tell me when you want the next plan." to "স্বাগতম! পরের ভ্রমণ পরিকল্পনা করতে চাইলে আমাকে জানিও।",
         "Hello. Tell me what kind of trip you want, or say" to "হ্যালো! কী ধরনের ভ্রমণ করতে চাও বলো, অথবা বলতে পারো",
         "I can plan trips by budget, days, interests and season" to "আমি বাজেট, দিনের সংখ্যা, পছন্দের বিষয় ও ঋতু অনুযায়ী ভ্রমণ পরিকল্পনা করতে পারি",
