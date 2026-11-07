@@ -2,6 +2,7 @@ package com.crowncouncil.orbit.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,6 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,8 +62,16 @@ fun CinematicHomeScreen(vm:OrbitViewModel,onPlan:()->Unit,onExplore:()->Unit,onG
     Text(heroPlaces[index].region,color=Color.White.copy(alpha=.75f),fontSize=12.sp)
     Button(onClick=onExplore,colors=ButtonDefaults.buttonColors(containerColor=Color(0xFFD5B979),contentColor=Color(0xFF171711))){Text("Discover this place");Icon(Icons.Default.Explore,null,Modifier.padding(start=6.dp))}
    }
-   Row(Modifier.align(Alignment.BottomEnd).padding(bottom=10.dp).offset(x=(travel*22f).dp).clip(RoundedCornerShape(20.dp)).background(Color.Black.copy(alpha=.42f)).padding(horizontal=13.dp,vertical=8.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-    Text("🚆",fontSize=23.sp);Column{Text("BANGLADESH RAIL",color=Color.White,fontSize=9.sp,fontWeight=FontWeight.Bold);Text("Your journey is waiting",color=Color.White.copy(alpha=.8f),fontSize=9.sp)}
+   Column(Modifier.align(Alignment.BottomEnd).padding(end=10.dp,bottom=10.dp).offset(x=(travel*34f).dp),horizontalAlignment=Alignment.End) {
+    Text("BANGLADESH RAIL · LIVE JOURNEY",color=Color.White.copy(alpha=.86f),fontSize=8.sp,letterSpacing=1.sp)
+    Canvas(Modifier.size(width=158.dp,height=48.dp)) {
+     drawRoundRect(Color.White.copy(alpha=.25f),Offset(3f,8f),Size(size.width-8f,28f),CornerRadius(10f,10f))
+     drawRoundRect(Color.White.copy(alpha=.58f),Offset(10f,13f),Size(size.width-25f,17f),CornerRadius(5f,5f))
+     for(i in 0..4) drawRoundRect(Color(0xFF34443D).copy(alpha=.72f),Offset(16f+i*25f,16f),Size(18f,10f),CornerRadius(2f,2f))
+     drawRoundRect(Color(0xFFD5B979).copy(alpha=.9f),Offset(size.width-20f,18f),Size(8f,8f),CornerRadius(3f,3f))
+     drawCircle(Color(0xFF222522),5f,Offset(34f,38f));drawCircle(Color(0xFF222522),5f,Offset(size.width-37f,38f))
+     drawCircle(Color.White.copy(alpha=.75f),2f,Offset(34f,38f));drawCircle(Color.White.copy(alpha=.75f),2f,Offset(size.width-37f,38f))
+    }
    }
    Row(Modifier.align(Alignment.TopEnd).padding(16.dp),horizontalArrangement=Arrangement.spacedBy(5.dp)){heroPlaces.indices.forEach{i->Box(Modifier.size(if(i==index)18.dp else 6.dp,6.dp).clip(CircleShape).background(if(i==index)Color.White else Color.White.copy(alpha=.55f)))}}
   }}
