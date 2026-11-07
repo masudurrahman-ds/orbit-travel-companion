@@ -11,8 +11,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -112,7 +112,7 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
                     val bitmap = remember(encoded) {
                         runCatching { val bytes = Base64.decode(encoded, Base64.DEFAULT); BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.asImageBitmap() }.getOrNull()
                     }
-                    bitmap?.let { androidx.compose.foundation.Image(it, "AI generated travel inspiration", Modifier.fillMaxWidth().heightIn(max = 280.dp).clip(RoundedCornerShape(18.dp)), contentScale = ContentScale.Crop) }
+                    bitmap?.let { Image(it, "AI generated travel inspiration", Modifier.fillMaxWidth().heightIn(max = 280.dp).clip(RoundedCornerShape(18.dp)), contentScale = ContentScale.Crop) }
                 }
             }
         }
