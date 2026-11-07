@@ -43,8 +43,8 @@ object GeoKnowledge {
         currentLocation: BrainLocation? = null
     ): String? {
         val text = normalize(utterance)
-        val asksNearby = listOf("near", "nearby", "around", "within").any { text.contains(it) } ||
-            text.contains("places close to")
+        val asksNearby = listOf("near", "nearby", "around").any { text.contains(it) } ||
+            Regex("\\bwithin \\\\d+ km\\b").containsMatchIn(text) || text.contains("places close to")
         val asksInRegion = listOf("places in ", "attractions in ", "tourist spots in ", "show me places in ")
             .any { text.contains(it) }
         if (!asksNearby && !asksInRegion) return null
