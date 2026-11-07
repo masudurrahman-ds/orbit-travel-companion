@@ -121,7 +121,7 @@ fun OrbitApp(vm: OrbitViewModel = viewModel()) {
             ) { padding ->
                 Box(Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.TopCenter) {
                     NavHost(nav, startDestination = Screen.Home.route, modifier = Modifier.widthIn(max = 720.dp).fillMaxSize()) {
-                        composable(Screen.Home.route) { HomeScreen(vm) }
+                        composable(Screen.Home.route) { CinematicHomeScreen(vm, onPlan = { go(Screen.Plan) }, onExplore = { go(Screen.Explore) }, onGuide = { go(Screen.Guide) }, onMap = { go(Screen.VisitedMap) }) }
                         composable(Screen.Plan.route) { PlanScreen(vm, onFind = { go(Screen.Explore) }) }
                         composable(Screen.Guide.route) { AgentScreen(vm, onPlanSaved = { go(Screen.Trip) }) }
                         composable(Screen.VisitedMap.route) { VisitedMapScreen(vm) }
