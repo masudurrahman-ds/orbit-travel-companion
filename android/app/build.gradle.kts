@@ -16,7 +16,7 @@ val prepareBangladeshBoundaries by tasks.registering {
         if (!target.exists() || target.length() == 0L) {
             target.parentFile.mkdirs()
             val source = URL(
-                "https://raw.githubusercontent.com/wmgeolab/geoBoundaries/9469f09/releaseData/gbOpen/BGD/ADM3/geoBoundaries-BGD-ADM3_simplified.geojson"
+                "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09/releaseData/gbOpen/BGD/ADM3/geoBoundaries-BGD-ADM3_simplified.geojson"
             )
             source.openStream().use { input ->
                 target.outputStream().use { output -> input.copyTo(output) }
