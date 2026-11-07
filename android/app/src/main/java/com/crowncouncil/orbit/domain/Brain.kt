@@ -2,6 +2,7 @@ package com.crowncouncil.orbit.domain
 
 import com.crowncouncil.orbit.data.ActivityOption
 import com.crowncouncil.orbit.data.Destination
+import com.crowncouncil.orbit.data.TouristLocation
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.Locale
@@ -57,7 +58,8 @@ class BrainContext(
     val month: Int,
     val location: BrainLocation? = null,
     val advisories: List<BrainAdvisory> = emptyList(),
-    val transport: TransportData? = null
+    val transport: TransportData? = null,
+    val touristPlaces: List<TouristLocation> = emptyList()
 )
 
 data class BrainReply(val reply: String, val state: BrainState, val plan: BrainPlan?, val actions: List<BrainAction>, val understood: Boolean = true)
@@ -305,6 +307,9 @@ class Brain(private val lex: Lexicon) {
         val anyEntity = ent.budget != null || ent.days != null || ent.travellers != null || ent.month != null || ent.interests.isNotEmpty() || ent.tier != null
         val shortText = norm.trim().split(" ").size <= 4
         fun out(reply: String, st: BrainState = state, plan: BrainPlan? = null, actions: List<BrainAction> = emptyList()) = BrainReply(reply, st, plan, actions)
+
+        // Geographic lookups use deterministic offline spatial tools and the bundled point catalogue.
+        GeoKnowledge.answer(utterance, ctx.touristPlaces, ctx.destinations, ctx.location)?.let { return out(it) }
 
         // housekeeping intents
         if (hasAny(norm, trig("forget"))) return out("Done. I cleared your saved preferences.", state.copy(lastQuery = null, lastPlaceId = null, offset = 0), actions = listOf(BrainAction.ForgetAll))
