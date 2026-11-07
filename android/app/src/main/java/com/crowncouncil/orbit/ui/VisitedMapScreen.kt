@@ -100,6 +100,15 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
         else byDistrict.keys.filter { it.contains(search.trim(), ignoreCase = true) }
     }
 
+    val matchingTouristPlaces = remember(touristLocations, search) {
+        if (search.isBlank()) emptyList()
+        else touristLocations.filter {
+            it.name.contains(search.trim(), ignoreCase = true) ||
+                it.sourceRegion.contains(search.trim(), ignoreCase = true) ||
+                it.upazila.orEmpty().contains(search.trim(), ignoreCase = true)
+        }.take(12)
+    }
+
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 14.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
@@ -295,9 +304,30 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                 val done = district in doneDistricts
                 FilterChip(
                     selected = selected == district,
-                    onClick = { selected = if (selected == district) null else district },
+                    onClick = {
+                        selected = if (selected == district) null else district
+                        selectedTourist = null
+                    },
                     label = { Text((if (done) "✓ " else "") + district, fontSize = 12.sp) }
                 )
+            }
+        }
+
+        if (matchingTouristPlaces.isNotEmpty()) {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text("MATCHING TOURIST PLACES", color = Gold, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(7.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                    matchingTouristPlaces.forEach { place ->
+                        FilterChip(
+                            selected = selectedTourist?.id == place.id,
+                            onClick = {
+                                selectedTourist = place
+                                selected = null
+                            },
+                            label = { Text(place.name, fontSize = 11.sp) }
+                        )
+                    }
+                }
             }
         }
 
@@ -314,9 +344,10 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                     }
                     Text(place.name, style = MaterialTheme.typography.titleLarge)
                     Text(
-                        listOfNotNull(place.upazila, place.district, place.sourceRegion.takeIf { it.isNotBlank() }).distinct().joinToString(" · ").ifBlank { "Bangladesh" },
+                        "Source group: ${place.sourceRegion.ifBlank { "Bangladesh" }}",
                         color = faint, fontSize = 12.sp
                     )
+                    Text("Upazila: ${place.upazila ?: "Not verified"}", color = faint, fontSize = 11.sp)
                     Text("${"%.5f".format(place.latitude)}, ${"%.5f".format(place.longitude)}", color = faint, fontSize = 11.sp)
                     Text("Offline map point · Source: Travel Mate KML", color = faint, fontSize = 10.sp)
                 }
