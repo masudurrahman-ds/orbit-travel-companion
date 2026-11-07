@@ -1,3 +1,6 @@
+import java.net.URL
+import java.security.MessageDigest
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -13,14 +16,14 @@ val prepareBangladeshBoundaries by tasks.registering {
         val target = bangladeshBoundaryAsset.asFile
         if (!target.exists() || target.length() == 0L) {
             target.parentFile.mkdirs()
-            val source = java.net.URL(
+            val source = URL(
                 "https://raw.githubusercontent.com/wmgeolab/geoBoundaries/9469f09/releaseData/gbOpen/BGD/ADM3/geoBoundaries-BGD-ADM3_simplified.geojson"
             )
             source.openStream().use { input ->
                 target.outputStream().use { output -> input.copyTo(output) }
             }
         }
-        val digest = java.security.MessageDigest.getInstance("SHA-256")
+        val digest = MessageDigest.getInstance("SHA-256")
             .digest(target.readBytes()).joinToString("") { "%02x".format(it) }
         require(digest == "49ac76da270c80f17563894eae79a3c8df818312d1d5fbfde0334a9be2864017") {
             "Bangladesh ADM3 boundary asset checksum mismatch."
