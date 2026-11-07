@@ -1,35 +1,36 @@
 # ORBIT Tourist Location Catalogue Integration
 
-## Status
-The Android-side offline GeoJSON loader is available in
-`android/app/src/main/java/com/crowncouncil/orbit/data/TouristLocationCatalog.kt`.
+## Implementation
+The Android passport map now loads and renders the 86 named tourist placemarks offline.
+The map supports tapping a placemark, viewing its name/source group/upazila/coordinates,
+and searching tourist place names alongside district chips.
 
-## Required asset
-Copy `tourist-locations.geojson` from the separately prepared
-**ORBIT Tourist Locations Import** package into:
+Files:
+- `android/app/src/main/assets/tourist-locations.psv` — 86 offline point records.
+- `android/app/src/main/java/com/crowncouncil/orbit/data/TouristLocationCatalog.kt` — safe asset parser.
+- `android/app/src/main/java/com/crowncouncil/orbit/ui/VisitedMapScreen.kt` — marker rendering, hit testing and search selection.
 
-`android/app/src/main/assets/tourist-locations.geojson`
-
-The loader intentionally returns an empty list if the asset is absent or malformed,
-so existing app startup is not blocked. The map UI must not claim the markers are
-loaded until the asset has been copied and validated.
+The catalogue remains read-only and is not inserted into Room's `destination` table.
+Existing visit history, recommendation scores, itinerary records and cost data are not changed.
 
 ## Data contract
-- GeoJSON FeatureCollection with Point geometries.
-- Coordinates are WGS84 in GeoJSON order: [longitude, latitude].
-- Each feature carries name, source_region, district/division/upazila when matched,
-  and administrative_match_status.
-- Unmatched locations must remain displayable using their coordinates; do not invent
-  administrative labels.
-- The catalogue is read-only and is not automatically inserted into Room's
-  `destination` table. This avoids changing visit history and recommendation data.
+Pipe-separated UTF-8 records with nine fields:
+`id|name|latitude|longitude|source_region|district|division|upazila|administrative_match_status`
+
+Coordinates are WGS84 latitude/longitude in the asset. Invalid rows and coordinates outside
+Bangladesh's broad bounding box are skipped. Unmatched records remain visible using their
+original coordinates; the two known unmatched points are Cox's Bazar Sea Beach and Patenga
+Sea Beach. The UI deliberately shows the source folder and upazila rather than presenting
+the supplied district/division labels as authoritative.
 
 ## Source and licensing
-The 86 records were extracted from the user-provided Travel Mate KML. That KML did
-not declare a reuse license. Confirm permission with Travel Mate before public
-distribution. Keep source attribution visible in the app and repository.
+The 86 records were extracted from the user-provided Travel Mate KML. The KML did not declare
+a reuse licence. Obtain written permission from Travel Mate before publishing or distributing
+the dataset in a public release. The current repository branch is public; treat the bundled
+asset as a provisional integration pending that permission. Attribution shown in the UI:
+`Source: Travel Mate KML`.
 
-## Validation notes
-84 of 86 points fell inside the supplied matched 2020 geoBoundaries ADM3/upazila
-polygons. Two points (Cox's Bazar Sea Beach and Patenga Sea Beach) did not intersect
-the available polygons and intentionally have no inferred district/upazila match.
+## Cartographic limitations
+The tourist markers use their point coordinates. The background country outline is still
+the existing stylised illustration, not an official boundary or navigation map. This change
+does not yet render official district/upazila polygons.
