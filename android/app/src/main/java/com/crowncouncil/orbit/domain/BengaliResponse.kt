@@ -57,8 +57,7 @@ object BengaliResponse {
         }
         var result = english
         for ((from, to) in phrases) {
-            val pattern = Regex("(?<![\\\\p{L}\\\\p{N}])" + Regex.escape(from) + "(?![\\\\p{L}\\\\p{N}])", RegexOption.IGNORE_CASE)
-            result = pattern.replace(result, to)
+            result = result.replace(from, to, ignoreCase = true)
         }
         result = result.replace("BDT ", "৳")
             .replace(" — ", " — ")
