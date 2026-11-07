@@ -74,11 +74,11 @@ object GeoKnowledge {
         if (places.isEmpty()) return "The offline geographic catalogue is not available on this device yet."
 
         if (asksInRegion) {
-            val region = places.asSequence()
-                .flatMap { listOfNotNull(it.district, it.division, it.upazila).asSequence() }
+            val region = (boundaries.flatMap { listOfNotNull(it.name, it.districtName, it.divisionName) } +
+                places.flatMap { listOfNotNull(it.district, it.division, it.upazila) })
                 .distinct()
                 .sortedByDescending { normalize(it).length }
-                .firstOrNull { text.contains(normalize(it)) }
+                .firstOrNull { normalize(it).isNotBlank() && text.contains(normalize(it)) }
                 ?: return "I couldn't identify the district, division or upazila in that question. Try a specific administrative area name."
             val matches = places.filter {
                 listOfNotNull(it.district, it.division, it.upazila).any { area -> normalize(area) == normalize(region) }
