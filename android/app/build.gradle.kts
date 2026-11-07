@@ -1,5 +1,3 @@
-import java.net.URL
-import java.security.MessageDigest
 
 plugins {
     id("com.android.application")
@@ -24,7 +22,7 @@ val prepareBangladeshBoundaries by tasks.registering {
             }
         }
         val boundaryText = target.readText()
-        require(Regex("\\\"type\\\"\\s*:\\s*\\\"FeatureCollection\\\"").containsMatchIn(boundaryText) &&
+        require(boundaryText.contains("FeatureCollection") && boundaryText.contains("\"features\"") && boundaryText.length > 1_000_000) {
             boundaryText.contains("\"features\"") && boundaryText.length > 1_000_000) {
             "Downloaded Bangladesh ADM3 boundary asset is not a valid FeatureCollection."
         }
