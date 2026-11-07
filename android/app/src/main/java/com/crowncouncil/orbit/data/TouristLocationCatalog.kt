@@ -1,12 +1,11 @@
 package com.crowncouncil.orbit.data
 
 import android.content.Context
-import org.json.JSONObject
 
 /**
  * Read-only offline tourist marker catalogue imported from the user-provided KML.
- * The source records are not Room destinations: importing them must not silently
- * alter visit history, recommendation scores, prices, or itinerary records.
+ * It is deliberately separate from Room destinations so it cannot silently alter
+ * visit history, recommendation scores, prices, or itinerary records.
  */
 data class TouristLocation(
     val id: String,
@@ -21,40 +20,36 @@ data class TouristLocation(
 )
 
 object TouristLocationCatalog {
-    private const val ASSET_NAME = "tourist-locations.geojson"
+    private const val ASSET_NAME = "tourist-locations.psv"
 
+    /**
+     * Pipe-separated UTF-8 asset. A malformed row is skipped rather than preventing
+     * the rest of the offline catalogue from loading.
+     */
     fun load(context: Context): List<TouristLocation> = runCatching {
-        val raw = context.assets.open(ASSET_NAME).bufferedReader().use { it.readText() }
-        val root = JSONObject(raw)
-        val features = root.getJSONArray("features")
-        buildList {
-            for (index in 0 until features.length()) {
-                val feature = features.getJSONObject(index)
-                val geometry = feature.getJSONObject("geometry")
-                if (geometry.optString("type") != "Point") continue
-                val coordinates = geometry.getJSONArray("coordinates")
-                if (coordinates.length() < 2) continue
-                val properties = feature.getJSONObject("properties")
-                val longitude = coordinates.getDouble(0)
-                val latitude = coordinates.getDouble(1)
-                if (!latitude.isFinite() || !longitude.isFinite()) continue
-                if (latitude !in 20.0..27.0 || longitude !in 87.0..93.0) continue
-                val name = properties.optString("name").trim()
-                if (name.isEmpty()) continue
-                add(
-                    TouristLocation(
-                        id = "travel-mate-${index + 1}",
-                        name = name,
-                        sourceRegion = properties.optString("source_region"),
-                        latitude = latitude,
-                        longitude = longitude,
-                        district = properties.optString("district").takeIf(String::isNotBlank),
-                        division = properties.optString("division").takeIf(String::isNotBlank),
-                        upazila = properties.optString("upazila").takeIf(String::isNotBlank),
-                        administrativeMatchStatus = properties.optString("administrative_match_status")
-                    )
+        context.assets.open(ASSET_NAME).bufferedReader().useLines { lines ->
+            lines.mapNotNull { line ->
+                val fields = line.split('|')
+                if (fields.size != 9) return@mapNotNull null
+                val latitude = fields[2].toDoubleOrNull() ?: return@mapNotNull null
+                val longitude = fields[3].toDoubleOrNull() ?: return@mapNotNull null
+                if (!latitude.isFinite() || !longitude.isFinite()) return@mapNotNull null
+                if (latitude !in 20.0..27.0 || longitude !in 87.0..93.0) return@mapNotNull null
+                val name = fields[1].trim()
+                if (name.isEmpty()) return@mapNotNull null
+                fun optional(index: Int): String? = fields[index].trim().takeIf { it.isNotEmpty() }
+                TouristLocation(
+                    id = fields[0].trim(),
+                    name = name,
+                    sourceRegion = fields[4].trim(),
+                    latitude = latitude,
+                    longitude = longitude,
+                    district = optional(5),
+                    division = optional(6),
+                    upazila = optional(7),
+                    administrativeMatchStatus = fields[8].trim()
                 )
-            }
-        }.distinctBy { "${it.latitude},${it.longitude},${it.name}" }
+            }.toList().distinctBy { it.id }
+        }
     }.getOrDefault(emptyList())
 }
