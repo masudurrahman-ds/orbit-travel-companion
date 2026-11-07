@@ -277,11 +277,18 @@ fun ExploreScreen(vm: OrbitViewModel, onPlanned: () -> Unit) {
 
     LazyColumn(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
-            Title("Find your place")
-            Text("Ranked for your travel style", fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
-            Text("${q.tier.label} tour  ·  ${q.days} days  ·  ${bdt(q.budget)}  ·  ${monthName(q.month)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Spacer(Modifier.size(2.dp))
-            Spacer(Modifier.size(8.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                SectionLabel("THE ORBIT ATLAS  ·  CURATED FOR YOU")
+                Text("Find your\nnext somewhere.", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.headlineMedium, lineHeight = 35.sp)
+                Text("Destinations ranked against your travel brief, with transparent estimates and community price notes.", fontSize = 12.sp, lineHeight = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(6.dp)
+            ) {
+                Text("${q.tier.label.uppercase()}  ·  ${q.days} DAYS  ·  ${bdt(q.budget)}  ·  ${monthName(q.month).uppercase()}", Modifier.padding(horizontal = 12.dp, vertical = 11.dp), fontSize = 10.sp, letterSpacing = .6.sp, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold)
+            }
             OutlinedTextField(
                 value = search, onValueChange = { search = it },
                 label = { Text(tr("Search spot, district or division")) },
@@ -335,16 +342,16 @@ private fun ReportPriceDialog(name: String, onDismiss: () -> Unit, onSend: (Stri
 @Composable
 private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Boolean, prices: Map<String, PriceStat>?, transport: com.crowncouncil.orbit.domain.TransportInfo, onReport: () -> Unit, onFavorite: () -> Unit, onPlan: () -> Unit) {
     val d = r.destination
-    Card(Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+    Card(Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(7.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), border = androidx.compose.foundation.BorderStroke(1.dp, Gold.copy(alpha = .20f))) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.size(48.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Navy, Teal))), contentAlignment = Alignment.Center) {
-                    Text("${r.score.percent}", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Box(Modifier.size(48.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Color(0xFF292B22), Color(0xFF111511)))), contentAlignment = Alignment.Center) {
+                    Text("${r.score.percent}", color = Color(0xFFD8BC7A), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
                     Text(d.name, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-                    Text("${d.district}, ${d.division} | " + d.tagSet().joinToString(", ") { it.cap() }, fontSize = 12.sp, color = Teal)
+                    Text("${d.district}, ${d.division} | " + d.tagSet().joinToString(", ") { it.cap() }, fontSize = 12.sp, color = MaterialTheme.colorScheme.secondary)
                 }
                 IconButton(onClick = onFavorite) {
                     Icon(if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder, "Favorite", tint = Rose)
@@ -354,7 +361,7 @@ private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Bo
             Row(
                 modifier = Modifier.fillMaxWidth()
                     .clip(androidx.compose.foundation.shape.RoundedCornerShape(14.dp))
-                    .background(if (r.score.affordable) Green.copy(alpha = 0.09f) else Rose.copy(alpha = 0.09f))
+                    .background(if (r.score.affordable) Gold.copy(alpha = 0.10f) else Rose.copy(alpha = 0.08f))
                     .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -365,16 +372,16 @@ private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Bo
                 }
                 Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text(if (r.score.affordable) "BUDGET FIT" else "OVER BUDGET", fontSize = 10.sp, letterSpacing = 0.5.sp, fontWeight = FontWeight.Bold,
-                        color = if (r.score.affordable) Green else Rose)
+                        color = if (r.score.affordable) Gold else Rose)
                     if (visited) Text("Visited", fontSize = 12.sp, color = Teal, fontWeight = FontWeight.SemiBold)
                 }
             }
             SectionLabel("WHY THIS SCORE")
-            FactorBar("Budget fit", r.score.budget, Orange)
-            FactorBar("Interest match", r.score.interest, Purple)
-            FactorBar("Time fit", r.score.time, Teal)
-            FactorBar("Weather", r.score.weather, Cyan)
-            FactorBar("Route", r.score.route, Green)
+            FactorBar("Budget fit", r.score.budget, Gold)
+            FactorBar("Interest match", r.score.interest, Color(0xFF9C8C78))
+            FactorBar("Time fit", r.score.time, Color(0xFFB69A62))
+            FactorBar("Weather", r.score.weather, Color(0xFF9BAA96))
+            FactorBar("Route", r.score.route, Color(0xFFB8A47C))
             var open by remember { mutableStateOf(false) }
             TextButton(onClick = { open = !open }) { Text(if (open) "Hide travel costs and prices" else "Getting there, costs and prices") }
             if (open) {
