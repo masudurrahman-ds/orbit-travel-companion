@@ -18,6 +18,7 @@ import com.crowncouncil.orbit.data.ModelStore
 import com.crowncouncil.orbit.data.OrbitDatabase
 import com.crowncouncil.orbit.data.Repository
 import com.crowncouncil.orbit.data.Trip
+import com.crowncouncil.orbit.data.TouristLocationCatalog
 import com.crowncouncil.orbit.data.Visit
 import com.crowncouncil.orbit.domain.Brain
 import com.crowncouncil.orbit.domain.BrainAction
@@ -126,6 +127,8 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
     // ---------------------------------------------------------------- researched data, advisories and community prices
     /** Dated fares from the research audit, bundled with the app so "getting there" works offline. */
     val transport = TransportData(app.assets.open("travel-costs.json").bufferedReader().use { it.readText() })
+    /** Loaded once per ViewModel and shared with the offline geographic reasoning tool. */
+    private val touristPlaces = TouristLocationCatalog.load(app)
 
     // Advisories and community prices come from the backend and are cached so they still show offline.
     private val cache = app.getSharedPreferences("orbit_cache", Context.MODE_PRIVATE)
@@ -430,7 +433,8 @@ class OrbitViewModel(app: Application) : AndroidViewModel(app) {
             memory = notes.value.map { it.text }, month = java.time.LocalDate.now().monthValue,
             location = location?.let { BrainLocation(it.first, it.second, targetId) },
             advisories = advisories.value,
-            transport = transport
+            transport = transport,
+            touristPlaces = touristPlaces
         )
         // Rebuild the native Brain's short-term planning state from local chat history after app restarts.
         // Replay only prior user turns; actions are intentionally ignored so old "remember" commands are not repeated.
