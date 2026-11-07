@@ -6,6 +6,7 @@ import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
@@ -66,6 +68,8 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
     val visited by vm.visitedIds.collectAsState()
     var selected by remember { mutableStateOf<String?>(null) }
     var search by remember { mutableStateOf("") }
+    var mapZoom by remember { mutableStateOf(1f) }
+    var mapPan by remember { mutableStateOf(Offset.Zero) }
     var rating by remember { mutableStateOf<Destination?>(null) }
     val ctx = LocalContext.current
     val visitList by vm.visits.collectAsState()
@@ -140,15 +144,31 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                 }
                 Canvas(
                     Modifier.fillMaxWidth().aspectRatio(BangladeshMap.ASPECT)
-                        .pointerInput(centres) {
+                        .graphicsLayer {
+                            scaleX = mapZoom
+                            scaleY = mapZoom
+                            translationX = mapPan.x
+                            translationY = mapPan.y
+                            clip = true
+                        }
+                        .pointerInput(mapZoom, mapPan, centres) {
                             detectTapGestures { tap ->
-                                val limit = 40.dp.toPx()
+                                val mapTap = Offset((tap.x - mapPan.x) / mapZoom, (tap.y - mapPan.y) / mapZoom)
+                                val limit = 40.dp.toPx() / mapZoom
                                 val hit = centres.minByOrNull { (_, p) ->
-                                    (Offset(p.first * size.width, p.second * size.height) - tap).getDistance()
+                                    (Offset(p.first * size.width, p.second * size.height) - mapTap).getDistance()
                                 }
-                                if (hit != null && (Offset(hit.value.first * size.width, hit.value.second * size.height) - tap).getDistance() <= limit) {
+                                if (hit != null && (Offset(hit.value.first * size.width, hit.value.second * size.height) - mapTap).getDistance() <= limit) {
                                     selected = hit.key
                                 }
+                            }
+                        }
+                        .pointerInput(Unit) {
+                            detectTransformGestures { centroid, pan, zoomChange, _ ->
+                                val nextZoom = (mapZoom * zoomChange).coerceIn(1f, 5f)
+                                val zoomRatio = nextZoom / mapZoom
+                                mapPan = (mapPan + pan + (centroid - Offset.Zero) * (1f - zoomRatio))
+                                mapZoom = nextZoom
                             }
                         }
                 ) {
@@ -197,6 +217,15 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
                             entry.key, entry.value.first * size.width,
                             entry.value.second * size.height - 10.dp.toPx(), labelPaint
                         )
+                    }
+                }
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                    Text("Pinch or drag to explore", color = Color(0xFFB8C9BF), fontSize = 10.sp)
+                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                        TextButton(onClick = { mapZoom = (mapZoom / 1.25f).coerceAtLeast(1f); if (mapZoom == 1f) mapPan = Offset.Zero }) { Text("−", color = Color(0xFFE9D6A5), fontSize = 20.sp) }
+                        Text("${(mapZoom * 100).toInt()}%", color = Color(0xFFE9D6A5), fontSize = 11.sp)
+                        TextButton(onClick = { mapZoom = (mapZoom * 1.25f).coerceAtMost(5f) }) { Text("+", color = Color(0xFFE9D6A5), fontSize = 20.sp) }
+                        TextButton(onClick = { mapZoom = 1f; mapPan = Offset.Zero }) { Text("Reset", color = Color(0xFFE9D6A5), fontSize = 11.sp) }
                     }
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
