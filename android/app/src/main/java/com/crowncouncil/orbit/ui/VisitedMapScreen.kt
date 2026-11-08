@@ -157,7 +157,7 @@ fun VisitedMapScreen(vm: OrbitViewModel) {
             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text("BANGLADESH", color = Color(0xFFE9D6A5), fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-                    Text("${byDistrict.size} DISTRICTS · ${touristLocations.size} PLACES", color = Color(0xFF9CB2A7), fontSize = 9.sp, letterSpacing = 0.5.sp)
+                    Text("${byDistrict.size} DISTRICTS · ${dests.size} DESTINATIONS · ${touristLocations.size} MAP PINS", color = Color(0xFF9CB2A7), fontSize = 9.sp, letterSpacing = 0.5.sp)
                 }
                 Canvas(
                     Modifier.fillMaxWidth().aspectRatio(BangladeshMap.ASPECT)
