@@ -534,6 +534,37 @@ function createApp(opts = {}) {
     }
   });
 
+  // ---------- destination photography (Wikimedia Commons, freely licensed files only) ----------
+  const destinationPhotoCache = new Map();
+  route('GET', '/api/destination-image', async (req, res) => {
+    const url = new URL(req.url, 'http://x');
+    const name = clean(url.searchParams.get('name'), 80);
+    const district = clean(url.searchParams.get('district'), 60);
+    if (name.length < 2) return send(res, 400, { error: 'destination_required' });
+    const cacheKey = (name + '|' + district).toLowerCase();
+    const cached = destinationPhotoCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) {
+      if (cached.url) return send(res, 302, '', { location: cached.url, 'cache-control': 'public, max-age=86400' });
+      return send(res, 404, { error: 'photo_not_found' });
+    }
+    try {
+      const query = encodeURIComponent('filetype:bitmap "' + name + '" "' + district + '" Bangladesh');
+      const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrsearch=' + query + '&gsrlimit=8&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1200';
+      const response = await fetchImpl(endpoint, { headers: { 'User-Agent': 'ORBITTravelCompanion/1.0 (destination photography)' }, signal: AbortSignal.timeout(12000) });
+      if (!response.ok) throw new Error('commons_unavailable');
+      const payload = await response.json();
+      const pages = Object.values(payload.query?.pages || {}).sort((a, b) => (a.index || 0) - (b.index || 0));
+      const accepted = pages.map((page) => {
+        const info = page.imageinfo?.[0];
+        const license = (info?.extmetadata?.LicenseShortName?.value || '').replace(/<[^>]*>/g, '').trim();
+        return /^(CC0|Public domain|CC BY|CC BY-SA)/i.test(license) && info?.thumburl ? info.thumburl : null;
+      }).find(Boolean) || null;
+      destinationPhotoCache.set(cacheKey, { url: accepted, expiresAt: Date.now() + 6 * 60 * 60 * 1000 });
+      if (!accepted) return send(res, 404, { error: 'photo_not_found' });
+      send(res, 302, '', { location: accepted, 'cache-control': 'public, max-age=86400' });
+    } catch (_) { send(res, 503, { error: 'photo_service_unavailable' }); }
+  }, false);
+
   // ---------- handler ----------
   return async (req, res) => {
     try {
