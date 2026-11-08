@@ -56,6 +56,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.net.Uri
+import coil.compose.AsyncImage
+import androidx.compose.ui.layout.ContentScale
 import com.crowncouncil.orbit.domain.RankedDestination
 import com.crowncouncil.orbit.domain.Tier
 import com.crowncouncil.orbit.domain.tagSet
@@ -300,7 +303,7 @@ fun ExploreScreen(vm: OrbitViewModel, onPlanned: () -> Unit) {
         if (shown.isEmpty()) item { InfoCard("No matches", "Try another spot, district or division name.") }
         items(shown, key = { it.destination.id }) { r ->
             DestinationCard(
-                r, visited = r.destination.id in visited, favorite = r.destination.id in favs,
+                r, imageBaseUrl = vm.baseUrl, visited = r.destination.id in visited, favorite = r.destination.id in favs,
                 prices = prices[r.destination.id], transport = vm.transport.describe(r.destination), onReport = { reportFor = r.destination },
                 onFavorite = { vm.toggleFavorite(r.destination.id) },
                 onPlan = { vm.planTrip(r.destination, onPlanned) }
@@ -341,10 +344,12 @@ private fun ReportPriceDialog(name: String, onDismiss: () -> Unit, onSend: (Stri
 }
 
 @Composable
-private fun DestinationCard(r: RankedDestination, visited: Boolean, favorite: Boolean, prices: Map<String, PriceStat>?, transport: com.crowncouncil.orbit.domain.TransportInfo, onReport: () -> Unit, onFavorite: () -> Unit, onPlan: () -> Unit) {
+private fun DestinationCard(r: RankedDestination, imageBaseUrl: String, visited: Boolean, favorite: Boolean, prices: Map<String, PriceStat>?, transport: com.crowncouncil.orbit.domain.TransportInfo, onReport: () -> Unit, onFavorite: () -> Unit, onPlan: () -> Unit) {
     val d = r.destination
     Card(Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(7.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), border = androidx.compose.foundation.BorderStroke(1.dp, Gold.copy(alpha = .20f))) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(9.dp)) {
+            AsyncImage(model = "${imageBaseUrl.trimEnd('/')}/api/destination-image?name=${Uri.encode(d.name)}&district=${Uri.encode(d.district)}", contentDescription = "Photograph of ${d.name}, ${d.district}", modifier = Modifier.fillMaxWidth().height(176.dp).clip(androidx.compose.foundation.shape.RoundedCornerShape(5.dp)), contentScale = ContentScale.Crop)
+            Text("PHOTOGRAPH · WIKIMEDIA COMMONS", fontSize = 8.sp, letterSpacing = 1.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(48.dp).clip(CircleShape).background(Brush.linearGradient(listOf(Color(0xFF292B22), Color(0xFF111511)))), contentAlignment = Alignment.Center) {
                     Text("${r.score.percent}", color = Color(0xFFD8BC7A), fontWeight = FontWeight.Bold, fontSize = 16.sp)
