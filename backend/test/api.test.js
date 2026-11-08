@@ -139,7 +139,7 @@ test('destination image lookup only redirects to CC0 or public-domain Commons fi
   } });
   const result = await t.call('GET', '/api/destination-image?name=Jaflong&district= Sylhet ');
   assert.equal(result.status, 302);
-  assert.equal(result.body, '');
+  assert.equal(result.headers.location, 'https://upload.wikimedia.org/public-domain.jpg');
   assert.equal(requests, 1);
   t.close();
 });
