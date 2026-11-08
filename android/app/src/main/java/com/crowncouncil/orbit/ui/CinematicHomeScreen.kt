@@ -98,7 +98,7 @@ fun CinematicHomeScreen(vm: OrbitViewModel, onPlan: () -> Unit, onExplore: () ->
             Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).height(490.dp).clip(RoundedCornerShape(7.dp))) {
                 Crossfade(targetState = index, label = "destination-spotlight") { selected ->
                     AsyncImage(
-                        model = "${vm.baseUrl.trimEnd('/')}/api/destination-image?name=${Uri.encode(heroPlaces[selected].name)}&district=${Uri.encode(heroPlaces[selected].region.substringBefore(" · "))}",
+                        model = heroPlaces[selected].image,
                         contentDescription = heroPlaces[selected].name,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = androidx.compose.ui.layout.ContentScale.Crop
@@ -121,7 +121,7 @@ fun CinematicHomeScreen(vm: OrbitViewModel, onPlan: () -> Unit, onExplore: () ->
                     Modifier.align(Alignment.BottomStart).fillMaxWidth().padding(start = 23.dp, end = 23.dp, bottom = 25.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text("DESTINATION \${heroPlaces[index].number}  /  04", color = OrbitGold, fontSize = 9.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold)
+                    Text("DESTINATION ${heroPlaces[index].number}  /  04", color = OrbitGold, fontSize = 9.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold)
                     Text(heroPlaces[index].name, color = Color.White, fontFamily = androidx.compose.ui.text.font.FontFamily.Serif, fontSize = 39.sp, lineHeight = 43.sp)
                     Text(heroPlaces[index].line, color = Color.White.copy(alpha = 0.9f), fontSize = 13.sp)
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
