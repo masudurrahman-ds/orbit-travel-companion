@@ -548,17 +548,21 @@ function createApp(opts = {}) {
       return send(res, 404, { error: 'photo_not_found' });
     }
     try {
-      const query = encodeURIComponent('filetype:bitmap ' + name + ' ' + district + ' Bangladesh');
-      const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrsearch=' + query + '&gsrlimit=8&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1200';
-      const response = await fetchImpl(endpoint, { headers: { 'User-Agent': 'ORBITTravelCompanion/1.0 (destination photography)' }, signal: AbortSignal.timeout(12000) });
-      if (!response.ok) throw new Error('commons_unavailable');
-      const payload = await response.json();
-      const pages = Object.values(payload.query?.pages || {}).sort((a, b) => (a.index || 0) - (b.index || 0));
-      const accepted = pages.map((page) => {
-        const info = page.imageinfo?.[0];
-        const license = (info?.extmetadata?.LicenseShortName?.value || '').replace(/<[^>]*>/g, '').trim();
-        return /^(CC0|Public domain)/i.test(license) && info?.thumburl ? info.thumburl : null;
-      }).find(Boolean) || null;
+      let accepted = null;
+      for (const terms of [name + ' ' + district + ' Bangladesh', name + ' Bangladesh', district + ' Bangladesh']) {
+        const query = encodeURIComponent('filetype:bitmap ' + terms);
+        const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrsearch=' + query + '&gsrlimit=8&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1200';
+        const response = await fetchImpl(endpoint, { headers: { 'User-Agent': 'ORBITTravelCompanion/1.0 (destination photography)' }, signal: AbortSignal.timeout(12000) });
+        if (!response.ok) throw new Error('commons_unavailable');
+        const payload = await response.json();
+        const pages = Object.values(payload.query?.pages || {}).sort((a, b) => (a.index || 0) - (b.index || 0));
+        accepted = pages.map((page) => {
+          const info = page.imageinfo?.[0];
+          const license = (info?.extmetadata?.LicenseShortName?.value || '').replace(/<[^>]*>/g, '').trim();
+          return /^(CC0|Public domain)/i.test(license) && info?.thumburl ? info.thumburl : null;
+        }).find(Boolean) || null;
+        if (accepted) break;
+      }
       destinationPhotoCache.set(cacheKey, { url: accepted, expiresAt: Date.now() + 6 * 60 * 60 * 1000 });
       if (!accepted) return send(res, 404, { error: 'photo_not_found' });
       send(res, 302, '', { location: accepted, 'cache-control': 'public, max-age=86400' });
