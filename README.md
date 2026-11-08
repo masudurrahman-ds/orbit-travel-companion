@@ -8,6 +8,14 @@ Team: The Crown Council | Course: Mobile Application and Development (0613-109),
 | `ios/` | iOS app (same features) | Swift, SwiftUI, SwiftData, MapKit, Core Image (iOS 17+) |
 | `backend/` | API server and the tested reference for the guide | Node.js, no dependencies, 79 automated tests |
 
+## On-device generative model (optional)
+
+The Android app uses Google's LiteRT-LM runtime for an optional on-device language model. The model is not bundled in the APK: from **More → Local language model**, import a compatible `.litertlm` model file and enable it. Use a trusted publisher, check the model's license, and ensure the phone has enough free storage and RAM; even small models can be hundreds of MB and generation speed varies by device. Importing a model requires a one-time file selection, but inference is local afterward.
+
+The model can help interpret open-ended requests and provide direct answers when the rule-based travel planner does not understand. Destination recommendations, itinerary calculations, and budget estimates should still be grounded in ORBIT's bundled data. Local model outputs can be wrong; verify important travel details. Conversation memory and imported model weights are stored in app-private local storage. Removing the model or clearing conversation memory is available in-app.
+
+Runtime dependency is pinned to LiteRT-LM 0.16.0 to avoid an unbounded `latest.release` dependency; CI must confirm compatibility with this repository's Kotlin/KSP versions before this feature is considered release-ready.
+
 ## Features
 - **Plan and explore:** 113 spots across all 64 districts, ranked by a weighted model with a "why this score" breakdown. Three tour styles: **Budget** (lowest sensible cost), **Value** (affordable but good quality), **Fancy** (comfort first).
 - **ORBIT Brain, the app's own guide:** a native agent that runs on the phone with no outside AI service, no account and no network. It understands budget, days, travellers, month, interests and tour style from plain sentences (for example "affordable but good quality trip for 4 in December"), picks Budget / Value / Fancy itself, plans, builds itineraries, compares places, estimates costs, gives best months, measures distance from your live location, tracks progress, handles follow-ups ("what about fancy", "another one", "make it 5 days"), and remembers preferences you tell it. It never asks questions; it states what it assumed. Memory notes live only on the device and can be deleted in Account.

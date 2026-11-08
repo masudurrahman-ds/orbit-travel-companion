@@ -123,3 +123,35 @@ test('privacy and terms pages are served', async () => {
   assert.equal((await t.call('GET', '/terms')).status, 200);
   t.close();
 });
+
+
+test('destination image lookup only redirects to CC0 or public-domain Commons files', async () => {
+  let requests = 0;
+  const t = await start({ fetchImpl: async () => {
+    requests += 1;
+    return {
+      ok: true,
+      json: async () => ({ query: { pages: {
+        1: { index: 1, imageinfo: [{ thumburl: 'https://upload.wikimedia.org/cc-by.jpg', extmetadata: { LicenseShortName: { value: 'CC BY 4.0' } } }] },
+        2: { index: 2, imageinfo: [{ thumburl: 'https://upload.wikimedia.org/public-domain.jpg', extmetadata: { LicenseShortName: { value: 'Public domain' } } }] }
+      } } })
+    };
+  } });
+  const result = await t.call('GET', '/api/destination-image?name=Jaflong&district= Sylhet ');
+  assert.equal(result.status, 302);
+  assert.equal(result.headers.location, 'https://upload.wikimedia.org/public-domain.jpg');
+  assert.equal(requests, 1);
+  t.close();
+});
+
+test('destination image lookup rejects missing names and gracefully returns not-found', async () => {
+  const t = await start({ fetchImpl: async () => ({
+    ok: true,
+    json: async () => ({ query: { pages: {
+      1: { index: 1, imageinfo: [{ thumburl: 'https://upload.wikimedia.org/restricted.jpg', extmetadata: { LicenseShortName: { value: 'CC BY-SA 4.0' } } }] }
+    } } })
+  }) });
+  assert.equal((await t.call('GET', '/api/destination-image')).status, 400);
+  assert.equal((await t.call('GET', '/api/destination-image?name=Unknown+Spot&district=Nowhere')).status, 404);
+  t.close();
+});

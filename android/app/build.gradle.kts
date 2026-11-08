@@ -1,8 +1,40 @@
+import java.net.URL
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
+}
+
+// Pin the administrative boundary source so every build packages the same offline geometry.
+val bangladeshBoundaryAsset = layout.projectDirectory.file("src/main/assets/bangladesh-upazilas.geojson")
+val prepareBangladeshBoundaries by tasks.registering {
+    outputs.file(bangladeshBoundaryAsset)
+    doLast {
+        val target = bangladeshBoundaryAsset.asFile
+        if (!target.exists() || target.length() == 0L) {
+            target.parentFile.mkdirs()
+            val source = URL(
+                "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09/releaseData/gbOpen/BGD/ADM3/geoBoundaries-BGD-ADM3_simplified.geojson"
+            )
+            source.openStream().use { input ->
+                target.outputStream().use { output -> input.copyTo(output) }
+            }
+        }
+        val boundaryText = target.readText()
+        require(
+            boundaryText.contains("FeatureCollection") &&
+            boundaryText.contains("features") &&
+            boundaryText.length > 1_000_000
+        ) {
+            "Downloaded Bangladesh ADM3 boundary asset is not a valid FeatureCollection."
+        }
+    }
+}
+
+tasks.named("preBuild").configure {
+    dependsOn(prepareBangladeshBoundaries)
 }
 
 android {
@@ -16,7 +48,8 @@ android {
         versionCode = 1
         versionName = "0.2.0"
         // Backend URL. 10.0.2.2 is the emulator's alias for the computer running the backend.
-        buildConfigField("String", "API_BASE_URL", "\"${project.findProperty("ORBIT_API_URL") ?: "http://10.0.2.2:8080"}\"")
+        val apiBaseUrl = project.findProperty("ORBIT_API_URL")?.toString() ?: "http://10.0.2.2:8080"
+        buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
         // Google Maps key: put MAPS_API_KEY=... in ~/.gradle/gradle.properties (never commit it).
         manifestPlaceholders["MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY")?.toString() ?: ""
         // The built-in ORBIT Brain is always the guide. Set ORBIT_CLOUD_AI=true only if you also run the optional cloud guide on the backend.
@@ -33,8 +66,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
     buildFeatures {
         compose = true
@@ -47,6 +82,7 @@ dependencies {
     implementation(composeBom)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material3:material3")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.activity:activity-compose:1.9.3")
@@ -54,7 +90,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
 
-    val room = "2.6.1"
+    val room = "2.8.3"
     implementation("androidx.room:room-runtime:$room")
     implementation("androidx.room:room-ktx:$room")
     ksp("androidx.room:room-compiler:$room")
@@ -64,9 +100,9 @@ dependencies {
     implementation("com.google.maps.android:maps-compose:6.1.2")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation("androidx.exifinterface:exifinterface:1.3.7")
-    // LiteRT-LM intentionally excluded from this build profile. The floating latest.release dependency
-    // pulled Kotlin metadata newer than this project's Kotlin/KSP toolchain and broke Room KSP.
-    // Re-enable only after pinning a verified, compatible LiteRT-LM version and updating its adapter.
+    // Pinned LiteRT-LM runtime for optional on-device generative inference. Keep the version pinned
+    // rather than using latest.release so Kotlin/KSP compatibility can be verified in CI.
+    implementation("com.google.ai.edge.litertlm:litertlm-android:0.16.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")

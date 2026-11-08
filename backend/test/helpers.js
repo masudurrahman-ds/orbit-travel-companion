@@ -10,10 +10,10 @@ async function start(opts = {}) {
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const base = `http://127.0.0.1:${server.address().port}`;
   const call = async (method, path, body, token, headers = {}) => {
-    const res = await fetch(base + path, { method, headers: { 'content-type': 'application/json', ...(token ? { authorization: 'Bearer ' + token } : {}), ...headers }, body: body ? JSON.stringify(body) : undefined });
+    const res = await fetch(base + path, { method, headers: { 'content-type': 'application/json', ...(token ? { authorization: 'Bearer ' + token } : {}), ...headers }, redirect: 'manual', body: body ? JSON.stringify(body) : undefined });
     const text = await res.text();
     let json; try { json = JSON.parse(text); } catch { json = text; }
-    return { status: res.status, body: json };
+    return { status: res.status, body: json, headers: Object.fromEntries(res.headers.entries()) };
   };
   const signup = async (identifier, name, consent = {}) => {
     const s = await call('POST', '/api/auth/signup', { identifier, password: 'correct-horse-9', displayName: name, consent: { terms: true, privacy: true, ...consent } });

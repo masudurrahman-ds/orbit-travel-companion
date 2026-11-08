@@ -1,0 +1,86 @@
+tm-001|Tara Masjid|23.7156086|90.4016866|Dhaka|||Bangshal|matched_to_upazila_boundary
+tm-002|Dhakeshwari National Temple|23.723311|90.3901206|Dhaka|||Lalbagh|matched_to_upazila_boundary
+tm-003|Central Shaheed Minar|23.727238|90.396625|Dhaka|||Shahbagh|matched_to_upazila_boundary
+tm-004|Curzon Hall|23.7273793|90.4018938|Dhaka|||Shahbagh|matched_to_upazila_boundary
+tm-005|Bangladesh National Parliament House|23.762466|90.3785811|Dhaka|||Sher-e-bangla Nagar|matched_to_upazila_boundary
+tm-006|Sadarghat|23.7047113|90.4160527|Dhaka|||Sutrapur|matched_to_upazila_boundary
+tm-007|Armenian Church Dhaka|23.7125328|90.4023203|Dhaka|||Bangshal|matched_to_upazila_boundary
+tm-008|Ahsan Manzil|23.7085964|90.406002|Dhaka|||Kotwali|matched_to_upazila_boundary
+tm-009|Hatir Jheel|23.769424|90.4142853|Dhaka|||Tejgaon Ind. Area|matched_to_upazila_boundary
+tm-010|Safari Park|24.1737065|90.3957673|Dhaka|Magura|Khulna|Sreepur|matched_to_upazila_boundary
+tm-011|Lalbagh Fort|23.7188605|90.3881596|Dhaka|||Lalbagh|matched_to_upazila_boundary
+tm-012|Bangladesh National Museum|23.7375165|90.3945164|Dhaka|||Shahbagh|matched_to_upazila_boundary
+tm-013|Liberation War Museum|23.7757194|90.3696847|Dhaka|||Sher-e-bangla Nagar|matched_to_upazila_boundary
+tm-014|National Martyrs' Monument|23.9112985|90.2547753|Dhaka|Dhaka|Dhaka|Savar|matched_to_upazila_boundary
+tm-015|Panam City|23.6562985|90.6054671|Dhaka|Narayanganj|Dhaka|Sonargaon|matched_to_upazila_boundary
+tm-016|Bangladesh Folk Art & Crafts Foundation|23.6489066|90.6001296|Dhaka|Narayanganj|Dhaka|Sonargaon|matched_to_upazila_boundary
+tm-017|Baliati Jamidar Bari|23.9947082|90.0423531|Dhaka|Manikganj|Dhaka|Saturia|matched_to_upazila_boundary
+tm-018|Mohera Jomidar Bari|24.1632454|90.0428563|Dhaka|Tangail|Dhaka|Mirzapur|matched_to_upazila_boundary
+tm-019|Cox's Bazar Sea Beach|21.415935|91.9809917|Cox's Bazar||||outside_available_upazila_polygons
+tm-020|Saint Martins Island|20.6237016|92.3233948|Cox's Bazar|Cox's Bazar|Chattogram|Teknaf|matched_to_upazila_boundary
+tm-021|Himchori|21.3550924|92.0243361|Cox's Bazar|Cox's Bazar|Chattogram|Ramu|matched_to_upazila_boundary
+tm-022|Inani Beach, Coxs Bazar|21.2330272|92.0464576|Cox's Bazar|Cox's Bazar|Chattogram|Ukhia|matched_to_upazila_boundary
+tm-023|Teknaf|20.8578385|92.2975183|Cox's Bazar|Cox's Bazar|Chattogram|Teknaf|matched_to_upazila_boundary
+tm-024|Maheshkhali Island|21.6111111|91.9511111|Cox's Bazar|Cox's Bazar|Chattogram|Maheshkhali|matched_to_upazila_boundary
+tm-025|Baikka Beel|24.3514306|91.6979398|Sylhet|Maulvibazar|Sylhet|Sreemangal|matched_to_upazila_boundary
+tm-026|Lawachara National Park|24.3250642|91.7871472|Sylhet|Maulvibazar|Sylhet|Kamalganj|matched_to_upazila_boundary
+tm-027|সাদা পাথর|25.1630176|91.7547615|Sylhet|||Companiganj|matched_to_upazila_boundary
+tm-028|Madhabpur Lake|24.2811671|91.8182732|Sylhet|Maulvibazar|Sylhet|Kamalganj|matched_to_upazila_boundary
+tm-029|Noor Jahan Tea Garden|24.2963019|91.7993686|Sylhet|Maulvibazar|Sylhet|Kamalganj|matched_to_upazila_boundary
+tm-030|Jaflong|25.1633829|92.0175242|Sylhet|Sylhet|Sylhet|Gowainghat|matched_to_upazila_boundary
+tm-031|Lala Khal|25.1048337|92.1769564|Sylhet|||Jaintiapur|matched_to_upazila_boundary
+tm-032|Ratargul Swamp Forest|25.0141875|91.9187031|Sylhet|Sylhet|Sylhet|Gowainghat|matched_to_upazila_boundary
+tm-033|Tanguar Haor|25.140043|91.0883278|Sylhet|Sunamganj|Sylhet|Tahirpur|matched_to_upazila_boundary
+tm-034|Madhabkunda Waterfall|24.6382272|92.2244897|Sylhet|Maulvibazar|Sylhet|Barlekha|matched_to_upazila_boundary
+tm-035|Sreemangal|24.3094552|91.7314423|Sylhet|Maulvibazar|Sylhet|Sreemangal|matched_to_upazila_boundary
+tm-036|Bisnakandi|25.1695436|91.8867263|Sylhet|Sylhet|Sylhet|Gowainghat|matched_to_upazila_boundary
+tm-037|Hakaluki Haor|24.6766667|92.0469151|Sylhet|Maulvibazar|Sylhet|Barlekha|matched_to_upazila_boundary
+tm-038|Satchari National Park|24.1246454|91.4445892|Sylhet|Habiganj|Sylhet|Chunarughat|matched_to_upazila_boundary
+tm-039|Rema Kalenga Reserved Forest|24.129051|91.6255654|Sylhet|Habiganj|Sylhet|Chunarughat|matched_to_upazila_boundary
+tm-040|Sajek Valley|23.3838125|92.2939219|Hill Tracts|||Baghai Chhari|matched_to_upazila_boundary
+tm-041|Bandarban|22.196146|92.2175885|Hill Tracts|Bandarban|Chattogram|Bandarban Sadar|matched_to_upazila_boundary
+tm-042|Keokradong|21.9499667|92.5144502|Hill Tracts|Bandarban|Chattogram|Ruma|matched_to_upazila_boundary
+tm-043|Thanchi|21.8210961|92.435696|Hill Tracts|Bandarban|Chattogram|Thanchi|matched_to_upazila_boundary
+tm-044|Remakri Water Fall|21.6812776|92.5205975|Hill Tracts|Bandarban|Chattogram|Thanchi|matched_to_upazila_boundary
+tm-045|নাফাখুম খুমতায়া ঝরনা|21.7203125|92.5341875|Hill Tracts|Bandarban|Chattogram|Thanchi|matched_to_upazila_boundary
+tm-046|Amiakhum WaterFall|21.7766275|92.548871|Hill Tracts|Bandarban|Chattogram|Thanchi|matched_to_upazila_boundary
+tm-047|Rangamati Hanging Bridge|22.627663|92.189982|Hill Tracts|Rangamati|Chattogram|Rangamati Sadar|matched_to_upazila_boundary
+tm-048|Kaptai Lake|22.5927679|92.2138289|Hill Tracts|Rangamati|Chattogram|Rangamati Sadar|matched_to_upazila_boundary
+tm-049|Nilgiri Hill Resort|21.912026|92.3253475|Hill Tracts|Bandarban|Chattogram|Ruma|matched_to_upazila_boundary
+tm-050|Nilachal Tourist Center|22.1670622|92.2119189|Hill Tracts|Bandarban|Chattogram|Rowangchhari|matched_to_upazila_boundary
+tm-051|Boga Lake|21.980335|92.4699965|Hill Tracts|Bandarban|Chattogram|Ruma|matched_to_upazila_boundary
+tm-052|আলুটিলা গুহা|23.088868|91.9564205|Hill Tracts|||Khagrachhari Sadar|matched_to_upazila_boundary
+tm-053|Bandarban Golden Temple - Buddha Dhatu Jadi|22.2229449|92.1975124|Hill Tracts|Bandarban|Chattogram|Bandarban Sadar|matched_to_upazila_boundary
+tm-054|Sundarbans|21.9497274|89.1833304|Khulna & Kushtia|Satkhira|Khulna|Shyamnagar|matched_to_upazila_boundary
+tm-055|Shat Gambuj Mosque|22.6745023|89.7418308|Khulna & Kushtia|Bagerhat|Khulna|Bagerhat Sadar|matched_to_upazila_boundary
+tm-056|Shilaidaha Rabindra Kuthibari|23.9199375|89.2200625|Khulna & Kushtia|Kushtia|Khulna|Kumarkhali|matched_to_upazila_boundary
+tm-057|Mausoleum of Lalon Shah|23.8957877|89.1520984|Khulna & Kushtia|Kushtia|Khulna|Kushtia Sadar|matched_to_upazila_boundary
+tm-058|Mahasthan Archaeological Museum|24.962683|89.343932|North Bengal|Bogura|Rajshahi|Shibganj|matched_to_upazila_boundary
+tm-059|Paharpur Buddhist Vihara Museum|25.0310701|88.9805879|North Bengal|Naogaon|Rajshahi|Badalgachhi|matched_to_upazila_boundary
+tm-060|Kantajew Temple|25.7902954|88.667045|North Bengal|Dinajpur|Rangpur|Kaharole|matched_to_upazila_boundary
+tm-061|Ramsagar National Park|25.5516875|88.6216875|North Bengal|Dinajpur|Rangpur|Dinajpur Sadar|matched_to_upazila_boundary
+tm-062|Tajhat Palace|25.7252732|89.2799033|North Bengal|Rangpur|Rangpur|Rangpur Sadar|matched_to_upazila_boundary
+tm-063|Puthia Rajbari|24.361949|88.8368161|North Bengal|Rajshahi|Rajshahi|Puthia|matched_to_upazila_boundary
+tm-064|Natore Rajbari|24.4199621|88.9918797|North Bengal|Natore|Rajshahi|Natore Sadar|matched_to_upazila_boundary
+tm-065|Uttara Ganabhaban|24.4397751|89.0107349|North Bengal|Natore|Rajshahi|Natore Sadar|matched_to_upazila_boundary
+tm-066|Varendra Research Museum|24.3670528|88.5925182|North Bengal|||Boalia|matched_to_upazila_boundary
+tm-067|Kusumba Masjid|24.7527458|88.68147|North Bengal|Naogaon|Rajshahi|Manda|matched_to_upazila_boundary
+tm-068|Choto Sona Masjid|24.8137269|88.1432103|North Bengal|Nawabganj|Rajshahi|Shibganj|matched_to_upazila_boundary
+tm-069|Kuakata Sea Beach|21.8031005|90.1822792|Barishal & Coast|Patuakhali|Barishal|Kalapara|matched_to_upazila_boundary
+tm-070|Bhimruli Floating Guava Market|22.7137311|90.1626921|Barishal & Coast|Jhalokati|Barishal|Jhalokati Sadar|matched_to_upazila_boundary
+tm-071|Oxford Mission Epiphany Church|22.7042787|90.3628673|Barishal & Coast|Barishal|Barishal|Barisal Sadar|matched_to_upazila_boundary
+tm-072|Durga Sagar|22.7610208|90.289515|Barishal & Coast|Barishal|Barishal|Babuganj|matched_to_upazila_boundary
+tm-073|Char Kukrimukri|21.9390521|90.6488505|Barishal & Coast|Bhola|Barishal|Char Fasson|matched_to_upazila_boundary
+tm-074|Patenga Sea Beach|22.2352023|91.7913938|Chattogram, Cumilla & Islands||||outside_available_upazila_polygons
+tm-075|Foy's Lake|22.3721435|91.7929924|Chattogram, Cumilla & Islands|||Khulshi|matched_to_upazila_boundary
+tm-076|Sri Sri Chandranath Temple|22.6337513|91.6840302|Chattogram, Cumilla & Islands|Chattogram|Chattogram|Sitakunda|matched_to_upazila_boundary
+tm-077|Botanical Garden & Eco-Park, Sitakunda, Chattagram|22.6032684|91.6773724|Chattogram, Cumilla & Islands|Chattogram|Chattogram|Sitakunda|matched_to_upazila_boundary
+tm-078|Khoiyachara Waterfalls|22.7697316|91.6124009|Chattogram, Cumilla & Islands|Chattogram|Chattogram|Mirsharai|matched_to_upazila_boundary
+tm-079|Shalban Bihar|23.4262227|91.1375785|Chattogram, Cumilla & Islands|||Comilla Sadar Dakshin|matched_to_upazila_boundary
+tm-080|Maynamati War Cemetry|23.4867916|91.1123998|Chattogram, Cumilla & Islands|||Comilla Adarsha Sadar|matched_to_upazila_boundary
+tm-081|Sonadia Island|21.5019444|91.8922222|Chattogram, Cumilla & Islands|Cox's Bazar|Chattogram|Maheshkhali|matched_to_upazila_boundary
+tm-082|Nijhum Dwip|22.0564571|91.0107552|Chattogram, Cumilla & Islands|||Hatiya|matched_to_upazila_boundary
+tm-083|China clay Hills|25.1569574|90.6415938|Mymensingh|Netrokona|Mymensingh|Durgapur Upazilla|matched_to_upazila_boundary
+tm-084|Shashi Lodge|24.7625226|90.4030193|Mymensingh|Mymensingh|Mymensingh|Mymensingh Sadar|matched_to_upazila_boundary
+tm-085|Muktagacha Zamindar Bari|24.769324|90.2550237|Mymensingh|Mymensingh|Mymensingh|Muktagachha|matched_to_upazila_boundary
+tm-086|Shilpacharya Zainul Abedin Sangrahashala|24.7702694|90.3949925|Mymensingh|Mymensingh|Mymensingh|Mymensingh Sadar|matched_to_upazila_boundary

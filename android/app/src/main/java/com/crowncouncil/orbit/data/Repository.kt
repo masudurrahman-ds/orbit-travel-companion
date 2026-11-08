@@ -6,6 +6,7 @@ class Repository(private val db: OrbitDatabase) {
     val visits = db.visits().all()
     val notes = db.notes().all()
     val activities = db.activities().all()
+    val chatTurns = db.chatTurns().recent()
 
     fun rows(tripId: Long) = db.itinerary().rows(tripId)
     fun expenses(tripId: Long) = db.expenses().forTrip(tripId)
@@ -29,5 +30,7 @@ class Repository(private val db: OrbitDatabase) {
     suspend fun addNote(text: String): Boolean { if (db.notes().count() >= 50) return false; db.notes().insert(MemoryNote(text = text.take(200))); return true }
     suspend fun deleteNote(id: Long) = db.notes().delete(id)
     suspend fun clearNotes() = db.notes().clear()
+    suspend fun addChatTurn(turn: ChatTurn) { db.chatTurns().insert(turn); db.chatTurns().trimToRecent100() }
+    suspend fun clearChat() = db.chatTurns().clear()
     suspend fun saveItems(items: List<ItineraryItem>) = db.itinerary().insertAll(items)
 }

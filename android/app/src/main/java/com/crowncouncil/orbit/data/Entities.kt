@@ -112,3 +112,13 @@ data class MemoryNote(
     val text: String,
     val createdAt: Long = System.currentTimeMillis()
 )
+
+
+/** A locally stored guide turn. Chat history stays on this device and is available offline. */
+@Entity(tableName = "chat_turn", indices = [Index("createdAt")])
+data class ChatTurn(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val fromUser: Boolean,
+    val text: String,
+    val createdAt: Long = System.currentTimeMillis()
+)

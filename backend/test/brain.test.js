@@ -46,6 +46,15 @@ test('destination matching handles apostrophes, aliases and "from Dhaka"', () =>
   assert.ok(find('from dhaka to sylhet').every((n) => !['Lalbagh Fort', 'Ahsan Manzil'].includes(n)), 'origin is not the destination');
 });
 
+test('transport questions return named modes, dated route fares, and live-data caveat', () => {
+  const r = brain.respond("What bus and train can I take to Cox's Bazar and how much is the fare?", ctx());
+  assert.match(r.reply, /Non-AC bus/i);
+  assert.match(r.reply, /Train classes\/fare entries/i);
+  assert.match(r.reply, /Fare data checked:/i);
+  assert.match(r.reply, /not a live operator quote/i);
+  assert.match(r.reply, /availability and schedules can change/i);
+});
+
 test('plan: budget, days, interest and defaults', () => {
   const r = brain.respond('3 days beach trip under 20k for 2', ctx());
   assert.match(r.reply, /^Value tour pick:/);
@@ -266,4 +275,18 @@ test('expanded destination aliases and follow-up language stay grounded in known
   const next = brain.respond('give me another destination', ctx(), first.state);
   assert.ok(next.plan);
   assert.notEqual(next.plan.destination.id, first.plan.destination.id);
+});
+
+
+test('recommendation explanation uses destination, season, interests and budget evidence', () => {
+  const target = D[0];
+  const reply = brain.respond('why this place?', ctx(), {
+    lastQuery: { budget: 20000, days: 2, travellers: 2, month: 12, interests: ['beach'], tier: 'value' },
+    lastPlace: target.id,
+    offset: 0,
+  });
+  assert.ok(reply.reply.includes('Why ' + target.name));
+  assert.match(reply.reply, /estimated total/i);
+  assert.match(reply.reply, /season/i);
+  assert.equal(reply.understood, true);
 });

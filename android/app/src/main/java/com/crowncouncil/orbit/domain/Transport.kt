@@ -30,7 +30,14 @@ class TransportData(json: String) {
 
     fun describe(d: Destination): TransportInfo {
         if (d.distanceKm <= 10) return TransportInfo(listOf("Within Dhaka: use local transport."), "")
-        val route = entries.firstOrNull { it.getString("category") == "transport" && it.optString("district") == d.district && it.getString("id").startsWith("route_") }
+        // A district-level route is not automatically a fare quote to every attraction in that district.
+        // Use published route fares only when the destination name identifies the route's district endpoint.
+        val route = entries.firstOrNull {
+            it.getString("category") == "transport" &&
+                it.optString("district") == d.district &&
+                d.name.contains(d.district, ignoreCase = true) &&
+                it.getString("id").startsWith("route_")
+        }
         val v = route?.getJSONObject("value")
         val lines = mutableListOf<String>()
         val bus = v?.optJSONObject("bus_nonac_tk")

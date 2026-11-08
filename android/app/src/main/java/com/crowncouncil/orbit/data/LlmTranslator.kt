@@ -2,42 +2,73 @@ package com.crowncouncil.orbit.data
 
 import android.content.Context
 import android.net.Uri
+import com.google.ai.edge.litertlm.Backend
+import com.google.ai.edge.litertlm.Conversation
+import com.google.ai.edge.litertlm.Engine
+import com.google.ai.edge.litertlm.EngineConfig
 import com.crowncouncil.orbit.domain.Translator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
- * Temporary build-safe model store.
- * LiteRT-LM is disabled in this release because its floating latest.release dependency pulled
- * Kotlin metadata incompatible with the project's Kotlin 2.0.21 / KSP 2.0.21 toolchain.
- * ORBIT Brain remains available offline; optional imported-model translation is disabled until
- * a specific compatible runtime version is verified.
- */
 class ModelStore(private val context: Context) {
     private val prefs = context.getSharedPreferences("orbit_llm", Context.MODE_PRIVATE)
-    private val dir: File get() = File(context.filesDir, "models").apply { mkdirs() }
-    val file: File get() = File(dir, "orbit-llm.litertlm")
-    fun exists(): Boolean = false
-    fun sizeMb(): Long = 0L
+    private val directory get() = File(context.filesDir, "models").apply { mkdirs() }
+    val file get() = File(directory, "orbit-llm.litertlm")
+    fun exists() = file.isFile && file.length() > 50_000_000L
+    fun sizeMb() = if (exists()) file.length() / (1024 * 1024) else 0L
     var enabled: Boolean
-        get() = false
-        set(@Suppress("UNUSED_PARAMETER") value) { prefs.edit().putBoolean("enabled", false).apply() }
+        get() = exists() && prefs.getBoolean("enabled", false)
+        set(value) { prefs.edit().putBoolean("enabled", value && exists()).apply() }
 
     suspend fun import(uri: Uri): Result<Long> = withContext(Dispatchers.IO) {
-        Result.failure(IllegalStateException(
-            "Optional on-device language-model support is temporarily disabled in this build. ORBIT Brain works offline without it."
-        ))
+        runCatching {
+            val temporary = File(directory, "model.tmp")
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                temporary.outputStream().use { output -> input.copyTo(output) }
+            } ?: error("Unable to read the selected model file.")
+            require(temporary.length() > 50_000_000L) { "Select a valid .litertlm model file, usually hundreds of MB or larger." }
+            check(temporary.renameTo(file)) { "Unable to save the model in app storage." }
+            prefs.edit().putBoolean("enabled", false).apply()
+            file.length()
+        }.onFailure { File(directory, "model.tmp").delete() }
     }
 
     fun remove() { file.delete(); prefs.edit().putBoolean("enabled", false).apply() }
 }
 
-/** No-op adapter: the core deterministic offline Brain does not require an LLM. */
-class LiteRtTranslator(
-    @Suppress("UNUSED_PARAMETER") context: Context,
-    @Suppress("UNUSED_PARAMETER") store: ModelStore
-) : Translator, AutoCloseable {
-    override suspend fun translate(text: String, context: String?): String? = null
-    override fun close() = Unit
+/** Real local generator. Model weights stay in the app-private directory. */
+class LiteRtTranslator(private val context: Context, private val store: ModelStore) : Translator, AutoCloseable {
+    private var engine: Engine? = null
+    private var conversation: Conversation? = null
+
+    private suspend fun load() = withContext(Dispatchers.IO) {
+        if (conversation != null) return@withContext
+        check(store.enabled && store.exists()) { "Enable an imported .litertlm model first." }
+        val candidate = Engine(EngineConfig(modelPath = store.file.absolutePath, backend = Backend.CPU()))
+        try {
+            candidate.initialize()
+            engine = candidate
+            conversation = candidate.createConversation()
+        } catch (error: Throwable) {
+            runCatching { candidate.close() }
+            throw error
+        }
+    }
+
+    override suspend fun translate(text: String, context: String?): String? = withContext(Dispatchers.IO) {
+        load()
+        val prompt = "You are ORBIT, a private on-device travel assistant. Interpret the request using this context: " +
+            (context ?: "No saved trip context.") + "\nUser request: " + text +
+            "\nIf this is a Bangladesh trip-planning command, return one short normalized English command for ORBIT's verified planner. " +
+            "If travel planning, prefix with PLAN_INTENT: and then one short normalized command. Otherwise prefix with DIRECT_ANSWER: and answer in under 120 words. Do not invent travel facts or prices."
+        conversation?.sendMessage(prompt)?.toString()?.trim()?.takeIf { it.isNotBlank() }
+    }
+
+    override fun close() {
+        runCatching { conversation?.close() }
+        conversation = null
+        runCatching { engine?.close() }
+        engine = null
+    }
 }

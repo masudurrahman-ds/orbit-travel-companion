@@ -2,51 +2,28 @@ package com.crowncouncil.orbit.ui
 
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.speech.RecognizerIntent
-import android.speech.SpeechRecognizer
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -58,137 +35,183 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
     val imageBusy by vm.imageBusy.collectAsState()
     val imageError by vm.imageError.collectAsState()
     val q by vm.query.collectAsState()
+    val llmReady by vm.llmReady.collectAsState()
+    val llmEnabled by vm.llmEnabled.collectAsState()
     val list = rememberLazyListState()
     var input by remember { mutableStateOf("") }
     var imagePrompt by remember { mutableStateOf("") }
-    var speechMode by remember { mutableStateOf("english") }
-    var listening by remember { mutableStateOf(false) }
-    var speechError by remember { mutableStateOf<String?>(null) }
-    val speechLanguage = if (speechMode == "bengali") "bn-BD" else "en-US"
-    val context = LocalContext.current
-    val speechPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) { listening = true; speechError = null; startOrbitSpeech(context, speechLanguage, { recognized -> input = listOf(input, recognized).filter { it.isNotBlank() }.joinToString(" ") }, { message -> speechError = message }, { listening = false }) }
+    var imageMode by remember { mutableStateOf(false) }
+
+    LaunchedEffect(messages.size, busy) {
+        if (messages.isNotEmpty()) list.animateScrollToItem(messages.size - 1)
     }
 
-    LaunchedEffect(messages.size, busy) { list.animateScrollToItem(messages.size) }
-
-    Column(Modifier.fillMaxSize().imePadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
-        Title("Guide")
-        LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list, verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            items(messages.size) { i ->
-                val m = messages[i]
-                Box(Modifier.fillMaxWidth(), contentAlignment = if (m.fromUser) Alignment.CenterEnd else Alignment.CenterStart) {
-                    Column(
-                        Modifier.widthIn(max = 520.dp).clip(RoundedCornerShape(18.dp))
-                            .background(if (m.fromUser) Navy else MaterialTheme.colorScheme.surface).padding(14.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Text(m.text, color = if (m.fromUser) Color.White else MaterialTheme.colorScheme.onSurface, fontSize = 15.sp)
-                        m.plan?.let { plan -> Button(onClick = { vm.savePlan(plan, onPlanSaved) }) { Text(tr("Save this plan as my trip")) } }
-                        m.brainPlan?.let { plan -> Button(onClick = { vm.saveBrainPlan(plan, null, onPlanSaved) }) { Text(tr("Save this plan as my trip")) } }
+    Column(Modifier.fillMaxSize().imePadding().background(MaterialTheme.colorScheme.background)) {
+        Column(
+            Modifier.fillMaxWidth().background(
+                Brush.horizontalGradient(listOf(Color(0xFF171B16), Color(0xFF25291F), Color(0xFF171B16)))
+            ).padding(horizontal = 20.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Text("O R B I T  /  INTELLIGENCE", color = Color(0xFFD8BC7A), fontSize = 9.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold)
+                    Text("Your journey, considered.", color = Color(0xFFF1EBDD), fontFamily = FontFamily.Serif, fontSize = 23.sp)
+                }
+                Surface(shape = RoundedCornerShape(30.dp), color = Color.White.copy(alpha = .08f)) {
+                    Row(Modifier.padding(horizontal = 10.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Box(Modifier.size(6.dp).clip(CircleShape).background(if (llmReady && llmEnabled) Color(0xFF9DC49A) else Color(0xFFD8BC7A)))
+                        Text(if (llmReady && llmEnabled) "ON-DEVICE MODEL" else "LOCAL BRAIN", color = Color(0xFFE7DEC9), fontSize = 9.sp, letterSpacing = .7.sp)
                     }
                 }
             }
-            if (busy) item { Text("Thinking...", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp) }
+            Text("A thoughtful travel companion for Bangladesh.", color = Color(0xFFBDB9AC), fontSize = 12.sp)
         }
-        Column(Modifier.fillMaxWidth().padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("Create a travel photo", style = MaterialTheme.typography.titleSmall)
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(imagePrompt, { imagePrompt = it.take(1200) }, modifier = Modifier.weight(1f), placeholder = { Text("e.g. cinematic sunrise at Sajek Valley") }, maxLines = 2)
-                Button(onClick = { vm.generateTravelImage(imagePrompt) }, enabled = imagePrompt.isNotBlank() && !imageBusy) { Text(if (imageBusy) "Creating…" else "Generate") }
+
+        LazyColumn(
+            Modifier.weight(1f).fillMaxWidth().padding(horizontal = 15.dp),
+            state = list,
+            contentPadding = PaddingValues(vertical = 18.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            if (messages.size <= 1) {
+                item {
+                    Column(Modifier.fillMaxWidth().padding(top = 18.dp, bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Text("THE CONCIERGE", color = Gold, fontSize = 9.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold)
+                        Text("Where would you\nlike to disappear?", color = MaterialTheme.colorScheme.onBackground, fontFamily = FontFamily.Serif, fontSize = 31.sp, lineHeight = 36.sp)
+                        Text("Ask for a considered itinerary, compare destinations, or discover a quieter side of the country.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp, lineHeight = 20.sp)
+                    }
+                }
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        listOf(
+                            "Plan a 2-day trip from Dhaka under BDT ${q.budget}.",
+                            "Find peaceful nature escapes in Bangladesh.",
+                            "Compare Sajek Valley and Bandarban.",
+                            "What should I know before visiting Cox's Bazar?"
+                        ).forEachIndexed { index, prompt ->
+                            Surface(
+                                onClick = { vm.ask(prompt) },
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(8.dp),
+                                color = MaterialTheme.colorScheme.surface,
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Gold.copy(alpha = .25f))
+                            ) {
+                                Row(Modifier.padding(horizontal = 14.dp, vertical = 13.dp), verticalAlignment = Alignment.CenterVertically) {
+                                    Text("0${index + 1}", color = Gold, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                                    Text(prompt, Modifier.weight(1f).padding(start = 12.dp), color = MaterialTheme.colorScheme.onSurface, fontSize = 13.sp, lineHeight = 18.sp)
+                                    Text("↗", color = Gold, fontSize = 17.sp)
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            imageError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
+
+            itemsIndexed(messages) { _, message ->
+                if (message.fromUser) {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp, bottomStart = 18.dp, bottomEnd = 4.dp)
+                        ) {
+                            Text(message.text, Modifier.widthIn(max = 310.dp).padding(horizontal = 15.dp, vertical = 12.dp), color = MaterialTheme.colorScheme.onPrimary, fontSize = 14.sp, lineHeight = 21.sp)
+                        }
+                    }
+                } else {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.Top) {
+                        Box(Modifier.padding(top = 2.dp).size(30.dp).clip(RoundedCornerShape(9.dp)).background(Color(0xFF272B22)), contentAlignment = Alignment.Center) {
+                            Icon(Icons.Default.Face, null, tint = Color(0xFFD8BC7A), modifier = Modifier.size(17.dp))
+                        }
+                        Column(Modifier.padding(start = 10.dp).weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("ORBIT  ·  TRAVEL INTELLIGENCE", color = Gold, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                            Surface(
+                                color = MaterialTheme.colorScheme.surface,
+                                shape = RoundedCornerShape(topStart = 3.dp, topEnd = 14.dp, bottomStart = 14.dp, bottomEnd = 14.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = .45f))
+                            ) {
+                                Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                    Text(message.text, color = MaterialTheme.colorScheme.onSurface, fontSize = 14.sp, lineHeight = 22.sp)
+                                    message.plan?.let { plan -> Button(onClick = { vm.savePlan(plan, onPlanSaved) }) { Text("Save itinerary  →") } }
+                                    message.brainPlan?.let { plan -> Button(onClick = { vm.saveBrainPlan(plan, null, onPlanSaved) }) { Text("Save itinerary  →") } }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (busy) item {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                    CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp, color = Gold)
+                    Text("Considering your options…", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
+                }
+            }
+
             generatedImage?.let { encoded ->
-                val bitmap = remember(encoded) { runCatching { BitmapFactory.decodeByteArray(Base64.decode(encoded, Base64.DEFAULT), 0, Base64.decode(encoded, Base64.DEFAULT).size)?.asImageBitmap() }.getOrNull() }
-                bitmap?.let { Image(bitmap = it, contentDescription = "AI-generated travel image", modifier = Modifier.fillMaxWidth().heightIn(max = 320.dp), contentScale = ContentScale.Fit) }
+                item {
+                    val bitmap = remember(encoded) {
+                        runCatching {
+                            val bytes = Base64.decode(encoded, Base64.DEFAULT)
+                            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.asImageBitmap()
+                        }.getOrNull()
+                    }
+                    bitmap?.let {
+                        Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                            Text("YOUR TRAVEL INSPIRATION", color = Gold, fontSize = 9.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold)
+                            Image(it, "AI generated travel inspiration", Modifier.fillMaxWidth().heightIn(max = 300.dp).clip(RoundedCornerShape(8.dp)), contentScale = ContentScale.Crop)
+                        }
+                    }
+                }
             }
         }
-        Row(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            AssistChip(onClick = { speechMode = "english"; speechError = null }, label = { Text(if (speechMode == "english") "✓ English" else "English") })
-            AssistChip(onClick = { speechMode = "bengali"; speechError = null }, label = { Text(if (speechMode == "bengali") "✓ বাংলা" else "বাংলা") })
-            AssistChip(onClick = { speechMode = "banglish"; speechError = null }, label = { Text(if (speechMode == "banglish") "✓ Banglish*" else "Banglish*") })
-        }
-        if (speechMode == "banglish") Text("*Banglish uses the device's English speech model; results depend on your speech provider.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        speechError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
-        Row(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            AssistChip(onClick = { vm.ask("Plan a budget-friendly trip within BDT ${q.budget}.") }, label = { Text(tr("Budget trip")) })
-            AssistChip(onClick = { vm.ask("Plan an affordable but high-quality trip within BDT ${q.budget}.") }, label = { Text(tr("Affordable, quality")) })
-            AssistChip(onClick = { vm.ask("Plan a fancy, comfort-first trip.") }, label = { Text(tr("Fancy trip")) })
-            AssistChip(onClick = { vm.ask("Suggest the best place I have not visited yet.") }, label = { Text(tr("Next new place")) })
-        }
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedTextField(input, { input = it.take(1000) }, modifier = Modifier.weight(1f), placeholder = { Text(tr("Ask your guide")) }, maxLines = 3)
-            Button(onClick = {
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
-                    listening = true
-                    speechError = null
-                    startOrbitSpeech(context, speechLanguage, { recognized -> input = listOf(input, recognized).filter { it.isNotBlank() }.joinToString(" ") }, { message -> speechError = message }, { listening = false })
-                } else speechPermission.launch(Manifest.permission.RECORD_AUDIO)
-            }, enabled = !busy) { Text(if (listening) "Listening…" else "🎙") }
-            Button(onClick = { vm.ask(input); input = "" }, enabled = input.isNotBlank() && !busy) { Text(tr("Send")) }
-        }
-    }
-}
 
+        imageError?.let { error ->
+            Surface(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 5.dp), color = MaterialTheme.colorScheme.errorContainer, shape = RoundedCornerShape(8.dp)) {
+                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Text("IMAGE GENERATION UNAVAILABLE", color = MaterialTheme.colorScheme.onErrorContainer, fontSize = 9.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold)
+                    Text("Your ORBIT text guide is still available. Check your connection and image-service configuration, then try again.", color = MaterialTheme.colorScheme.onErrorContainer, fontSize = 12.sp, lineHeight = 17.sp)
+                    TextButton(onClick = { vm.generateTravelImage(imagePrompt) }, enabled = imagePrompt.isNotBlank() && !imageBusy) { Text("Try image again") }
+                    Text(error, color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = .72f), fontSize = 10.sp)
+                }
+            }
+        }
 
-/** Uses Android's installed speech service; offline support depends on the device's language pack. */
-private fun startOrbitSpeech(
-    context: android.content.Context,
-    languageTag: String,
-    onText: (String) -> Unit,
-    onError: (String) -> Unit,
-    onFinished: () -> Unit
-) {
-    if (!SpeechRecognizer.isRecognitionAvailable(context)) {
-        onError("Speech recognition is unavailable on this device. You can type your request instead.")
-        onFinished()
-        return
-    }
-    var finished = false
-    fun finish() {
-        if (!finished) { finished = true; onFinished() }
-    }
-    val recognizer = runCatching { SpeechRecognizer.createSpeechRecognizer(context) }.getOrElse {
-        onError("Could not start speech recognition. Please try typing your request.")
-        finish()
-        return
-    }
-    recognizer.setRecognitionListener(object : android.speech.RecognitionListener {
-        override fun onReadyForSpeech(params: android.os.Bundle?) = Unit
-        override fun onBeginningOfSpeech() = Unit
-        override fun onRmsChanged(rmsdB: Float) = Unit
-        override fun onBufferReceived(buffer: ByteArray?) = Unit
-        override fun onEndOfSpeech() = Unit
-        override fun onError(error: Int) {
-            runCatching { recognizer.destroy() }
-            onError(when (error) {
-                SpeechRecognizer.ERROR_NO_MATCH -> "I couldn't understand that. Try speaking clearly or type your request."
-                SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "Speech recognition needs a network connection or an installed offline language pack."
-                SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "Microphone permission is needed for voice input."
-                SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "Speech recognition is busy. Please try again in a moment."
-                else -> "Voice input stopped. Please try again or type your request."
-            })
-            finish()
+        if (imageMode) {
+            Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 7.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("CREATE A TRAVEL IMAGE", color = Gold, fontSize = 9.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.Bold)
+                OutlinedTextField(imagePrompt, { imagePrompt = it.take(1000) }, modifier = Modifier.fillMaxWidth(), placeholder = { Text("Describe a scene, place or travel poster…") }, maxLines = 2)
+                Button(onClick = { vm.generateTravelImage(imagePrompt) }, enabled = imagePrompt.isNotBlank() && !imageBusy, modifier = Modifier.fillMaxWidth()) {
+                    Text(if (imageBusy) "Creating image…" else "Generate image")
+                }
+            }
         }
-        override fun onResults(results: android.os.Bundle?) {
-            val spoken = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.firstOrNull().orEmpty()
-            if (spoken.isNotBlank()) onText(spoken) else onError("No speech was detected. Please try again.")
-            runCatching { recognizer.destroy() }
-            finish()
+
+        Surface(color = MaterialTheme.colorScheme.surface, tonalElevation = 4.dp) {
+            Column(Modifier.fillMaxWidth().padding(horizontal = 13.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                    AssistChip(onClick = { vm.ask("Plan a budget-friendly trip within BDT ${q.budget}.") }, label = { Text("Budget escape") })
+                    AssistChip(onClick = { vm.ask("Suggest a destination I have not visited.") }, label = { Text("Surprise me") })
+                    AssistChip(onClick = { imageMode = !imageMode }, label = { Text("Image") })
+                }
+                Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(
+                        value = input,
+                        onValueChange = { input = it.take(2000) },
+                        modifier = Modifier.weight(1f),
+                        placeholder = { Text("Ask ORBIT anything…") },
+                        maxLines = 4,
+                        shape = RoundedCornerShape(18.dp)
+                    )
+                    FilledIconButton(
+                        onClick = { vm.ask(input); input = "" },
+                        enabled = input.isNotBlank() && !busy,
+                        modifier = Modifier.size(50.dp),
+                        colors = IconButtonDefaults.filledIconButtonColors(containerColor = Gold, contentColor = Color(0xFF171811))
+                    ) { Icon(Icons.Default.Send, contentDescription = "Send message") }
+                }
+                Text("Offline-first travel knowledge · Verify live fares, weather and local conditions before departure.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 9.sp, lineHeight = 13.sp)
+            }
         }
-        override fun onPartialResults(partialResults: android.os.Bundle?) = Unit
-        override fun onEvent(eventType: Int, params: android.os.Bundle?) = Unit
-    })
-    val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageTag)
-        putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, languageTag)
-        putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
-        putExtra(RecognizerIntent.EXTRA_PROMPT, if (languageTag == "bn-BD") "বাংলায় বলুন" else "Speak your travel request")
-    }
-    runCatching { recognizer.startListening(intent) }.onFailure {
-        runCatching { recognizer.destroy() }
-        onError("Could not start voice input. Please try again.")
-        finish()
     }
 }
