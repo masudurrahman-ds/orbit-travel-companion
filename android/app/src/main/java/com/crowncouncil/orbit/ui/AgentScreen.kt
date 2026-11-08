@@ -166,7 +166,16 @@ fun AgentScreen(vm: OrbitViewModel, onPlanSaved: () -> Unit) {
             }
         }
 
-        imageError?.let { Text(it, Modifier.padding(horizontal = 16.dp, vertical = 4.dp), color = MaterialTheme.colorScheme.error, fontSize = 12.sp) }
+        imageError?.let { error ->
+            Surface(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 5.dp), color = MaterialTheme.colorScheme.errorContainer, shape = RoundedCornerShape(8.dp)) {
+                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Text("IMAGE GENERATION UNAVAILABLE", color = MaterialTheme.colorScheme.onErrorContainer, fontSize = 9.sp, letterSpacing = 1.sp, fontWeight = FontWeight.Bold)
+                    Text("Your ORBIT text guide is still available. Check your connection and image-service configuration, then try again.", color = MaterialTheme.colorScheme.onErrorContainer, fontSize = 12.sp, lineHeight = 17.sp)
+                    TextButton(onClick = { vm.generateTravelImage(imagePrompt) }, enabled = imagePrompt.isNotBlank() && !imageBusy) { Text("Try image again") }
+                    Text(error, color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = .72f), fontSize = 10.sp)
+                }
+            }
+        }
 
         if (imageMode) {
             Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 7.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
