@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.net.Uri
 import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 
@@ -97,7 +98,7 @@ fun CinematicHomeScreen(vm: OrbitViewModel, onPlan: () -> Unit, onExplore: () ->
             Box(Modifier.fillMaxWidth().padding(horizontal = 14.dp).height(490.dp).clip(RoundedCornerShape(7.dp))) {
                 Crossfade(targetState = index, label = "destination-spotlight") { selected ->
                     AsyncImage(
-                        model = heroPlaces[selected].image,
+                        model = "${vm.baseUrl.trimEnd('/')}/api/destination-image?name=${Uri.encode(heroPlaces[selected].name)}&district=${Uri.encode(heroPlaces[selected].region.substringBefore(" · "))}",
                         contentDescription = heroPlaces[selected].name,
                         modifier = Modifier.fillMaxSize(),
                         contentScale = androidx.compose.ui.layout.ContentScale.Crop
